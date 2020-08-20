@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "vgarender", "vgarender\vgarender.csproj", "{36A1D859-EFB2-4BDE-9D33-56F1C63BCB17}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{36A1D859-EFB2-4BDE-9D33-56F1C63BCB17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36A1D859-EFB2-4BDE-9D33-56F1C63BCB17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36A1D859-EFB2-4BDE-9D33-56F1C63BCB17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36A1D859-EFB2-4BDE-9D33-56F1C63BCB17}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4E4662E-FD7F-4A9F-9C94-DBC9201BC8F0}
+	EndGlobalSection
+EndGlobal
