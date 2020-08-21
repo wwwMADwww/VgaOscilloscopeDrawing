@@ -5,4 +5,6 @@ Supports XY mode (image resolution 256 x 256) and internal oscilloscope horizont
 
 Input images must be BMP 24 bpp without compressing.
 
+![schematic](/schematics/general.png?raw=true "schematic")
+
 ![image](/images/rd.jpg?raw=true "image")
