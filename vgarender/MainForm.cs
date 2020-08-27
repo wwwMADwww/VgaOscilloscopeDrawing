@@ -1,14 +1,10 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace vgarender
@@ -52,7 +48,6 @@ namespace vgarender
             monitorListCb.Items.Clear();
             foreach (var screen in Screen.AllScreens)
             {
-                // comboBox1.Items.Add(new ScreenInfo(screen));
                 monitorListCb.Items.Add(new Info<Screen>(screen, $"{screen.DeviceName}: {screen.Bounds.Width}x{screen.Bounds.Height} {(screen.Primary ? "Primary" : " ")}"));
             }
             monitorListCb.SelectedIndex = 0;
@@ -69,7 +64,9 @@ namespace vgarender
             var channels = new Info<AxisChannel>[] {
                 new Info<AxisChannel>(AxisChannel.X),
                 new Info<AxisChannel>(AxisChannel.Y),
-                new Info<AxisChannel>(AxisChannel.Z)
+                new Info<AxisChannel>(AxisChannel.Z),
+                new Info<AxisChannel>(AxisChannel.Min),
+                new Info<AxisChannel>(AxisChannel.Max)
             };
 
             channelMapRedCb.Items.Clear();
@@ -120,12 +117,12 @@ namespace vgarender
             ApplySettings();
 
             timer1.Enabled = true;
-            this.TopMost = topmostChb.Checked;
+            this.TopMost = mainWinTopmostChb.Checked;
         }
 
         private bool ValidateControls()
         {
-            if (!topmostChb.Checked && (Screen.FromControl(this).DeviceName == ((Info<Screen>)monitorListCb.SelectedItem).Value.DeviceName))
+            if (!mainWinTopmostChb.Checked && (Screen.FromControl(this).DeviceName == ((Info<Screen>)monitorListCb.SelectedItem).Value.DeviceName))
             {
                 if (MessageBox.Show(
                     "Control window is not topmost and will be hidden behind rendering window." + Environment.NewLine +
@@ -169,11 +166,11 @@ namespace vgarender
             {
                 ChannelZSourceChannel = ((Info<ChannelZSourceChannel>)imageColorZCb.SelectedItem).Value,
                 SwapXY = swapxyChb.Checked,
-                ChannelMap = new Dictionary<AxisChannel, ColorMapInfo>() 
+                ChannelMap = new[] 
                 {
-                    { ((Info<AxisChannel>)channelMapRedCb.SelectedItem).Value  , new ColorMapInfo(ColorChannel.Red  , vgachannelinvertRedChb.Checked  ) },
-                    { ((Info<AxisChannel>)channelMapGreenCb.SelectedItem).Value, new ColorMapInfo(ColorChannel.Green, vgachannelinvertGreenChb.Checked) },
-                    { ((Info<AxisChannel>)channelMapBlueCb.SelectedItem).Value , new ColorMapInfo(ColorChannel.Blue , vgachannelinvertBlueChb.Checked ) }  
+                    new ColorAxisMapInfo(((Info<AxisChannel>)channelMapRedCb.SelectedItem).Value  , ColorChannel.Red  , vgachannelinvertRedChb.Checked  ),
+                    new ColorAxisMapInfo(((Info<AxisChannel>)channelMapGreenCb.SelectedItem).Value, ColorChannel.Green, vgachannelinvertGreenChb.Checked),
+                    new ColorAxisMapInfo(((Info<AxisChannel>)channelMapBlueCb.SelectedItem).Value , ColorChannel.Blue , vgachannelinvertBlueChb.Checked )
                 }
             };
 
@@ -186,7 +183,8 @@ namespace vgarender
             _drawForm.Screen = ((Info<Screen>)monitorListCb.SelectedItem).Value;
             _drawForm.RenderSettings = rednerSettings;
             _drawForm.DisableAntialiasing = disableAntialiasingChb.Checked;
-            _drawForm.BlankFrames = (int)blankFramesUd.Value;
+            // _drawForm.BlankFrames = (int)blankFramesUd.Value;
+            _drawForm.Fullscreen = drawWinFullscreenChb.Checked;
             _drawForm.Start();
         }
 
@@ -204,7 +202,7 @@ namespace vgarender
 
         private void topmostChb_CheckedChanged(object sender, EventArgs e)
         {
-            this.TopMost = topmostChb.Checked;
+            this.TopMost = mainWinTopmostChb.Checked;
         }
 
         private void selectFramesPathB_Click(object sender, EventArgs e)
@@ -224,6 +222,19 @@ namespace vgarender
         private void stopB_Click(object sender, EventArgs e)
         {
             _drawForm.Stop();
+        }
+
+        private void swapxyB_Click(object sender, EventArgs e)
+        {
+            new[] { channelMapRedCb, channelMapGreenCb, channelMapBlueCb }.Select(cb =>
+            {
+                if (((Info<AxisChannel>)cb.SelectedItem).Value == AxisChannel.X)
+                    cb.SelectedItem = cb.Items.OfType<Info<AxisChannel>>().First(i => i.Value == AxisChannel.Y);
+                else  if (((Info<AxisChannel>)cb.SelectedItem).Value == AxisChannel.Y)
+                    cb.SelectedItem = cb.Items.OfType<Info<AxisChannel>>().First(i => i.Value == AxisChannel.X);
+
+                return true;
+            }).ToArray();
         }
     }
 }

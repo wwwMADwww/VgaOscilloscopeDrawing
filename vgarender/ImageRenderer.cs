@@ -11,25 +11,28 @@ namespace vgarender
 {
     public enum ColorChannel { Red = 0, Green = 1, Blue = 2 };
     public enum ChannelZSourceChannel { Red = 0, Green = 1, Blue = 2, Grayscale = 3 };
-    public enum AxisChannel { X = 0, Y = 1, Z = 2 };
+    public enum AxisChannel { X = 0, Y = 1, Z = 2, Min = 3, Max = 4 };
 
 
     public class RenderSettings
     {
-        public Dictionary<AxisChannel, ColorMapInfo> ChannelMap { get; set; }
+        public IEnumerable<ColorAxisMapInfo> ChannelMap { get; set; }
+
         public ChannelZSourceChannel ChannelZSourceChannel { get; set; }
         public bool SwapXY { get; set; }
     }
 
-    public class ColorMapInfo
+    public class ColorAxisMapInfo
     {
-        public ColorMapInfo(ColorChannel channel, bool invert = false)
+        public ColorAxisMapInfo(AxisChannel axis, ColorChannel color, bool invert = false)
         {
-            Channel = channel;
+            Axis = axis;
+            Color = color;
             Invert = invert;
         }
 
-        public ColorChannel Channel { get; set; }
+        public AxisChannel Axis { get; set; }
+        public ColorChannel Color { get; set; }
         public bool Invert { get; set; }
     }
 
@@ -39,6 +42,11 @@ namespace vgarender
         const int colorIndexRed = 2;
         const int colorIndexGreen = 1;
         const int colorIndexBlue = 0;
+
+        const byte rgbMin = 0;
+        const byte rgbMax = 255;
+
+        const UInt16 bmpSignature = 19778; // "BM" at the start
 
         const int bmpHeaderSizePos = 2;
         const int bmpHeaderOffBitsPos = 10;
@@ -58,7 +66,7 @@ namespace vgarender
             // header
 
             UInt16 bfType = sr.ReadUInt16();
-            if (bfType != 19778) // "BM" at the start
+            if (bfType != bmpSignature)
                 throw new ArgumentException($"File is not BMP.");
 
             UInt32 bfSize = sr.ReadUInt32();
@@ -108,7 +116,7 @@ namespace vgarender
 
 
                 sw.Seek(bmpHeaderSizePos, SeekOrigin.Begin);
-                sw.Write(ms.Length);
+                sw.Write(sw.BaseStream.Length);
 
                 sw.Seek(bmpHeaderWidthPos, SeekOrigin.Begin);
                 sw.Write(resultWidth);
@@ -126,7 +134,7 @@ namespace vgarender
             }
 
             int sizeImage = (resultWidth * pixelBytes + resultPadding) * resultHeight;
-            ms.SetLength(bfOffBits + sizeImage);
+            sw.BaseStream.SetLength(bfOffBits + sizeImage);
 
             sw.Seek(bmpHeaderSizeImagePos, SeekOrigin.Begin);
             sw.Write(sizeImage);
@@ -138,55 +146,68 @@ namespace vgarender
 
 
 
-            int x = 0, y = 0;
+
+            var mapR = settings.ChannelMap.First(m => m.Color == ColorChannel.Red);
+            var mapG = settings.ChannelMap.First(m => m.Color == ColorChannel.Green);
+            var mapB = settings.ChannelMap.First(m => m.Color == ColorChannel.Blue);
 
 
-
-            // pixel direction - left to right, bottom to top
-
-            int colorX = 2 - (int)settings.ChannelMap[AxisChannel.X].Channel;
-            int colorY = 2 - (int)settings.ChannelMap[AxisChannel.Y].Channel;
-            int colorZ = 2 - (int)settings.ChannelMap[AxisChannel.Z].Channel;
-
-            bool invertX = settings.ChannelMap[AxisChannel.X].Invert;
-            bool invertY = settings.ChannelMap[AxisChannel.Y].Invert;
-            bool invertZ = settings.ChannelMap[AxisChannel.Z].Invert;
-
-            float xkoeff = biWidth / (float)vgaColorResolution;
+            float xkoeff = biWidth  / (float)vgaColorResolution;
             float ykoeff = biHeight / (float)vgaColorResolution;
+
+            int x = 0, y = 0;
 
             while (true)
             {
 
                 // reversed - 012 BGR
                 var pixel = sr.ReadBytes(3);
-                // ms.Position -= 3;
 
                 byte z = 0;
 
                 switch (settings.ChannelZSourceChannel)
                 {
-                    case ChannelZSourceChannel.Red: z = pixel[colorIndexRed]; break;
+                    case ChannelZSourceChannel.Red  : z = pixel[colorIndexRed]; break;
                     case ChannelZSourceChannel.Green: z = pixel[colorIndexGreen]; break;
-                    case ChannelZSourceChannel.Blue: z = pixel[colorIndexBlue]; break;
+                    case ChannelZSourceChannel.Blue : z = pixel[colorIndexBlue]; break;
                     case ChannelZSourceChannel.Grayscale:
                         // almost fisrt from google
                         z = (byte)(.21 * pixel[colorIndexRed] + .71 * pixel[colorIndexGreen] + .071 * pixel[colorIndexBlue]);
                         break;
                 }
 
-                pixel[colorX] = (byte)(x / xkoeff);
-                if (invertX)
-                    pixel[colorX] = (byte)(vgaColorResolution - pixel[colorX]);
+                byte GetColor(ColorAxisMapInfo mapinfo)
+                {
+                    byte xx, yy;
 
-                pixel[colorY] = (byte)(y / ykoeff);
-                if (invertY)
-                    pixel[colorY] = (byte)(vgaColorResolution - pixel[colorY]);
+                    if (settings.SwapXY)
+                    {
+                        xx = (byte)(y / ykoeff);
+                        yy = (byte)(x / xkoeff);
+                    }
+                    else
+                    {
+                        xx = (byte)(x / xkoeff);
+                        yy = (byte)((biHeight - 1 - y) / ykoeff);
+                    }
 
-                pixel[colorZ] = z;
-                if (invertZ)
-                    pixel[colorZ] = (byte)(vgaColorResolution - pixel[colorZ]);
 
+                    switch (mapinfo.Axis)
+                    {
+                        case AxisChannel.X  : return mapinfo.Invert ? (byte)(rgbMax - xx) : xx;
+                        case AxisChannel.Y  : return mapinfo.Invert ? (byte)(rgbMax - yy) : yy;
+                        case AxisChannel.Z  : return mapinfo.Invert ? (byte)(rgbMax - z) : z;
+                        case AxisChannel.Min: return mapinfo.Invert ? (byte)(rgbMax - rgbMin) : rgbMin;
+                        case AxisChannel.Max: return mapinfo.Invert ? (byte)(rgbMax - rgbMax) : rgbMax;
+                        default:
+                            throw new ArgumentException($"Unknown AxisChannel {mapinfo.Axis}");
+                    }
+                }
+
+
+                pixel[colorIndexRed]   = GetColor(mapR);
+                pixel[colorIndexGreen] = GetColor(mapG);
+                pixel[colorIndexBlue]  = GetColor(mapB);
 
 
                 if (settings.SwapXY)

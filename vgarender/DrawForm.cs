@@ -20,7 +20,7 @@ namespace vgarender
     {
 
         int _currentFrameIndex = 0;
-        int _blankFramesCounter = 0;
+        // int _blankFramesCounter = 0;
 
         ImageRenderer _renderer = new ImageRenderer();
 
@@ -31,7 +31,8 @@ namespace vgarender
         public int FrameInterval { get; set; }
         public bool DisableAntialiasing { get; set; }
         public RenderSettings RenderSettings { get; set; }
-        public int BlankFrames { get; set; }
+        // public int BlankFrames { get; set; }
+        public bool Fullscreen { get; set; }
 
 
         public long LastProcessingTime { get; protected set; }
@@ -54,11 +55,25 @@ namespace vgarender
 
             pictureBox1.Image = null;
 
-            this.Visible = true;
-            this.Left = Screen.Bounds.X;
-            this.Top = Screen.Bounds.Y;
-            this.Width = Screen.Bounds.Width;
-            this.Height = Screen.Bounds.Height;
+
+            if (Fullscreen)
+            {
+                this.FormBorderStyle = FormBorderStyle.None;
+                this.Visible = true;
+                this.Left = Screen.Bounds.X;
+                this.Top = Screen.Bounds.Y;
+                this.Width = Screen.Bounds.Width;
+                this.Height = Screen.Bounds.Height;
+            }
+            else
+            {
+                FormBorderStyle = FormBorderStyle.SizableToolWindow;
+                this.Visible = true;
+                this.Left = Screen.Bounds.X;
+                this.Top = Screen.Bounds.Y;
+                this.Width = 640;
+                this.Height = 480;
+            }
 
 
             timer1.Interval = FrameInterval;
@@ -90,17 +105,17 @@ namespace vgarender
             if (!Running)
                 return;
 
-            if (_blankFramesCounter < BlankFrames)
-            {
-                Thread.Sleep((int)LastProcessingTime);
-                _currentFrameImage = null;
-                pictureBox1.Image = null;
-                pictureBox1.Refresh();
-                _blankFramesCounter++;
-                return;
-            }
+            // if (_blankFramesCounter < BlankFrames)
+            // {
+            //     Thread.Sleep((int)LastProcessingTime);
+            //     _currentFrameImage = null;
+            //     pictureBox1.Image = null;
+            //     pictureBox1.Refresh();
+            //     _blankFramesCounter++;
+            //     return;
+            // }
 
-            _blankFramesCounter = 0;
+            // _blankFramesCounter = 0;
 
             Stopwatch sw = new Stopwatch();
             sw.Start();
