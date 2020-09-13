@@ -13,17 +13,19 @@ namespace vgarender
     {
 
         DrawForm _drawForm = new DrawForm();
+        FrameSequencer _frameSequencer = null;
+        object _frameSequencerSync = new object();
 
 
-        class Info<T>
+        class ComboBoxItem<T>
         {
-            public Info(T value, string description)
+            public ComboBoxItem(T value, string description)
             {
                 Value = value;
                 Description = description;
             }
 
-            public Info(T value): this(value, value.ToString())
+            public ComboBoxItem(T value): this(value, value.ToString())
             {
             }
 
@@ -48,7 +50,7 @@ namespace vgarender
             monitorListCb.Items.Clear();
             foreach (var screen in Screen.AllScreens)
             {
-                monitorListCb.Items.Add(new Info<Screen>(screen, $"{screen.DeviceName}: {screen.Bounds.Width}x{screen.Bounds.Height} {(screen.Primary ? "Primary" : " ")}"));
+                monitorListCb.Items.Add(new ComboBoxItem<Screen>(screen, $"{screen.DeviceName}: {screen.Bounds.Width}x{screen.Bounds.Height} {(screen.Primary ? "Primary" : " ")}"));
             }
             monitorListCb.SelectedIndex = 0;
         }
@@ -61,12 +63,12 @@ namespace vgarender
 
         private void FillLists()
         {
-            var channels = new Info<AxisChannel>[] {
-                new Info<AxisChannel>(AxisChannel.X),
-                new Info<AxisChannel>(AxisChannel.Y),
-                new Info<AxisChannel>(AxisChannel.Z),
-                new Info<AxisChannel>(AxisChannel.Min),
-                new Info<AxisChannel>(AxisChannel.Max)
+            var channels = new ComboBoxItem<AxisChannel>[] {
+                new ComboBoxItem<AxisChannel>(AxisChannel.X),
+                new ComboBoxItem<AxisChannel>(AxisChannel.Y),
+                new ComboBoxItem<AxisChannel>(AxisChannel.Z),
+                new ComboBoxItem<AxisChannel>(AxisChannel.Min),
+                new ComboBoxItem<AxisChannel>(AxisChannel.Max)
             };
 
             channelMapRedCb.Items.Clear();
@@ -84,10 +86,10 @@ namespace vgarender
 
 
             imageColorZCb.Items.Clear();
-            imageColorZCb.Items.Add(new Info<ChannelZSourceChannel>(ChannelZSourceChannel.Red));
-            imageColorZCb.Items.Add(new Info<ChannelZSourceChannel>(ChannelZSourceChannel.Green));
-            imageColorZCb.Items.Add(new Info<ChannelZSourceChannel>(ChannelZSourceChannel.Blue));
-            imageColorZCb.Items.Add(new Info<ChannelZSourceChannel>(ChannelZSourceChannel.Grayscale, "Grayscale from all channels"));
+            imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Red));
+            imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Green));
+            imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Blue));
+            imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Grayscale, "Grayscale from all channels"));
             imageColorZCb.SelectedIndex = 3;
         }
 
@@ -106,7 +108,7 @@ namespace vgarender
 
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs eventArgs)
         {
             FillLists();
 
@@ -116,13 +118,19 @@ namespace vgarender
 
             ApplySettings();
 
+            _drawForm.FormClosing += (s, e) =>
+            {
+                stopB_Click(s, e);
+                e.Cancel = true;
+            };
+
             timer1.Enabled = true;
             this.TopMost = mainWinTopmostChb.Checked;
         }
 
         private bool ValidateControls()
         {
-            if (!mainWinTopmostChb.Checked && (Screen.FromControl(this).DeviceName == ((Info<Screen>)monitorListCb.SelectedItem).Value.DeviceName))
+            if (!mainWinTopmostChb.Checked && (Screen.FromControl(this).DeviceName == ((ComboBoxItem<Screen>)monitorListCb.SelectedItem).Value.DeviceName))
             {
                 if (MessageBox.Show(
                     "Control window is not topmost and will be hidden behind rendering window." + Environment.NewLine +
@@ -156,36 +164,52 @@ namespace vgarender
 
         private void startB_Click(object sender, EventArgs e)
         {
+            startB.Enabled = false;
+
             if (!ValidateControls())
                 return;
 
-            if (_drawForm.Running)
-                _drawForm.Stop();
+
+            lock (_frameSequencerSync)
+            {
+                if (_frameSequencer?.Running ?? false)
+                    _frameSequencer?.Stop();
+            }
+
 
             var rednerSettings = new RenderSettings()
             {
-                ChannelZSourceChannel = ((Info<ChannelZSourceChannel>)imageColorZCb.SelectedItem).Value,
+                ChannelZSourceChannel = ((ComboBoxItem<ChannelZSourceChannel>)imageColorZCb.SelectedItem).Value,
                 SwapXY = swapxyChb.Checked,
                 ChannelMap = new[] 
                 {
-                    new ColorAxisMapInfo(((Info<AxisChannel>)channelMapRedCb.SelectedItem).Value  , ColorChannel.Red  , vgachannelinvertRedChb.Checked  ),
-                    new ColorAxisMapInfo(((Info<AxisChannel>)channelMapGreenCb.SelectedItem).Value, ColorChannel.Green, vgachannelinvertGreenChb.Checked),
-                    new ColorAxisMapInfo(((Info<AxisChannel>)channelMapBlueCb.SelectedItem).Value , ColorChannel.Blue , vgachannelinvertBlueChb.Checked )
+                    new ColorAxisMapInfo(((ComboBoxItem<AxisChannel>)channelMapRedCb.SelectedItem).Value  , ColorChannel.Red  , vgachannelinvertRedChb.Checked  ),
+                    new ColorAxisMapInfo(((ComboBoxItem<AxisChannel>)channelMapGreenCb.SelectedItem).Value, ColorChannel.Green, vgachannelinvertGreenChb.Checked),
+                    new ColorAxisMapInfo(((ComboBoxItem<AxisChannel>)channelMapBlueCb.SelectedItem).Value , ColorChannel.Blue , vgachannelinvertBlueChb.Checked )
                 }
             };
 
+            IEnumerable<string> files = null;
             if (pathFileRb.Checked)
-                _drawForm.Files = new List<string>() { framesdirpathed.Text };
+                files = new List<string>() { framesdirpathed.Text };
             if (pathDirRb.Checked)
-                _drawForm.Files = Directory.GetFiles(Path.GetDirectoryName(framesdirpathed.Text)).ToList();
+                files = Directory.GetFiles(Path.GetDirectoryName(framesdirpathed.Text)).ToList();
 
-            _drawForm.FrameInterval = (int)frameintervalud.Value;
-            _drawForm.Screen = ((Info<Screen>)monitorListCb.SelectedItem).Value;
-            _drawForm.RenderSettings = rednerSettings;
+            _drawForm.Screen = ((ComboBoxItem<Screen>)monitorListCb.SelectedItem).Value;
             _drawForm.DisableAntialiasing = disableAntialiasingChb.Checked;
-            // _drawForm.BlankFrames = (int)blankFramesUd.Value;
             _drawForm.Fullscreen = drawWinFullscreenChb.Checked;
-            _drawForm.Start();
+            _drawForm.Show2();
+
+            lock (_frameSequencerSync)
+            {
+                _frameSequencer = new FrameSequencer(files, (int)frameintervalud.Value, rednerSettings);
+                _frameSequencer.OnNexFrame += _drawForm.SetFrame;
+                _frameSequencer.LoadFrames();
+                _frameSequencer.Start();
+            }
+
+
+            startB.Enabled = true; ;
         }
 
 
@@ -221,17 +245,22 @@ namespace vgarender
 
         private void stopB_Click(object sender, EventArgs e)
         {
-            _drawForm.Stop();
+            _drawForm.Hide2();
+            lock (_frameSequencerSync)
+            { 
+                _frameSequencer?.Stop();
+                _frameSequencer = null;
+            }
         }
 
         private void swapxyB_Click(object sender, EventArgs e)
         {
             new[] { channelMapRedCb, channelMapGreenCb, channelMapBlueCb }.Select(cb =>
             {
-                if (((Info<AxisChannel>)cb.SelectedItem).Value == AxisChannel.X)
-                    cb.SelectedItem = cb.Items.OfType<Info<AxisChannel>>().First(i => i.Value == AxisChannel.Y);
-                else  if (((Info<AxisChannel>)cb.SelectedItem).Value == AxisChannel.Y)
-                    cb.SelectedItem = cb.Items.OfType<Info<AxisChannel>>().First(i => i.Value == AxisChannel.X);
+                if (((ComboBoxItem<AxisChannel>)cb.SelectedItem).Value == AxisChannel.X)
+                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<AxisChannel>>().First(i => i.Value == AxisChannel.Y);
+                else  if (((ComboBoxItem<AxisChannel>)cb.SelectedItem).Value == AxisChannel.Y)
+                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<AxisChannel>>().First(i => i.Value == AxisChannel.X);
 
                 return true;
             }).ToArray();

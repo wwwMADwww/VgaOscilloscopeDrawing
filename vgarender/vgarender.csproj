@@ -53,6 +53,7 @@
     <Compile Include="DrawForm.Designer.cs">
       <DependentUpon>DrawForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrameSequencer.cs" />
     <Compile Include="ImageRenderer - Copy.cs" />
     <Compile Include="ImageRenderer256.cs" />
     <Compile Include="MainForm.cs">

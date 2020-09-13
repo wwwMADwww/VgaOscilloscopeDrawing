@@ -20,23 +20,14 @@ namespace vgarender
     {
 
         int _currentFrameIndex = 0;
-        // int _blankFramesCounter = 0;
-
-        ImageRenderer _renderer = new ImageRenderer();
 
         Image _currentFrameImage = null;
 
-        public List<string> Files { get; set; }
         public Screen Screen { get; set; }
-        public int FrameInterval { get; set; }
         public bool DisableAntialiasing { get; set; }
-        public RenderSettings RenderSettings { get; set; }
-        // public int BlankFrames { get; set; }
         public bool Fullscreen { get; set; }
 
-
         public long LastProcessingTime { get; protected set; }
-        public bool Running { get; protected set; }
 
 
         public DrawForm()
@@ -44,14 +35,8 @@ namespace vgarender
             InitializeComponent();
         }
 
-        public void Start()
+        public void Show2()
         {
-            if (Running)
-                return;
-
-            _currentFrameIndex = 0;
-
-            Running = true;
 
             pictureBox1.Image = null;
 
@@ -75,83 +60,35 @@ namespace vgarender
                 this.Height = 480;
             }
 
-
-            timer1.Interval = FrameInterval;
-            timer1.Enabled = true;
-
         }
 
 
-        public void Stop()
+        public void Hide2()
         {
-            if (!Running)
-                return;
-
-            timer1.Enabled = false;
-
-            Running = false;
             this.Visible = false;
-
-            Files.Clear();
-
             _currentFrameImage = null;
-
-
         }
 
+        private delegate void SafeCallDelegate();
 
-        private void timer1_Tick(object sender, EventArgs e)
+        public void SetFrame(Image image)
         {
-            if (!Running)
-                return;
-
-            // if (_blankFramesCounter < BlankFrames)
-            // {
-            //     Thread.Sleep((int)LastProcessingTime);
-            //     _currentFrameImage = null;
-            //     pictureBox1.Image = null;
-            //     pictureBox1.Refresh();
-            //     _blankFramesCounter++;
-            //     return;
-            // }
-
-            // _blankFramesCounter = 0;
-
             Stopwatch sw = new Stopwatch();
             sw.Start();
 
-            var filepath = Files[_currentFrameIndex];
-
-            var ms = new MemoryStream();
-
-            var fs = new FileStream(filepath, FileMode.Open, FileAccess.Read);
-            fs.CopyTo(ms);
-            fs.Close();
-            fs.Dispose();
-
-
-
-            var res = _renderer.Render(ms, RenderSettings);
-
-            ms.Position = 0;
             if (!DisableAntialiasing)
             {
-                pictureBox1.Image = Bitmap.FromStream(res);
+                pictureBox1.Invoke(new SafeCallDelegate(() => pictureBox1.Image = image));
             }
             else
             {
-                pictureBox1.Image = null;
-                _currentFrameImage = Bitmap.FromStream(res);
-                pictureBox1.Refresh();
+                pictureBox1.Invoke(new SafeCallDelegate(() =>
+                {
+                    pictureBox1.Image = null;
+                    _currentFrameImage = image;
+                    pictureBox1.Refresh();
+                }));
             }
-
-            res.SetLength(0);
-            res.Close();
-            ms.SetLength(0);
-            ms.Close();
-
-            _currentFrameIndex = (_currentFrameIndex + 1) % Files.Count();
-
 
             sw.Stop();
             LastProcessingTime = sw.ElapsedMilliseconds;
@@ -160,7 +97,7 @@ namespace vgarender
 
         private void DrawForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            this.Stop();
+            this.Hide2();
             e.Cancel = true;
         }
 
@@ -171,7 +108,6 @@ namespace vgarender
 
             e.Graphics.InterpolationMode = InterpolationMode.NearestNeighbor;
             e.Graphics.PixelOffsetMode = PixelOffsetMode.Half;
-            // e.Graphics.DrawImage(_currentFrame, GetScaledImageRect(_currentFrame, (Control)sender));
             e.Graphics.DrawImage(_currentFrameImage, pictureBox1.ClientRectangle);
         }
 
@@ -204,7 +140,7 @@ namespace vgarender
         private void DrawForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
-                this.Stop();
+                this.Hide2();
         }
     }
 }
