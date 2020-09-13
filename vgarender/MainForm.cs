@@ -202,7 +202,7 @@ namespace vgarender
 
             lock (_frameSequencerSync)
             {
-                _frameSequencer = new FrameSequencer(files, (int)frameintervalud.Value, rednerSettings);
+                _frameSequencer = new FrameSequencer(files, (int)frameintervalud.Value, rednerSettings, noProcessChb.Checked);
                 _frameSequencer.OnNexFrame += _drawForm.SetFrame;
                 _frameSequencer.LoadFrames();
                 _frameSequencer.Start();

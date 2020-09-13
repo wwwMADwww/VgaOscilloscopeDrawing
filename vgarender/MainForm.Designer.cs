@@ -35,38 +35,39 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.mapGb = new System.Windows.Forms.GroupBox();
-            this.vgachannelinvertBlueChb = new System.Windows.Forms.CheckBox();
-            this.vgachannelinvertGreenChb = new System.Windows.Forms.CheckBox();
-            this.vgachannelinvertRedChb = new System.Windows.Forms.CheckBox();
-            this.channelMapBlueCb = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.channelMapGreenCb = new System.Windows.Forms.ComboBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.channelMapRedCb = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.vgachannelinvertRedChb = new System.Windows.Forms.CheckBox();
+            this.channelMapRedCb = new System.Windows.Forms.ComboBox();
+            this.vgachannelinvertGreenChb = new System.Windows.Forms.CheckBox();
+            this.channelMapGreenCb = new System.Windows.Forms.ComboBox();
+            this.vgachannelinvertBlueChb = new System.Windows.Forms.CheckBox();
+            this.channelMapBlueCb = new System.Windows.Forms.ComboBox();
+            this.swapxyB = new System.Windows.Forms.Button();
             this.sourceGb = new System.Windows.Forms.GroupBox();
-            this.imageColorZCb = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.pathDirRb = new System.Windows.Forms.RadioButton();
-            this.pathFileRb = new System.Windows.Forms.RadioButton();
-            this.selectFramesPathB = new System.Windows.Forms.Button();
-            this.framesdirpathed = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.outputGb = new System.Windows.Forms.GroupBox();
+            this.framesdirpathed = new System.Windows.Forms.TextBox();
+            this.selectFramesPathB = new System.Windows.Forms.Button();
+            this.pathFileRb = new System.Windows.Forms.RadioButton();
+            this.pathDirRb = new System.Windows.Forms.RadioButton();
             this.swapxyChb = new System.Windows.Forms.CheckBox();
-            this.disableAntialiasingChb = new System.Windows.Forms.CheckBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.frameintervalud = new System.Windows.Forms.NumericUpDown();
-            this.refreshMonitoListB = new System.Windows.Forms.Button();
-            this.monitorListCb = new System.Windows.Forms.ComboBox();
-            this.label1 = new System.Windows.Forms.Label();
+            this.imageColorZCb = new System.Windows.Forms.ComboBox();
+            this.outputGb = new System.Windows.Forms.GroupBox();
             this.frameproctimelabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.currentmonitorlabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.drawWinFullscreenChb = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.monitorListCb = new System.Windows.Forms.ComboBox();
+            this.refreshMonitoListB = new System.Windows.Forms.Button();
+            this.frameintervalud = new System.Windows.Forms.NumericUpDown();
+            this.disableAntialiasingChb = new System.Windows.Forms.CheckBox();
             this.mainWinTopmostChb = new System.Windows.Forms.CheckBox();
-            this.swapxyB = new System.Windows.Forms.Button();
+            this.drawWinFullscreenChb = new System.Windows.Forms.CheckBox();
+            this.noProcessChb = new System.Windows.Forms.CheckBox();
             this.mapGb.SuspendLayout();
             this.sourceGb.SuspendLayout();
             this.outputGb.SuspendLayout();
@@ -124,25 +125,32 @@
             this.mapGb.TabStop = false;
             this.mapGb.Text = "VGA channel mapping";
             // 
-            // vgachannelinvertBlueChb
+            // label8
             // 
-            this.vgachannelinvertBlueChb.AutoSize = true;
-            this.vgachannelinvertBlueChb.Location = new System.Drawing.Point(44, 75);
-            this.vgachannelinvertBlueChb.Name = "vgachannelinvertBlueChb";
-            this.vgachannelinvertBlueChb.Size = new System.Drawing.Size(53, 17);
-            this.vgachannelinvertBlueChb.TabIndex = 5;
-            this.vgachannelinvertBlueChb.Text = "Invert";
-            this.vgachannelinvertBlueChb.UseVisualStyleBackColor = true;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 76);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(28, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Blue";
             // 
-            // vgachannelinvertGreenChb
+            // label7
             // 
-            this.vgachannelinvertGreenChb.AutoSize = true;
-            this.vgachannelinvertGreenChb.Location = new System.Drawing.Point(44, 48);
-            this.vgachannelinvertGreenChb.Name = "vgachannelinvertGreenChb";
-            this.vgachannelinvertGreenChb.Size = new System.Drawing.Size(53, 17);
-            this.vgachannelinvertGreenChb.TabIndex = 3;
-            this.vgachannelinvertGreenChb.Text = "Invert";
-            this.vgachannelinvertGreenChb.UseVisualStyleBackColor = true;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(6, 49);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(36, 13);
+            this.label7.TabIndex = 16;
+            this.label7.Text = "Green";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 22);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(27, 13);
+            this.label6.TabIndex = 14;
+            this.label6.Text = "Red";
             // 
             // vgachannelinvertRedChb
             // 
@@ -153,50 +161,6 @@
             this.vgachannelinvertRedChb.TabIndex = 1;
             this.vgachannelinvertRedChb.Text = "Invert";
             this.vgachannelinvertRedChb.UseVisualStyleBackColor = true;
-            // 
-            // channelMapBlueCb
-            // 
-            this.channelMapBlueCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.channelMapBlueCb.FormattingEnabled = true;
-            this.channelMapBlueCb.Items.AddRange(new object[] {
-            "X",
-            "Y",
-            "Z"});
-            this.channelMapBlueCb.Location = new System.Drawing.Point(107, 73);
-            this.channelMapBlueCb.Name = "channelMapBlueCb";
-            this.channelMapBlueCb.Size = new System.Drawing.Size(213, 21);
-            this.channelMapBlueCb.TabIndex = 6;
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(6, 76);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(28, 13);
-            this.label8.TabIndex = 18;
-            this.label8.Text = "Blue";
-            // 
-            // channelMapGreenCb
-            // 
-            this.channelMapGreenCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.channelMapGreenCb.FormattingEnabled = true;
-            this.channelMapGreenCb.Items.AddRange(new object[] {
-            "X",
-            "Y",
-            "Z"});
-            this.channelMapGreenCb.Location = new System.Drawing.Point(107, 46);
-            this.channelMapGreenCb.Name = "channelMapGreenCb";
-            this.channelMapGreenCb.Size = new System.Drawing.Size(213, 21);
-            this.channelMapGreenCb.TabIndex = 4;
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(6, 49);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(36, 13);
-            this.label7.TabIndex = 16;
-            this.label7.Text = "Green";
             // 
             // channelMapRedCb
             // 
@@ -211,14 +175,61 @@
             this.channelMapRedCb.Size = new System.Drawing.Size(213, 21);
             this.channelMapRedCb.TabIndex = 2;
             // 
-            // label6
+            // vgachannelinvertGreenChb
             // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 22);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(27, 13);
-            this.label6.TabIndex = 14;
-            this.label6.Text = "Red";
+            this.vgachannelinvertGreenChb.AutoSize = true;
+            this.vgachannelinvertGreenChb.Location = new System.Drawing.Point(44, 48);
+            this.vgachannelinvertGreenChb.Name = "vgachannelinvertGreenChb";
+            this.vgachannelinvertGreenChb.Size = new System.Drawing.Size(53, 17);
+            this.vgachannelinvertGreenChb.TabIndex = 3;
+            this.vgachannelinvertGreenChb.Text = "Invert";
+            this.vgachannelinvertGreenChb.UseVisualStyleBackColor = true;
+            // 
+            // channelMapGreenCb
+            // 
+            this.channelMapGreenCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.channelMapGreenCb.FormattingEnabled = true;
+            this.channelMapGreenCb.Items.AddRange(new object[] {
+            "X",
+            "Y",
+            "Z"});
+            this.channelMapGreenCb.Location = new System.Drawing.Point(107, 46);
+            this.channelMapGreenCb.Name = "channelMapGreenCb";
+            this.channelMapGreenCb.Size = new System.Drawing.Size(213, 21);
+            this.channelMapGreenCb.TabIndex = 4;
+            // 
+            // vgachannelinvertBlueChb
+            // 
+            this.vgachannelinvertBlueChb.AutoSize = true;
+            this.vgachannelinvertBlueChb.Location = new System.Drawing.Point(44, 75);
+            this.vgachannelinvertBlueChb.Name = "vgachannelinvertBlueChb";
+            this.vgachannelinvertBlueChb.Size = new System.Drawing.Size(53, 17);
+            this.vgachannelinvertBlueChb.TabIndex = 5;
+            this.vgachannelinvertBlueChb.Text = "Invert";
+            this.vgachannelinvertBlueChb.UseVisualStyleBackColor = true;
+            // 
+            // channelMapBlueCb
+            // 
+            this.channelMapBlueCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.channelMapBlueCb.FormattingEnabled = true;
+            this.channelMapBlueCb.Items.AddRange(new object[] {
+            "X",
+            "Y",
+            "Z"});
+            this.channelMapBlueCb.Location = new System.Drawing.Point(107, 73);
+            this.channelMapBlueCb.Name = "channelMapBlueCb";
+            this.channelMapBlueCb.Size = new System.Drawing.Size(213, 21);
+            this.channelMapBlueCb.TabIndex = 6;
+            // 
+            // swapxyB
+            // 
+            this.swapxyB.Location = new System.Drawing.Point(326, 17);
+            this.swapxyB.Name = "swapxyB";
+            this.swapxyB.Size = new System.Drawing.Size(75, 23);
+            this.swapxyB.TabIndex = 7;
+            this.swapxyB.Text = "Swap X Y";
+            this.swapxyB.UseVisualStyleBackColor = true;
+            this.swapxyB.Click += new System.EventHandler(this.swapxyB_Click);
             // 
             // sourceGb
             // 
@@ -237,6 +248,74 @@
             this.sourceGb.TabStop = false;
             this.sourceGb.Text = "Source images";
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 94);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(87, 13);
+            this.label11.TabIndex = 32;
+            this.label11.Text = "Image color for Z";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 22);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(29, 13);
+            this.label3.TabIndex = 10;
+            this.label3.Text = "Path";
+            // 
+            // framesdirpathed
+            // 
+            this.framesdirpathed.Location = new System.Drawing.Point(44, 19);
+            this.framesdirpathed.MaxLength = 260;
+            this.framesdirpathed.Name = "framesdirpathed";
+            this.framesdirpathed.Size = new System.Drawing.Size(276, 20);
+            this.framesdirpathed.TabIndex = 0;
+            // 
+            // selectFramesPathB
+            // 
+            this.selectFramesPathB.Location = new System.Drawing.Point(326, 17);
+            this.selectFramesPathB.Name = "selectFramesPathB";
+            this.selectFramesPathB.Size = new System.Drawing.Size(75, 23);
+            this.selectFramesPathB.TabIndex = 1;
+            this.selectFramesPathB.Text = "Select...";
+            this.selectFramesPathB.UseVisualStyleBackColor = true;
+            this.selectFramesPathB.Click += new System.EventHandler(this.selectFramesPathB_Click);
+            // 
+            // pathFileRb
+            // 
+            this.pathFileRb.AutoSize = true;
+            this.pathFileRb.Checked = true;
+            this.pathFileRb.Location = new System.Drawing.Point(9, 45);
+            this.pathFileRb.Name = "pathFileRb";
+            this.pathFileRb.Size = new System.Drawing.Size(105, 17);
+            this.pathFileRb.TabIndex = 2;
+            this.pathFileRb.TabStop = true;
+            this.pathFileRb.Text = "Selected file only";
+            this.pathFileRb.UseVisualStyleBackColor = true;
+            // 
+            // pathDirRb
+            // 
+            this.pathDirRb.AutoSize = true;
+            this.pathDirRb.Location = new System.Drawing.Point(120, 45);
+            this.pathDirRb.Name = "pathDirRb";
+            this.pathDirRb.Size = new System.Drawing.Size(111, 17);
+            this.pathDirRb.TabIndex = 3;
+            this.pathDirRb.Text = "All files in directory";
+            this.pathDirRb.UseVisualStyleBackColor = true;
+            // 
+            // swapxyChb
+            // 
+            this.swapxyChb.AutoSize = true;
+            this.swapxyChb.Location = new System.Drawing.Point(9, 68);
+            this.swapxyChb.Name = "swapxyChb";
+            this.swapxyChb.Size = new System.Drawing.Size(195, 17);
+            this.swapxyChb.TabIndex = 4;
+            this.swapxyChb.Text = "Rotate image 90 degrees clockwise";
+            this.swapxyChb.UseVisualStyleBackColor = true;
+            // 
             // imageColorZCb
             // 
             this.imageColorZCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -251,66 +330,9 @@
             this.imageColorZCb.Size = new System.Drawing.Size(213, 21);
             this.imageColorZCb.TabIndex = 5;
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 94);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(87, 13);
-            this.label11.TabIndex = 32;
-            this.label11.Text = "Image color for Z";
-            // 
-            // pathDirRb
-            // 
-            this.pathDirRb.AutoSize = true;
-            this.pathDirRb.Location = new System.Drawing.Point(120, 45);
-            this.pathDirRb.Name = "pathDirRb";
-            this.pathDirRb.Size = new System.Drawing.Size(111, 17);
-            this.pathDirRb.TabIndex = 3;
-            this.pathDirRb.Text = "All files in directory";
-            this.pathDirRb.UseVisualStyleBackColor = true;
-            // 
-            // pathFileRb
-            // 
-            this.pathFileRb.AutoSize = true;
-            this.pathFileRb.Checked = true;
-            this.pathFileRb.Location = new System.Drawing.Point(9, 45);
-            this.pathFileRb.Name = "pathFileRb";
-            this.pathFileRb.Size = new System.Drawing.Size(105, 17);
-            this.pathFileRb.TabIndex = 2;
-            this.pathFileRb.TabStop = true;
-            this.pathFileRb.Text = "Selected file only";
-            this.pathFileRb.UseVisualStyleBackColor = true;
-            // 
-            // selectFramesPathB
-            // 
-            this.selectFramesPathB.Location = new System.Drawing.Point(326, 17);
-            this.selectFramesPathB.Name = "selectFramesPathB";
-            this.selectFramesPathB.Size = new System.Drawing.Size(75, 23);
-            this.selectFramesPathB.TabIndex = 1;
-            this.selectFramesPathB.Text = "Select...";
-            this.selectFramesPathB.UseVisualStyleBackColor = true;
-            this.selectFramesPathB.Click += new System.EventHandler(this.selectFramesPathB_Click);
-            // 
-            // framesdirpathed
-            // 
-            this.framesdirpathed.Location = new System.Drawing.Point(44, 19);
-            this.framesdirpathed.MaxLength = 260;
-            this.framesdirpathed.Name = "framesdirpathed";
-            this.framesdirpathed.Size = new System.Drawing.Size(276, 20);
-            this.framesdirpathed.TabIndex = 0;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(6, 22);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 13);
-            this.label3.TabIndex = 10;
-            this.label3.Text = "Path";
-            // 
             // outputGb
             // 
+            this.outputGb.Controls.Add(this.noProcessChb);
             this.outputGb.Controls.Add(this.frameproctimelabel);
             this.outputGb.Controls.Add(this.label5);
             this.outputGb.Controls.Add(this.currentmonitorlabel);
@@ -331,85 +353,6 @@
             this.outputGb.TabIndex = 2;
             this.outputGb.TabStop = false;
             this.outputGb.Text = "Output";
-            // 
-            // swapxyChb
-            // 
-            this.swapxyChb.AutoSize = true;
-            this.swapxyChb.Location = new System.Drawing.Point(9, 68);
-            this.swapxyChb.Name = "swapxyChb";
-            this.swapxyChb.Size = new System.Drawing.Size(195, 17);
-            this.swapxyChb.TabIndex = 4;
-            this.swapxyChb.Text = "Rotate image 90 degrees clockwise";
-            this.swapxyChb.UseVisualStyleBackColor = true;
-            // 
-            // disableAntialiasingChb
-            // 
-            this.disableAntialiasingChb.AutoSize = true;
-            this.disableAntialiasingChb.Location = new System.Drawing.Point(9, 72);
-            this.disableAntialiasingChb.Name = "disableAntialiasingChb";
-            this.disableAntialiasingChb.Size = new System.Drawing.Size(116, 17);
-            this.disableAntialiasingChb.TabIndex = 3;
-            this.disableAntialiasingChb.Text = "Disable antialiasing";
-            this.disableAntialiasingChb.UseVisualStyleBackColor = true;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(6, 48);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 13);
-            this.label4.TabIndex = 35;
-            this.label4.Text = "Frame interval (ms)";
-            // 
-            // frameintervalud
-            // 
-            this.frameintervalud.Location = new System.Drawing.Point(107, 46);
-            this.frameintervalud.Maximum = new decimal(new int[] {
-            10000,
-            0,
-            0,
-            0});
-            this.frameintervalud.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.frameintervalud.Name = "frameintervalud";
-            this.frameintervalud.Size = new System.Drawing.Size(213, 20);
-            this.frameintervalud.TabIndex = 2;
-            this.frameintervalud.Value = new decimal(new int[] {
-            66,
-            0,
-            0,
-            0});
-            // 
-            // refreshMonitoListB
-            // 
-            this.refreshMonitoListB.Location = new System.Drawing.Point(326, 17);
-            this.refreshMonitoListB.Name = "refreshMonitoListB";
-            this.refreshMonitoListB.Size = new System.Drawing.Size(75, 23);
-            this.refreshMonitoListB.TabIndex = 1;
-            this.refreshMonitoListB.Text = "Refresh list";
-            this.refreshMonitoListB.UseVisualStyleBackColor = true;
-            this.refreshMonitoListB.Click += new System.EventHandler(this.refreshMonitoListB_Click);
-            // 
-            // monitorListCb
-            // 
-            this.monitorListCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.monitorListCb.FormattingEnabled = true;
-            this.monitorListCb.Location = new System.Drawing.Point(107, 19);
-            this.monitorListCb.Name = "monitorListCb";
-            this.monitorListCb.Size = new System.Drawing.Size(213, 21);
-            this.monitorListCb.TabIndex = 0;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 22);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 13);
-            this.label1.TabIndex = 31;
-            this.label1.Text = "Monitor to draw on";
             // 
             // frameproctimelabel
             // 
@@ -447,17 +390,74 @@
             this.label2.TabIndex = 42;
             this.label2.Text = "Current monitor";
             // 
-            // drawWinFullscreenChb
+            // label4
             // 
-            this.drawWinFullscreenChb.AutoSize = true;
-            this.drawWinFullscreenChb.Checked = true;
-            this.drawWinFullscreenChb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.drawWinFullscreenChb.Location = new System.Drawing.Point(9, 118);
-            this.drawWinFullscreenChb.Name = "drawWinFullscreenChb";
-            this.drawWinFullscreenChb.Size = new System.Drawing.Size(152, 17);
-            this.drawWinFullscreenChb.TabIndex = 6;
-            this.drawWinFullscreenChb.Text = "Drawing window fullscreen";
-            this.drawWinFullscreenChb.UseVisualStyleBackColor = true;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(6, 48);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.TabIndex = 35;
+            this.label4.Text = "Frame interval (ms)";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 22);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.TabIndex = 31;
+            this.label1.Text = "Monitor to draw on";
+            // 
+            // monitorListCb
+            // 
+            this.monitorListCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.monitorListCb.FormattingEnabled = true;
+            this.monitorListCb.Location = new System.Drawing.Point(107, 19);
+            this.monitorListCb.Name = "monitorListCb";
+            this.monitorListCb.Size = new System.Drawing.Size(213, 21);
+            this.monitorListCb.TabIndex = 0;
+            // 
+            // refreshMonitoListB
+            // 
+            this.refreshMonitoListB.Location = new System.Drawing.Point(326, 17);
+            this.refreshMonitoListB.Name = "refreshMonitoListB";
+            this.refreshMonitoListB.Size = new System.Drawing.Size(75, 23);
+            this.refreshMonitoListB.TabIndex = 1;
+            this.refreshMonitoListB.Text = "Refresh list";
+            this.refreshMonitoListB.UseVisualStyleBackColor = true;
+            this.refreshMonitoListB.Click += new System.EventHandler(this.refreshMonitoListB_Click);
+            // 
+            // frameintervalud
+            // 
+            this.frameintervalud.Location = new System.Drawing.Point(107, 46);
+            this.frameintervalud.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
+            this.frameintervalud.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.frameintervalud.Name = "frameintervalud";
+            this.frameintervalud.Size = new System.Drawing.Size(213, 20);
+            this.frameintervalud.TabIndex = 2;
+            this.frameintervalud.Value = new decimal(new int[] {
+            66,
+            0,
+            0,
+            0});
+            // 
+            // disableAntialiasingChb
+            // 
+            this.disableAntialiasingChb.AutoSize = true;
+            this.disableAntialiasingChb.Location = new System.Drawing.Point(9, 72);
+            this.disableAntialiasingChb.Name = "disableAntialiasingChb";
+            this.disableAntialiasingChb.Size = new System.Drawing.Size(116, 17);
+            this.disableAntialiasingChb.TabIndex = 3;
+            this.disableAntialiasingChb.Text = "Disable antialiasing";
+            this.disableAntialiasingChb.UseVisualStyleBackColor = true;
             // 
             // mainWinTopmostChb
             // 
@@ -471,15 +471,27 @@
             this.mainWinTopmostChb.Text = "Main window stay on top";
             this.mainWinTopmostChb.UseVisualStyleBackColor = true;
             // 
-            // swapxyB
+            // drawWinFullscreenChb
             // 
-            this.swapxyB.Location = new System.Drawing.Point(326, 17);
-            this.swapxyB.Name = "swapxyB";
-            this.swapxyB.Size = new System.Drawing.Size(75, 23);
-            this.swapxyB.TabIndex = 7;
-            this.swapxyB.Text = "Swap X Y";
-            this.swapxyB.UseVisualStyleBackColor = true;
-            this.swapxyB.Click += new System.EventHandler(this.swapxyB_Click);
+            this.drawWinFullscreenChb.AutoSize = true;
+            this.drawWinFullscreenChb.Checked = true;
+            this.drawWinFullscreenChb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.drawWinFullscreenChb.Location = new System.Drawing.Point(9, 118);
+            this.drawWinFullscreenChb.Name = "drawWinFullscreenChb";
+            this.drawWinFullscreenChb.Size = new System.Drawing.Size(152, 17);
+            this.drawWinFullscreenChb.TabIndex = 6;
+            this.drawWinFullscreenChb.Text = "Drawing window fullscreen";
+            this.drawWinFullscreenChb.UseVisualStyleBackColor = true;
+            // 
+            // noProcessChb
+            // 
+            this.noProcessChb.AutoSize = true;
+            this.noProcessChb.Location = new System.Drawing.Point(181, 72);
+            this.noProcessChb.Name = "noProcessChb";
+            this.noProcessChb.Size = new System.Drawing.Size(125, 17);
+            this.noProcessChb.TabIndex = 45;
+            this.noProcessChb.Text = "Don\'t process frames";
+            this.noProcessChb.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -546,5 +558,6 @@
         private System.Windows.Forms.CheckBox drawWinFullscreenChb;
         private System.Windows.Forms.CheckBox mainWinTopmostChb;
         private System.Windows.Forms.Button swapxyB;
+        private System.Windows.Forms.CheckBox noProcessChb;
     }
 }

@@ -17,16 +17,18 @@ namespace vgarender
         private readonly IEnumerable<string> _files;
         private readonly int _frameInterval;
         private readonly RenderSettings _renderSettings;
+        private readonly bool _dontProcess;
         Timer _frameTimer;
 
         List<Image> _frames = null;
         int _currentFrameIndex = 0;
 
-        public FrameSequencer(IEnumerable<string> files, int frameInterval, RenderSettings renderSettings)
+        public FrameSequencer(IEnumerable<string> files, int frameInterval, RenderSettings renderSettings, bool dontProcess)
         {
             _files = files;
             _frameInterval = frameInterval;
             _renderSettings = renderSettings;
+            _dontProcess = dontProcess;
         }
 
 
@@ -43,24 +45,35 @@ namespace vgarender
         {
             _frames = new List<Image>();
 
-            var renderer = new ImageRenderer();
+            var renderer = _dontProcess ? null : new ImageRenderer();
 
             foreach (var filepath in _files)
             {
 
-                using (var ms = new MemoryStream())
+                if (_dontProcess)
                 {
-
                     using (var fs = new FileStream(filepath, FileMode.Open, FileAccess.Read))
                     {
-                        fs.CopyTo(ms);
-                    }
-
-                    using (var res = renderer.Render(ms, _renderSettings))
-                    {
-                        res.Position = 0;
-                        var image = Image.FromStream(res);
+                        var image = Image.FromStream(fs);
                         _frames.Add(image);
+                    }
+                }
+                else
+                {
+                    using (var ms = new MemoryStream())
+                    {
+
+                        using (var fs = new FileStream(filepath, FileMode.Open, FileAccess.Read))
+                        {
+                            fs.CopyTo(ms);
+                        }
+
+                        using (var res = renderer.Render(ms, _renderSettings))
+                        {
+                            res.Position = 0;
+                            var image = Image.FromStream(res);
+                            _frames.Add(image);
+                        }
                     }
                 }
 
