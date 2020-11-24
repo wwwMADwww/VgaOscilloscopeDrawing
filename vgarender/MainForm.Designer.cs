@@ -55,7 +55,7 @@
             this.swapxyChb = new System.Windows.Forms.CheckBox();
             this.imageColorZCb = new System.Windows.Forms.ComboBox();
             this.outputGb = new System.Windows.Forms.GroupBox();
-            this.frameproctimelabel = new System.Windows.Forms.Label();
+            this.fpslabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.currentmonitorlabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -63,15 +63,16 @@
             this.label1 = new System.Windows.Forms.Label();
             this.monitorListCb = new System.Windows.Forms.ComboBox();
             this.refreshMonitoListB = new System.Windows.Forms.Button();
-            this.frameintervalud = new System.Windows.Forms.NumericUpDown();
+            this.refreshrateud = new System.Windows.Forms.NumericUpDown();
             this.disableAntialiasingChb = new System.Windows.Forms.CheckBox();
             this.mainWinTopmostChb = new System.Windows.Forms.CheckBox();
             this.drawWinFullscreenChb = new System.Windows.Forms.CheckBox();
-            this.noProcessChb = new System.Windows.Forms.CheckBox();
+            this.nofpsB = new System.Windows.Forms.Button();
+            this.vsyncB = new System.Windows.Forms.Button();
             this.mapGb.SuspendLayout();
             this.sourceGb.SuspendLayout();
             this.outputGb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.frameintervalud)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.refreshrateud)).BeginInit();
             this.SuspendLayout();
             // 
             // startB
@@ -103,7 +104,7 @@
             // 
             this.openFileDialog1.CheckFileExists = false;
             this.openFileDialog1.FileName = "dir";
-            this.openFileDialog1.Filter = "BMP|*.bmp|All files|*.*";
+            this.openFileDialog1.Filter = "BMP, PNG, JPG, GIF|*.bmp;*.png;*jpg;*.gif|All files|*.*";
             this.openFileDialog1.ValidateNames = false;
             // 
             // mapGb
@@ -332,8 +333,9 @@
             // 
             // outputGb
             // 
-            this.outputGb.Controls.Add(this.noProcessChb);
-            this.outputGb.Controls.Add(this.frameproctimelabel);
+            this.outputGb.Controls.Add(this.vsyncB);
+            this.outputGb.Controls.Add(this.nofpsB);
+            this.outputGb.Controls.Add(this.fpslabel);
             this.outputGb.Controls.Add(this.label5);
             this.outputGb.Controls.Add(this.currentmonitorlabel);
             this.outputGb.Controls.Add(this.label2);
@@ -341,7 +343,7 @@
             this.outputGb.Controls.Add(this.label1);
             this.outputGb.Controls.Add(this.monitorListCb);
             this.outputGb.Controls.Add(this.refreshMonitoListB);
-            this.outputGb.Controls.Add(this.frameintervalud);
+            this.outputGb.Controls.Add(this.refreshrateud);
             this.outputGb.Controls.Add(this.disableAntialiasingChb);
             this.outputGb.Controls.Add(this.mainWinTopmostChb);
             this.outputGb.Controls.Add(this.drawWinFullscreenChb);
@@ -354,32 +356,32 @@
             this.outputGb.TabStop = false;
             this.outputGb.Text = "Output";
             // 
-            // frameproctimelabel
+            // fpslabel
             // 
-            this.frameproctimelabel.AutoSize = true;
-            this.frameproctimelabel.Location = new System.Drawing.Point(166, 166);
-            this.frameproctimelabel.Name = "frameproctimelabel";
-            this.frameproctimelabel.Size = new System.Drawing.Size(10, 13);
-            this.frameproctimelabel.TabIndex = 2;
-            this.frameproctimelabel.Text = "-";
+            this.fpslabel.AutoSize = true;
+            this.fpslabel.Location = new System.Drawing.Point(122, 166);
+            this.fpslabel.Name = "fpslabel";
+            this.fpslabel.Size = new System.Drawing.Size(33, 13);
+            this.fpslabel.TabIndex = 2;
+            this.fpslabel.Text = "F P S";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 166);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(154, 13);
+            this.label5.Size = new System.Drawing.Size(110, 13);
             this.label5.TabIndex = 44;
-            this.label5.Text = "Last frame processing time (ms)";
+            this.label5.Text = "Current FPS (roughly):";
             // 
             // currentmonitorlabel
             // 
             this.currentmonitorlabel.AutoSize = true;
-            this.currentmonitorlabel.Location = new System.Drawing.Point(104, 144);
+            this.currentmonitorlabel.Location = new System.Drawing.Point(122, 144);
             this.currentmonitorlabel.Name = "currentmonitorlabel";
-            this.currentmonitorlabel.Size = new System.Drawing.Size(25, 13);
+            this.currentmonitorlabel.Size = new System.Drawing.Size(76, 13);
             this.currentmonitorlabel.TabIndex = 43;
-            this.currentmonitorlabel.Text = "123";
+            this.currentmonitorlabel.Text = "M O N I T O R";
             // 
             // label2
             // 
@@ -395,9 +397,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 48);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(95, 13);
+            this.label4.Size = new System.Drawing.Size(94, 13);
             this.label4.TabIndex = 35;
-            this.label4.Text = "Frame interval (ms)";
+            this.label4.Text = "Refresh rate (FPS)";
             // 
             // label1
             // 
@@ -427,24 +429,24 @@
             this.refreshMonitoListB.UseVisualStyleBackColor = true;
             this.refreshMonitoListB.Click += new System.EventHandler(this.refreshMonitoListB_Click);
             // 
-            // frameintervalud
+            // refreshrateud
             // 
-            this.frameintervalud.Location = new System.Drawing.Point(107, 46);
-            this.frameintervalud.Maximum = new decimal(new int[] {
+            this.refreshrateud.Location = new System.Drawing.Point(107, 46);
+            this.refreshrateud.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.frameintervalud.Minimum = new decimal(new int[] {
+            this.refreshrateud.Minimum = new decimal(new int[] {
             1,
             0,
             0,
-            0});
-            this.frameintervalud.Name = "frameintervalud";
-            this.frameintervalud.Size = new System.Drawing.Size(213, 20);
-            this.frameintervalud.TabIndex = 2;
-            this.frameintervalud.Value = new decimal(new int[] {
-            66,
+            -2147483648});
+            this.refreshrateud.Name = "refreshrateud";
+            this.refreshrateud.Size = new System.Drawing.Size(213, 20);
+            this.refreshrateud.TabIndex = 2;
+            this.refreshrateud.Value = new decimal(new int[] {
+            60,
             0,
             0,
             0});
@@ -483,15 +485,25 @@
             this.drawWinFullscreenChb.Text = "Drawing window fullscreen";
             this.drawWinFullscreenChb.UseVisualStyleBackColor = true;
             // 
-            // noProcessChb
+            // nofpsB
             // 
-            this.noProcessChb.AutoSize = true;
-            this.noProcessChb.Location = new System.Drawing.Point(181, 72);
-            this.noProcessChb.Name = "noProcessChb";
-            this.noProcessChb.Size = new System.Drawing.Size(125, 17);
-            this.noProcessChb.TabIndex = 45;
-            this.noProcessChb.Text = "Don\'t process frames";
-            this.noProcessChb.UseVisualStyleBackColor = true;
+            this.nofpsB.Location = new System.Drawing.Point(383, 43);
+            this.nofpsB.Name = "nofpsB";
+            this.nofpsB.Size = new System.Drawing.Size(18, 23);
+            this.nofpsB.TabIndex = 46;
+            this.nofpsB.Text = "X";
+            this.nofpsB.UseVisualStyleBackColor = true;
+            this.nofpsB.Click += new System.EventHandler(this.nofpsB_Click);
+            // 
+            // vsyncB
+            // 
+            this.vsyncB.Location = new System.Drawing.Point(326, 43);
+            this.vsyncB.Name = "vsyncB";
+            this.vsyncB.Size = new System.Drawing.Size(51, 23);
+            this.vsyncB.TabIndex = 47;
+            this.vsyncB.Text = "VSync";
+            this.vsyncB.UseVisualStyleBackColor = true;
+            this.vsyncB.Click += new System.EventHandler(this.vsyncB_Click);
             // 
             // MainForm
             // 
@@ -513,7 +525,7 @@
             this.sourceGb.PerformLayout();
             this.outputGb.ResumeLayout(false);
             this.outputGb.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.frameintervalud)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.refreshrateud)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -546,11 +558,11 @@
         private System.Windows.Forms.GroupBox outputGb;
         private System.Windows.Forms.CheckBox disableAntialiasingChb;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.NumericUpDown frameintervalud;
+        private System.Windows.Forms.NumericUpDown refreshrateud;
         private System.Windows.Forms.Button refreshMonitoListB;
         private System.Windows.Forms.ComboBox monitorListCb;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label frameproctimelabel;
+        private System.Windows.Forms.Label fpslabel;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label currentmonitorlabel;
         private System.Windows.Forms.Label label2;
@@ -558,6 +570,7 @@
         private System.Windows.Forms.CheckBox drawWinFullscreenChb;
         private System.Windows.Forms.CheckBox mainWinTopmostChb;
         private System.Windows.Forms.Button swapxyB;
-        private System.Windows.Forms.CheckBox noProcessChb;
+        private System.Windows.Forms.Button vsyncB;
+        private System.Windows.Forms.Button nofpsB;
     }
 }
