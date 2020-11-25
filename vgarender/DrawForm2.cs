@@ -128,7 +128,7 @@ namespace vgarender
             }
             else
             {
-                shader.SetUniform(shaderInColorsGrayscale, false);
+                shader.SetUniform(shaderInColorsGrayscale, true);
                 shader.SetUniform(shaderInColorsKoeff, new Vec3(
                     RenderSettings.ChannelZSourceChannel == ChannelZSourceChannel.Red ? 1 : 0,
                     RenderSettings.ChannelZSourceChannel == ChannelZSourceChannel.Green ? 1 : 0,
@@ -161,6 +161,7 @@ namespace vgarender
                 var tex = new Texture(filepath);
                 if (frames.Count > 0 && tex.Size != frames[0].Size)
                     throw new Exception("Texture sizes must be equal.");
+                tex.Smooth = !DisableAntialiasing;
                 frames.Add(tex);
             }
 
@@ -219,13 +220,6 @@ namespace vgarender
             int currentFrame = 0;
             var frameSprite = new Sprite(frames[0]);
 
-            var renderTexture = new RenderTexture(frames[0].Size.X, frames[0].Size.Y);
-            renderTexture.Smooth = !DisableAntialiasing;
-            var renderSprite = new Sprite(renderTexture.Texture);
-
-            // difference ~1 RGB in 0-255 range
-            bool useRenderTexture = true;
-
             #endregion drawing vars
 
             #region drawing loop
@@ -250,57 +244,26 @@ namespace vgarender
                 #endregion
 
                 frameSprite.Texture = frames[currentFrame];
-                frameSprite.Texture.Smooth = !useRenderTexture;
 
                 var blend = new BlendMode(BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Add);
                 var state = new RenderStates() { Transform = Transform.Identity, Shader = shader, BlendMode = blend };
 
-                if (useRenderTexture)
+                if (RenderSettings.SwapXY)
                 {
-                    renderTexture.Clear(Color.Black);
-                    renderTexture.Draw(frameSprite, state);
-                    renderTexture.Display();
-
-                    if (RenderSettings.SwapXY)
-                    {
-                        renderSprite.Origin = new Vector2f(0, renderSprite.TextureRect.Height);
-                        renderSprite.Rotation = 90;
-                        renderSprite.Scale = new Vector2f(
-                            window.Size.Y / (float)renderSprite.TextureRect.Width,
-                            window.Size.X / (float)renderSprite.TextureRect.Height);
-                    }
-                    else
-                    {
-                        renderSprite.Scale = new Vector2f(
-                            window.Size.X / (float)renderSprite.TextureRect.Width,
-                            window.Size.Y / (float)renderSprite.TextureRect.Height);
-                    }
-
-                    var blendr = new BlendMode(BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Add);
-                    var stater = new RenderStates() { Transform = Transform.Identity, BlendMode = blendr };
-
-
-                    window.Draw(renderSprite, stater);
+                    frameSprite.Origin = new Vector2f(0, frameSprite.TextureRect.Height);
+                    frameSprite.Rotation = 90;
+                    frameSprite.Scale = new Vector2f(
+                        window.Size.Y / (float)frameSprite.TextureRect.Width,
+                        window.Size.X / (float)frameSprite.TextureRect.Height);
                 }
-                else
+                else 
                 {
-                    if (RenderSettings.SwapXY)
-                    {
-                        frameSprite.Origin = new Vector2f(0, frameSprite.TextureRect.Height);
-                        frameSprite.Rotation = 90;
-                        frameSprite.Scale = new Vector2f(
-                            window.Size.Y / (float)frameSprite.TextureRect.Width,
-                            window.Size.X / (float)frameSprite.TextureRect.Height);
-                    }
-                    else 
-                    {
-                        frameSprite.Scale = new Vector2f(
-                        window.Size.X / (float)frameSprite.TextureRect.Width,
-                        window.Size.Y / (float)frameSprite.TextureRect.Height);                    
-                    }
-
-                    window.Draw(frameSprite, state);
+                    frameSprite.Scale = new Vector2f(
+                    window.Size.X / (float)frameSprite.TextureRect.Width,
+                    window.Size.Y / (float)frameSprite.TextureRect.Height);                    
                 }
+
+                window.Draw(frameSprite, state);
 
                 window.Display();
 
@@ -330,9 +293,6 @@ namespace vgarender
                 window.Close();
                 window.Dispose();
             }
-
-            renderSprite.Dispose();
-            renderTexture.Dispose();
 
             frameSprite.Dispose();
 
