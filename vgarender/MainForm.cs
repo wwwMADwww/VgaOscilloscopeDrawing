@@ -12,7 +12,7 @@ namespace vgarender
     public partial class MainForm : Form
     {
 
-        DrawForm2 _drawForm = new DrawForm2();
+        DrawWindow _drawWindow = new DrawWindow();
 
 
         class ComboBoxItem<T>
@@ -164,7 +164,7 @@ namespace vgarender
                 return;
             }
 
-            _drawForm.Stop();
+            _drawWindow.Stop();
 
 
             var renderSettings = new RenderSettings()
@@ -185,16 +185,16 @@ namespace vgarender
             if (pathDirRb.Checked)
                 files = Directory.GetFiles(Path.GetDirectoryName(framesdirpathed.Text)).ToList();
 
-            _drawForm.Screen = ((ComboBoxItem<Screen>)monitorListCb.SelectedItem).Value;
-            _drawForm.DisableAntialiasing = disableAntialiasingChb.Checked;
-            _drawForm.Fullscreen = drawWinFullscreenChb.Checked;
+            _drawWindow.Screen = ((ComboBoxItem<Screen>)monitorListCb.SelectedItem).Value;
+            _drawWindow.DisableAntialiasing = disableAntialiasingChb.Checked;
+            _drawWindow.Fullscreen = drawWinFullscreenChb.Checked;
 
 
-            _drawForm.Files = files;
-            _drawForm.RefreshRate = (int)refreshrateud.Value;
-            _drawForm.RenderSettings = renderSettings;
+            _drawWindow.Files = files;
+            _drawWindow.RefreshRate = (int)refreshrateud.Value;
+            _drawWindow.RenderSettings = renderSettings;
 
-            _drawForm.Run();
+            _drawWindow.Run();
 
 
             startB.Enabled = true;
@@ -209,7 +209,7 @@ namespace vgarender
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateCurrentScreen();
-            fpslabel.Text = _drawForm.CurrentFps.ToString();
+            fpslabel.Text = _drawWindow.CurrentFps.ToString();
         }
 
         private void topmostChb_CheckedChanged(object sender, EventArgs e)
@@ -233,7 +233,7 @@ namespace vgarender
 
         private void stopB_Click(object sender, EventArgs e)
         {
-            _drawForm.Stop();
+            _drawWindow.Stop();
         }
 
         private void swapxyB_Click(object sender, EventArgs e)

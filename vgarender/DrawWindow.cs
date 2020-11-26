@@ -42,9 +42,8 @@ namespace vgarender
     }
 
 
-    public class DrawForm2
+    public class DrawWindow
     {
-        private const string shaderInColorsGrayscale = "incolorsgrayscale";
         private const string shaderInColorsKoeff = "incolorskoeff";
         private const string shaderInColorsInvert = "incolorsinvert";
         private const string shaderOutColorsInvert = "outcolorsinvert";
@@ -201,12 +200,10 @@ namespace vgarender
 
             if (RenderSettings.ChannelZSourceChannel == ChannelZSourceChannel.Grayscale)
             {
-                shader.SetUniform(shaderInColorsGrayscale, true);
                 shader.SetUniform(shaderInColorsKoeff, new Vec3(0.2125f, 0.7154f, 0.0721f));
             }
             else
             {
-                shader.SetUniform(shaderInColorsGrayscale, true);
                 shader.SetUniform(shaderInColorsKoeff, new Vec3(
                     RenderSettings.ChannelZSourceChannel == ChannelZSourceChannel.Red ? 1 : 0,
                     RenderSettings.ChannelZSourceChannel == ChannelZSourceChannel.Green ? 1 : 0,

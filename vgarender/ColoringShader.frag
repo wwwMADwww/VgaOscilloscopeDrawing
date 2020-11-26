@@ -1,6 +1,5 @@
 uniform sampler2D texture;
 
-uniform bool incolorsgrayscale;
 uniform vec3 incolorsinvert;
 uniform vec3 incolorskoeff;
 
@@ -37,14 +36,12 @@ void main()
     
     pixel_color *= incolorskoeff;
 
-    if (incolorsgrayscale)
-    {
-        float gray = pixel_color.r + pixel_color.g + pixel_color.b;
 
-        pixel_color.r = gray;
-        pixel_color.g = gray;
-        pixel_color.b = gray;
-    }
+    float gray = pixel_color.r + pixel_color.g + pixel_color.b;
+    pixel_color.r = gray;
+    pixel_color.g = gray;
+    pixel_color.b = gray;
+
 
     pixel_color = invertByMask(pixel_color, outcolorsinvert);
 

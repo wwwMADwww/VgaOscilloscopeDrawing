@@ -61,7 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawForm2.cs" />
+    <Compile Include="DrawWindow.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
