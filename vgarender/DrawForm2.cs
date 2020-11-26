@@ -112,6 +112,55 @@ namespace vgarender
                 .Aggregate((c1, c2) => c1 + c2);
 
 
+            #region window and gradients
+
+            RenderWindow window;
+
+            if (Fullscreen)
+            {
+                window = new RenderWindow(new VideoMode((uint)Screen.Bounds.Width, (uint)Screen.Bounds.Height), "VGA Oscilloscope drawing", Styles.None);
+                window.Position = new Vector2i(Screen.Bounds.X, Screen.Bounds.Y);
+            }
+            else
+            {
+                window = new RenderWindow(new VideoMode(800, 600), "VGA Oscilloscope drawing", Styles.Default);
+            }
+
+            window.KeyReleased += (o, e) => {
+                if (e.Code == Keyboard.Key.Escape)
+                    window.Close();
+            };
+            window.Closed += (_, __) =>
+            {
+                window.Close();
+                OnClosed(this, EventArgs.Empty);
+            };
+
+            if (RefreshRate == -1)
+            {
+                window.SetVerticalSyncEnabled(true);
+            }
+            else if (RefreshRate > 1)
+            {
+                window.SetFramerateLimit((uint)RefreshRate);
+            }
+
+
+
+            var gradientx = CreateGradient(window.Size.X, window.Size.Y, xmap, false);
+            var gradienty = CreateGradient(window.Size.X, window.Size.Y, ymap, true);
+
+
+            window.Resized += (o, e) =>
+            {
+                window.SetView(new View(new Vector2f(e.Width / 2, e.Height / 2), new Vector2f(e.Width, e.Height)));
+
+                gradientx = CreateGradient(e.Width, e.Height, xmap, false);
+                gradienty = CreateGradient(e.Width, e.Height, ymap, true);
+            };
+
+            #endregion window and gradients
+
             #region shader
 
             if (!Shader.IsAvailable)
@@ -167,49 +216,6 @@ namespace vgarender
 
             #endregion frames
 
-            #region window and gradients
-
-            RenderWindow window;
-
-            if (Fullscreen)
-            {
-                window = new RenderWindow(new VideoMode((uint)Screen.Bounds.Width, (uint)Screen.Bounds.Height), "VGA Oscilloscope drawing", Styles.Fullscreen);
-                window.Position = new Vector2i(Screen.Bounds.X, Screen.Bounds.Y);
-            }
-            else
-            {
-                window = new RenderWindow(new VideoMode(800, 600), "VGA Oscilloscope drawing", Styles.Default);
-            }
-
-            window.KeyReleased += (o, e) => { 
-                if (e.Code == Keyboard.Key.Escape) 
-                    window.Close(); 
-            };
-            window.Closed += (_, __) =>
-            {
-                window.Close();
-                OnClosed(this, EventArgs.Empty);
-            };
-
-            if (RefreshRate == -1)
-                window.SetVerticalSyncEnabled(true);
-            else if (RefreshRate > 1)
-                window.SetFramerateLimit((uint) RefreshRate);
-
-
-            var gradientx = CreateGradient(window.Size.X, window.Size.Y, xmap, false);
-            var gradienty = CreateGradient(window.Size.X, window.Size.Y, ymap, true);
-
-
-            window.Resized += (o, e) =>
-            {
-                window.SetView(new View(new Vector2f(e.Width / 2, e.Height / 2), new Vector2f(e.Width, e.Height)));
-
-                gradientx = CreateGradient(e.Width, e.Height, xmap, false);
-                gradienty = CreateGradient(e.Width, e.Height, ymap, true);
-            };
-
-            #endregion window and gradients
 
             #region drawing vars
 
