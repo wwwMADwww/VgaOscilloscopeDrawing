@@ -12,6 +12,36 @@ using SFML.Graphics.Glsl;
 
 namespace vgarender
 {
+
+
+    public enum ColorChannel { Red = 0, Green = 1, Blue = 2 };
+    public enum ChannelZSourceChannel { Red = 0, Green = 1, Blue = 2, Grayscale = 3 };
+    public enum AxisChannel { X = 0, Y = 1, Z = 2, Min = 3, Max = 4 };
+
+
+    public class RenderSettings
+    {
+        public IEnumerable<ColorAxisMapInfo> ChannelMap { get; set; }
+
+        public ChannelZSourceChannel ChannelZSourceChannel { get; set; }
+        public bool SwapXY { get; set; }
+    }
+
+    public class ColorAxisMapInfo
+    {
+        public ColorAxisMapInfo(AxisChannel axis, ColorChannel color, bool invert = false)
+        {
+            Axis = axis;
+            Color = color;
+            Invert = invert;
+        }
+
+        public AxisChannel Axis { get; set; }
+        public ColorChannel Color { get; set; }
+        public bool Invert { get; set; }
+    }
+
+
     public class DrawForm2
     {
         private const string shaderInColorsGrayscale = "incolorsgrayscale";
@@ -42,17 +72,16 @@ namespace vgarender
 
         public IEnumerable<string> Files { get; set; }
 
+        //  0 = no limit
         // -1 = vsync
         public int RefreshRate { get; set; }
 
         public RenderSettings RenderSettings { get; set; }
 
-        // public bool DontProcess { get; set; }
-
 
         public int CurrentFps { get; protected set; }
 
-        public event EventHandler OnClosed;
+        public event EventHandler OnClosed = (o, e) => {};
 
 
 

@@ -472,6 +472,7 @@
             this.mainWinTopmostChb.TabIndex = 5;
             this.mainWinTopmostChb.Text = "Main window stay on top";
             this.mainWinTopmostChb.UseVisualStyleBackColor = true;
+            this.mainWinTopmostChb.CheckedChanged += new System.EventHandler(this.mainWinTopmostChb_CheckedChanged);
             // 
             // drawWinFullscreenChb
             // 

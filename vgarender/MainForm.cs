@@ -12,10 +12,6 @@ namespace vgarender
     public partial class MainForm : Form
     {
 
-        // DrawForm _drawForm = new DrawForm();
-        // FrameSequencer _frameSequencer = null;
-        // object _frameSequencerSync = new object();
-
         DrawForm2 _drawForm = new DrawForm2();
 
 
@@ -120,13 +116,6 @@ namespace vgarender
 
             ApplySettings();
 
-            // _drawForm.FormClosing += (s, e) =>
-            _drawForm.OnClosed += (s, e) =>
-            {
-                stopB_Click(s, e);
-                // e.Cancel = true;
-            };
-
             timer1.Enabled = true;
             this.TopMost = mainWinTopmostChb.Checked;
         }
@@ -175,13 +164,6 @@ namespace vgarender
                 return;
             }
 
-
-            // lock (_frameSequencerSync)
-            // {
-            //     if (_frameSequencer?.Running ?? false)
-            //         _frameSequencer?.Stop();
-            // }
-
             _drawForm.Stop();
 
 
@@ -206,20 +188,11 @@ namespace vgarender
             _drawForm.Screen = ((ComboBoxItem<Screen>)monitorListCb.SelectedItem).Value;
             _drawForm.DisableAntialiasing = disableAntialiasingChb.Checked;
             _drawForm.Fullscreen = drawWinFullscreenChb.Checked;
-            // _drawForm.Show2();
 
-            // lock (_frameSequencerSync)
-            // {
-            //     _frameSequencer = new FrameSequencer(files, (int)frameintervalud.Value, rednerSettings, noProcessChb.Checked);
-            //     _frameSequencer.OnNexFrame += _drawForm.SetFrame;
-            //     _frameSequencer.LoadFrames();
-            //     _frameSequencer.Start();
-            // }
 
             _drawForm.Files = files;
             _drawForm.RefreshRate = (int)refreshrateud.Value;
             _drawForm.RenderSettings = renderSettings;
-            // _drawForm.DontProcess = noProcessChb.Checked;
 
             _drawForm.Run();
 
@@ -236,7 +209,6 @@ namespace vgarender
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateCurrentScreen();
-            // frameproctimelabel.Text = _drawForm.LastProcessingTime.ToString();
             fpslabel.Text = _drawForm.CurrentFps.ToString();
         }
 
@@ -261,14 +233,7 @@ namespace vgarender
 
         private void stopB_Click(object sender, EventArgs e)
         {
-            // _drawForm.Hide2();
-            if (sender == stopB)
-                _drawForm.Stop();
-            // lock (_frameSequencerSync)
-            // { 
-            //     _frameSequencer?.Stop();
-            //     _frameSequencer = null;
-            // }
+            _drawForm.Stop();
         }
 
         private void swapxyB_Click(object sender, EventArgs e)
@@ -292,6 +257,11 @@ namespace vgarender
         private void vsyncB_Click(object sender, EventArgs e)
         {
             refreshrateud.Value = -1;
+        }
+
+        private void mainWinTopmostChb_CheckedChanged(object sender, EventArgs e)
+        {
+            this.TopMost = mainWinTopmostChb.Checked;
         }
     }
 }

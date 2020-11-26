@@ -61,28 +61,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="DrawForm.Designer.cs">
-      <DependentUpon>DrawForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="DrawForm2.cs" />
-    <Compile Include="FrameSequencer.cs" />
-    <Compile Include="ImageRenderer - Copy.cs" />
-    <Compile Include="ImageRenderer256.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageRenderer.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="DrawForm.resx">
-      <DependentUpon>DrawForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
