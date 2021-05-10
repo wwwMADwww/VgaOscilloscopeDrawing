@@ -17,7 +17,6 @@ namespace vgarender
     #region types
 
     public enum ColorChannel { Red = 0, Green = 1, Blue = 2 };
-    // public enum ChannelZSourceChannel { Red = 0, Green = 1, Blue = 2, Grayscale = 3 };
     public enum SourceChannel { X = 0, Y = 1, Gray = 2, Min = 3, Max = 4 };
 
     public enum OneBitMode { None = 0, RandomNoise = 1, OrderedDithering = 2, Pwm = 3 };
@@ -41,7 +40,6 @@ namespace vgarender
 
         public IEnumerable<ChannelsMapInfo> ChannelMap { get; set; }
 
-        // public ChannelZSourceChannel ChannelZSourceChannel { get; set; }
         public bool SwapXY { get; set; }
     }
 
@@ -96,10 +94,11 @@ namespace vgarender
         #region shader const
 
         private const string suTexture = "texture";
+        private const string suWindowSize = "windowSize";
 
         private const string suActiveChannel   = "activeChannel";
         private const string suInvertChannel   = "invertChannel";
-        // private const string suGrayChannel     = "grayChannel";
+
         private const string suGrayColorRatio   = "grayColorRatio";
         private const string suGrayThreshBlack  = "grayThreshBlack";
         private const string suGrayThreshWhite  = "grayThreshWhite";
@@ -204,9 +203,6 @@ namespace vgarender
 
                 #region vars
 
-                // var redmap = OutputSettings.ChannelMap.First(m => m.Color == ColorChannel.Red);
-                // var greenmap = OutputSettings.ChannelMap.First(m => m.Color == ColorChannel.Green);
-                // var bluemap = OutputSettings.ChannelMap.First(m => m.Color == ColorChannel.Blue);
 
                 var colorChannels = new[] { ColorChannel.Red, ColorChannel.Green, ColorChannel.Blue };
 
@@ -215,13 +211,6 @@ namespace vgarender
                 var xmap = OutputSettings.ChannelMap.Where(m => m.Source == SourceChannel.X);
                 var ymap = OutputSettings.ChannelMap.Where(m => m.Source == SourceChannel.Y);
                 var graymap = OutputSettings.ChannelMap.Where(m => m.Source == SourceChannel.Gray);
-
-                // var bgcolor = OutputSettings.ChannelMap
-                //     .Where(m => (m.Source == SourceChannel.Max && !m.Invert) || (m.Source == SourceChannel.Min && m.Invert))
-                //     .Select(m => _colorMap[m.Color])
-                //     .DefaultIfEmpty(Color.Black)
-                //     .Aggregate((c1, c2) => c1 + c2);
-
 
                 var refreshesPerFrame = (float)OutputSettings.RefreshRate / (float)OutputSettings.AnimationFrameRate;
 
@@ -270,23 +259,12 @@ namespace vgarender
 
                 #region gradients
 
-                // var gradientx = CreateGradient(window.Size.X, window.Size.Y, xmap, false);
-                // var gradienty = CreateGradient(window.Size.X, window.Size.Y, ymap, true);
-                // 
-                // 
-                // window.Resized += (o, e) =>
-                // {
-                //     gradientx = CreateGradient(e.Width, e.Height, xmap, false);
-                //     gradienty = CreateGradient(e.Width, e.Height, ymap, true);
-                // };
-
                 Dictionary<ColorChannel, VertexArray> createRgbGradients(uint sizeX, uint sizeY) => colorChannels
                     .Select(color => new KeyValuePair<ColorChannel, VertexArray>(
                         color,
                         CreateGradient(
                             sizeX, 
-                            sizeY, 
-                            // new[] { SourceChannel.X, SourceChannel.Y }.Any(c => c == colorChannelMap[color].Source) ? colorChannelMap[color] : null, 
+                            sizeY,
                             colorChannelMap[color],
                             ymap.Any(ym => ym.Color == color))))
                     .ToDictionary(kv => kv.Key, kv => kv.Value);
@@ -309,20 +287,15 @@ namespace vgarender
 
                 shader.SetUniform(suTexture, Shader.CurrentTexture);
 
-                shader.SetUniform("windowSize", new Vec2(window.Size.X, window.Size.Y));
+                shader.SetUniform(suWindowSize, new Vec2(window.Size.X, window.Size.Y));
 
                 window.Resized += (o, e) =>
                 {
-                    shader.SetUniform("windowSize", new Vec2(e.Width, e.Height));
+                    shader.SetUniform(suWindowSize, new Vec2(e.Width, e.Height));
                 };
 
                 shader.SetUniform(suGrayThreshBlack, OutputSettings.ImageColorSettings.GrayThresholdBlack);
                 shader.SetUniform(suGrayThreshWhite, OutputSettings.ImageColorSettings.GrayThresholdWhite);
-
-                // // shader.SetUniform(suOneBitEncodingMode, (int)OutputSettings.ImageColorSettings.OneBitSettings.Mode);
-                // shader.SetUniform(suOneBitEncodingMode, greenmap.OneBitColor
-                //     ? (int)OutputSettings.ImageColorSettings.OneBitSettings.Mode
-                //     : 0);
 
                 shader.SetUniform(suOneBitTop, OutputSettings.ImageColorSettings.OneBitSettings.BlankingTop);
                 shader.SetUniform(suOneBitBottom, OutputSettings.ImageColorSettings.OneBitSettings.BlankingBottom);
@@ -348,23 +321,6 @@ namespace vgarender
                     OutputSettings.ImageColorSettings.GrayscaleRatios[0],
                     OutputSettings.ImageColorSettings.GrayscaleRatios[1],
                     OutputSettings.ImageColorSettings.GrayscaleRatios[2]));
-
-                // shader.SetUniform(suActiveChannels, new Vec3(
-                //     redmap  .Source == SourceChannel.Gray || redmap  .OneBitColor ? 1 : 0,
-                //     greenmap.Source == SourceChannel.Gray || greenmap.OneBitColor ? 1 : 0,
-                //     bluemap .Source == SourceChannel.Gray || bluemap .OneBitColor ? 1 : 0));
-
-                // shader.SetUniform(suActiveChannel, 1);
-
-                // shader.SetUniform(suInvertChannels, new Vec3(
-                //     redmap  .Invert ? 1 : 0,
-                //     greenmap.Invert ? 1 : 0,
-                //     bluemap .Invert ? 1 : 0));
-
-
-                // shader.SetUniform(suInvertChannel, greenmap.Invert ? 1 : 0);
-                // 
-                // shader.SetUniform("grayChannel", greenmap.Source == SourceChannel.Gray);
 
 
                 shader.SetUniform(suGamma, OutputSettings.ImageColorSettings.Gamma);
@@ -399,13 +355,6 @@ namespace vgarender
                 var frameSprite = new Sprite(frames[0]);
 
 
-
-                // var renderTextures = colorChannels
-                //     .Select(c => (color: c, texture: new RenderTexture(window.Size.X, window.Size.Y)))
-                //     .ToDictionary(t => t.color, t => t.texture);
-
-                // var renderSprite = new Sprite();
-
                 #endregion drawing vars
 
                 #region drawing loop
@@ -416,7 +365,6 @@ namespace vgarender
                 {
                     window.DispatchEvents();
 
-                    // window.Clear(bgcolor);
                     window.Clear(Color.Black);
 
 
@@ -433,47 +381,6 @@ namespace vgarender
                             (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift)));
 
                     #endregion update shader uniform
-
-                    #region old
-                    // #region draw animation frame
-                    // 
-                    // frameSprite.Texture = frames[animationFrame];
-                    // 
-                    // //var blend = new BlendMode(BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Add);
-                    // //var state = new RenderStates() { Transform = Transform.Identity, Shader = shader, BlendMode = blend };
-                    // var state = new RenderStates() { Transform = Transform.Identity, Shader = shader, BlendMode = BlendMode.Alpha };
-                    // 
-                    // if (OutputSettings.SwapXY)
-                    // {
-                    //     frameSprite.Origin = new Vector2f(0, frameSprite.TextureRect.Height);
-                    //     frameSprite.Rotation = 90;
-                    //     frameSprite.Scale = new Vector2f(
-                    //         window.Size.Y / (float)frameSprite.TextureRect.Width,
-                    //         window.Size.X / (float)frameSprite.TextureRect.Height);
-                    // }
-                    // else
-                    // {
-                    //     frameSprite.Scale = new Vector2f(
-                    //     window.Size.X / (float)frameSprite.TextureRect.Width,
-                    //     window.Size.Y / (float)frameSprite.TextureRect.Height);
-                    // }
-                    // 
-                    // window.Draw(frameSprite, state);
-                    // 
-                    // #endregion draw animation frame
-                    // 
-                    // 
-                    // #region draw gradients
-                    // 
-                    // var gradientBlend = new BlendMode(BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Add);
-                    // var gradientStrategy = new RenderStates(gradientBlend);
-                    // 
-                    // window.Draw(gradientx, gradientStrategy);
-                    // 
-                    // window.Draw(gradienty, gradientStrategy);
-                    // 
-                    // #endregion
-                    #endregion old
 
                     #region draw animation frame
 
@@ -495,19 +402,12 @@ namespace vgarender
                     }
 
 
-                    // renderSprite.Scale = new Vector2f(
-                    // window.Size.X / (float)frameSprite.TextureRect.Width,
-                    // window.Size.Y / (float)frameSprite.TextureRect.Height);
-
-                    // renderSprite.Scale = new Vector2f(1, 1);
-
                     foreach (var color in colorChannels)
                     {
                         var colorMap = colorChannelMap[color];
 
                         var renderSprite = new Sprite();
 
-                        // var rt = renderTextures[color];
                         var rt = new RenderTexture(window.Size.X, window.Size.Y);
                         rt.Smooth = !OutputSettings.DisableAntialiasing;
 
@@ -517,7 +417,6 @@ namespace vgarender
                         var gradientBlend = new BlendMode(BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Add);
                         var gradientStage = new RenderStates(gradientBlend);
 
-                        // window.Draw(gradientMap[color], gradientStage);
                         rt.Draw(gradientMap[color], gradientStage);
 
                         if (colorMap.OneBitColor || colorMap.Source == SourceChannel.Gray)
@@ -532,18 +431,13 @@ namespace vgarender
 
                             shader.SetUniform(suInvertChannel, colorMap.Invert ? 1 : 0);
 
-                            // shader.SetUniform(suGrayChannel, colorMap.Source == SourceChannel.Gray);
 
-
-                            //var blend = new BlendMode(BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Add);
-                            //var state = new RenderStates() { Transform = Transform.Identity, Shader = shader, BlendMode = blend };
                             var state = new RenderStates() { 
                                 Transform = Transform.Identity, 
                                 Shader = shader, 
                                 BlendMode = oneBitMode == OneBitMode.None ? BlendMode.Add : BlendMode.Alpha
                             };
 
-                            // window.Draw(frameSprite, state);
                             rt.Draw(frameSprite, state);
                         }
 
@@ -610,11 +504,6 @@ namespace vgarender
                 frames.ForEach(t => t.Dispose());
                 frames.Clear();
 
-                // gradientx.Clear();
-                // gradientx.Dispose();
-                // 
-                // gradienty.Clear();
-                // gradienty.Dispose();
 
                 foreach (var kv in gradientMap)
                 {

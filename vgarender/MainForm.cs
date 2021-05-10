@@ -85,13 +85,6 @@ namespace vgarender
             channelMapGreenCb.SelectedIndex = 2;
             channelMapBlueCb.SelectedIndex = 1;
 
-
-            // imageColorZCb.Items.Clear();
-            // imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Red));
-            // imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Green));
-            // imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Blue));
-            // imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Grayscale, "Grayscale from all channels"));
-            // imageColorZCb.SelectedIndex = 3;
         }
 
         private void LoadSettings()
@@ -335,9 +328,5 @@ namespace vgarender
             animationFpsUd.Maximum = refreshrateud.Maximum;
         }
 
-        private void sourceGb_Enter(object sender, EventArgs e)
-        {
-
-        }
     }
 }

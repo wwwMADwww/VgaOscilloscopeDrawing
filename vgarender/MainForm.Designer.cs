@@ -373,7 +373,6 @@
             this.sourceGb.TabIndex = 0;
             this.sourceGb.TabStop = false;
             this.sourceGb.Text = "Source images";
-            this.sourceGb.Enter += new System.EventHandler(this.sourceGb_Enter);
             // 
             // label3
             // 
