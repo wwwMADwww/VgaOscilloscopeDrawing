@@ -14,6 +14,9 @@ namespace vgarender
 
         DrawWindow _drawWindow = new DrawWindow();
 
+        List<(RadioButton rb, OneBitMode mode)> _oneBitModeMap;
+
+        List<(RadioButton rb, OneBitSwapMode swapMode)> _oneBitSwapModeMap;
 
         class ComboBoxItem<T>
         {
@@ -61,12 +64,12 @@ namespace vgarender
 
         private void FillLists()
         {
-            var channels = new ComboBoxItem<AxisChannel>[] {
-                new ComboBoxItem<AxisChannel>(AxisChannel.X),
-                new ComboBoxItem<AxisChannel>(AxisChannel.Y),
-                new ComboBoxItem<AxisChannel>(AxisChannel.Z),
-                new ComboBoxItem<AxisChannel>(AxisChannel.Min),
-                new ComboBoxItem<AxisChannel>(AxisChannel.Max)
+            var channels = new ComboBoxItem<SourceChannel>[] {
+                new ComboBoxItem<SourceChannel>(SourceChannel.X),
+                new ComboBoxItem<SourceChannel>(SourceChannel.Y),
+                new ComboBoxItem<SourceChannel>(SourceChannel.Gray),
+                new ComboBoxItem<SourceChannel>(SourceChannel.Max),
+                new ComboBoxItem<SourceChannel>(SourceChannel.Min)
             };
 
             channelMapRedCb.Items.Clear();
@@ -83,12 +86,12 @@ namespace vgarender
             channelMapBlueCb.SelectedIndex = 1;
 
 
-            imageColorZCb.Items.Clear();
-            imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Red));
-            imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Green));
-            imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Blue));
-            imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Grayscale, "Grayscale from all channels"));
-            imageColorZCb.SelectedIndex = 3;
+            // imageColorZCb.Items.Clear();
+            // imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Red));
+            // imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Green));
+            // imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Blue));
+            // imageColorZCb.Items.Add(new ComboBoxItem<ChannelZSourceChannel>(ChannelZSourceChannel.Grayscale, "Grayscale from all channels"));
+            // imageColorZCb.SelectedIndex = 3;
         }
 
         private void LoadSettings()
@@ -108,6 +111,18 @@ namespace vgarender
 
         private void MainForm_Load(object sender, EventArgs eventArgs)
         {
+            _oneBitModeMap = new List<(RadioButton rb, OneBitMode mode)>() {
+                ( oneBitMethodRandomRb, OneBitMode.RandomNoise ),
+                ( oneBitMethodOrderedRb, OneBitMode.OrderedDithering ),
+                ( oneBitMethodPwmRb, OneBitMode.Pwm ),
+            };
+
+            _oneBitSwapModeMap = new List<(RadioButton rb, OneBitSwapMode swapMode)>() {
+                ( blankSwapAfterRb, OneBitSwapMode.AfterPosition ),
+                ( blankSwapEveryRb, OneBitSwapMode.EveryNPixels ),
+                ( blankSwapRandomRb, OneBitSwapMode.Random )
+            };
+
             FillLists();
 
             UpdateScreenList();
@@ -167,15 +182,70 @@ namespace vgarender
             _drawWindow.Stop();
 
 
-            var renderSettings = new RenderSettings()
+            var outputSettings = new OutputSettings()
             {
-                ChannelZSourceChannel = ((ComboBoxItem<ChannelZSourceChannel>)imageColorZCb.SelectedItem).Value,
                 SwapXY = swapxyChb.Checked,
-                ChannelMap = new[] 
+                DisableAntialiasing = disableAntialiasingChb.Checked,
+                RefreshRate = (int)refreshrateud.Value,
+                AnimationFrameRate = (int)animationFpsUd.Value,
+
+                ChannelMap = new[]
                 {
-                    new ColorAxisMapInfo(((ComboBoxItem<AxisChannel>)channelMapRedCb.SelectedItem).Value  , ColorChannel.Red  , vgachannelinvertRedChb.Checked  ),
-                    new ColorAxisMapInfo(((ComboBoxItem<AxisChannel>)channelMapGreenCb.SelectedItem).Value, ColorChannel.Green, vgachannelinvertGreenChb.Checked),
-                    new ColorAxisMapInfo(((ComboBoxItem<AxisChannel>)channelMapBlueCb.SelectedItem).Value , ColorChannel.Blue , vgachannelinvertBlueChb.Checked )
+                    new ChannelsMapInfo() {
+                        Source = ((ComboBoxItem<SourceChannel>)channelMapRedCb.SelectedItem).Value,
+                        Color = ColorChannel.Red,
+                        Invert = vgachannelinvertRedChb.Checked,
+                        OneBitColor = vgachannel1BitRedChb.Checked
+                    },
+                    new ChannelsMapInfo() {
+                        Source = ((ComboBoxItem<SourceChannel>)channelMapGreenCb.SelectedItem).Value,
+                        Color = ColorChannel.Green,
+                        Invert = vgachannelinvertGreenChb.Checked,
+                        OneBitColor = vgachannel1BitGreenChb.Checked
+                    },
+                    new ChannelsMapInfo() {
+                        Source = ((ComboBoxItem<SourceChannel>)channelMapBlueCb.SelectedItem).Value,
+                        Color = ColorChannel.Blue,
+                        Invert = vgachannelinvertBlueChb.Checked,
+                        OneBitColor = vgachannel1BitBlueChb.Checked
+                    }
+                },
+
+                Bounds = new RectangleF(
+                    (float) outputBoundsLeftUd.Value,
+                    (float) outputBoundsTopUd.Value,
+                    (float) (outputBoundsRightUd.Value - outputBoundsLeftUd.Value),
+                    (float) (outputBoundsBottomUd.Value - outputBoundsTopUd.Value)),
+                
+                ImageColorSettings = new ImageColorSettings()
+                { 
+                    Gamma = (float) gammaUd.Value,
+                    GrayscaleRatios = new float[] { (float)grayscaleRedUd.Value, (float)grayscaleGreenUd.Value, (float)grayscaleBlueUd.Value, },
+                    GrayThresholdBlack = (float)toneThreshBlackUd.Value,
+                    GrayThresholdWhite = (float)toneThreshWhiteUd.Value,
+                    OneBitSettings = new OneBitSettings()
+                    { 
+                        Mode = _oneBitModeMap.First(p => p.rb.Checked).mode,
+
+                        BlankingBottom = (float) blankValueBottomUd.Value,
+                        BlankingTop = (float) blankValueTopUd.Value,
+                        
+                        OrderedDitherSettings = new OrderedDitherSettings()
+                        { 
+                            MatrixSize = (int) ditherOrderedMatrixUd.Value,
+                            RefreshesPerShift = (float) ditherOrderedShiftFrameUd.Value,
+                            ShiftX = (float) ditherOrderedShiftXUd.Value,
+                            ShiftY = (float) ditherOrderedShiftYUd.Value
+                        },
+
+                        SwapMode = _oneBitSwapModeMap.First(p => p.rb.Checked).swapMode,
+
+                        SwapAfterX = (float) blankSwapAfterXUd.Value,
+                        SwapAfterY = (float) blankSwapAfterYUd.Value,
+
+                        SwapEveryX = (float) blankSwapEveryXUd.Value,
+                        SwapEveryY = (float) blankSwapEveryYUd.Value,
+                    }
                 }
             };
 
@@ -186,13 +256,9 @@ namespace vgarender
                 files = Directory.GetFiles(Path.GetDirectoryName(framesdirpathed.Text)).ToList();
 
             _drawWindow.Screen = ((ComboBoxItem<Screen>)monitorListCb.SelectedItem).Value;
-            _drawWindow.DisableAntialiasing = disableAntialiasingChb.Checked;
             _drawWindow.Fullscreen = drawWinFullscreenChb.Checked;
-
-
             _drawWindow.Files = files;
-            _drawWindow.RefreshRate = (int)refreshrateud.Value;
-            _drawWindow.RenderSettings = renderSettings;
+            _drawWindow.OutputSettings = outputSettings;
 
             _drawWindow.Run();
 
@@ -240,10 +306,10 @@ namespace vgarender
         {
             new[] { channelMapRedCb, channelMapGreenCb, channelMapBlueCb }.Select(cb =>
             {
-                if (((ComboBoxItem<AxisChannel>)cb.SelectedItem).Value == AxisChannel.X)
-                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<AxisChannel>>().First(i => i.Value == AxisChannel.Y);
-                else  if (((ComboBoxItem<AxisChannel>)cb.SelectedItem).Value == AxisChannel.Y)
-                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<AxisChannel>>().First(i => i.Value == AxisChannel.X);
+                if (((ComboBoxItem<SourceChannel>)cb.SelectedItem).Value == SourceChannel.X)
+                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<SourceChannel>>().First(i => i.Value == SourceChannel.Y);
+                else  if (((ComboBoxItem<SourceChannel>)cb.SelectedItem).Value == SourceChannel.Y)
+                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<SourceChannel>>().First(i => i.Value == SourceChannel.X);
 
                 return true;
             }).ToArray();
@@ -262,6 +328,16 @@ namespace vgarender
         private void mainWinTopmostChb_CheckedChanged(object sender, EventArgs e)
         {
             this.TopMost = mainWinTopmostChb.Checked;
+        }
+
+        private void refreshrateud_ValueChanged(object sender, EventArgs e)
+        {
+            animationFpsUd.Maximum = refreshrateud.Maximum;
+        }
+
+        private void sourceGb_Enter(object sender, EventArgs e)
+        {
+
         }
     }
 }
