@@ -35,7 +35,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.mapGb = new System.Windows.Forms.GroupBox();
-            this.vgachannelClearAllB = new System.Windows.Forms.Button();
             this.vgachannel1BitBlueChb = new System.Windows.Forms.CheckBox();
             this.vgachannel1BitGreenChb = new System.Windows.Forms.CheckBox();
             this.vgachannel1BitRedChb = new System.Windows.Forms.CheckBox();
@@ -57,7 +56,6 @@
             this.pathDirRb = new System.Windows.Forms.RadioButton();
             this.swapxyChb = new System.Windows.Forms.CheckBox();
             this.outputGb = new System.Windows.Forms.GroupBox();
-            this.outputOrigArB = new System.Windows.Forms.Button();
             this.outputBoundsBottomUd = new System.Windows.Forms.NumericUpDown();
             this.outputBoundsRightUd = new System.Windows.Forms.NumericUpDown();
             this.outputBoundsLeftUd = new System.Windows.Forms.NumericUpDown();
@@ -161,7 +159,7 @@
             // 
             // startB
             // 
-            this.startB.Location = new System.Drawing.Point(564, 44);
+            this.startB.Location = new System.Drawing.Point(567, 44);
             this.startB.Name = "startB";
             this.startB.Size = new System.Drawing.Size(75, 23);
             this.startB.TabIndex = 8;
@@ -171,7 +169,7 @@
             // 
             // stopB
             // 
-            this.stopB.Location = new System.Drawing.Point(483, 44);
+            this.stopB.Location = new System.Drawing.Point(486, 44);
             this.stopB.Name = "stopB";
             this.stopB.Size = new System.Drawing.Size(75, 23);
             this.stopB.TabIndex = 7;
@@ -193,7 +191,6 @@
             // 
             // mapGb
             // 
-            this.mapGb.Controls.Add(this.vgachannelClearAllB);
             this.mapGb.Controls.Add(this.vgachannel1BitBlueChb);
             this.mapGb.Controls.Add(this.vgachannel1BitGreenChb);
             this.mapGb.Controls.Add(this.vgachannel1BitRedChb);
@@ -213,15 +210,6 @@
             this.mapGb.TabIndex = 1;
             this.mapGb.TabStop = false;
             this.mapGb.Text = "VGA channel mapping";
-            // 
-            // vgachannelClearAllB
-            // 
-            this.vgachannelClearAllB.Location = new System.Drawing.Point(241, 83);
-            this.vgachannelClearAllB.Name = "vgachannelClearAllB";
-            this.vgachannelClearAllB.Size = new System.Drawing.Size(71, 23);
-            this.vgachannelClearAllB.TabIndex = 23;
-            this.vgachannelClearAllB.Text = "Clear all";
-            this.vgachannelClearAllB.UseVisualStyleBackColor = true;
             // 
             // vgachannel1BitBlueChb
             // 
@@ -435,7 +423,6 @@
             // 
             // outputGb
             // 
-            this.outputGb.Controls.Add(this.outputOrigArB);
             this.outputGb.Controls.Add(this.outputBoundsBottomUd);
             this.outputGb.Controls.Add(this.outputBoundsRightUd);
             this.outputGb.Controls.Add(this.outputBoundsLeftUd);
@@ -459,15 +446,6 @@
             this.outputGb.TabStop = false;
             this.outputGb.Text = "Output";
             // 
-            // outputOrigArB
-            // 
-            this.outputOrigArB.Location = new System.Drawing.Point(198, 187);
-            this.outputOrigArB.Name = "outputOrigArB";
-            this.outputOrigArB.Size = new System.Drawing.Size(114, 23);
-            this.outputOrigArB.TabIndex = 56;
-            this.outputOrigArB.Text = "Original aspect ratio";
-            this.outputOrigArB.UseVisualStyleBackColor = true;
-            // 
             // outputBoundsBottomUd
             // 
             this.outputBoundsBottomUd.DecimalPlaces = 4;
@@ -475,7 +453,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.outputBoundsBottomUd.Location = new System.Drawing.Point(51, 190);
             this.outputBoundsBottomUd.Maximum = new decimal(new int[] {
             1,
@@ -498,7 +476,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.outputBoundsRightUd.Location = new System.Drawing.Point(84, 164);
             this.outputBoundsRightUd.Maximum = new decimal(new int[] {
             1,
@@ -521,7 +499,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.outputBoundsLeftUd.Location = new System.Drawing.Point(9, 164);
             this.outputBoundsLeftUd.Maximum = new decimal(new int[] {
             1,
@@ -540,6 +518,7 @@
             this.outputBoundsResetB.TabIndex = 52;
             this.outputBoundsResetB.Text = "Reset";
             this.outputBoundsResetB.UseVisualStyleBackColor = true;
+            this.outputBoundsResetB.Click += new System.EventHandler(this.outputBoundsResetB_Click);
             // 
             // outputBoundsTopUd
             // 
@@ -548,7 +527,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.outputBoundsTopUd.Location = new System.Drawing.Point(51, 138);
             this.outputBoundsTopUd.Maximum = new decimal(new int[] {
             1,
@@ -974,7 +953,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.toneThreshWhiteUd.Location = new System.Drawing.Point(253, 98);
             this.toneThreshWhiteUd.Maximum = new decimal(new int[] {
             1,
@@ -1006,7 +985,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.toneThreshBlackUd.Location = new System.Drawing.Point(156, 98);
             this.toneThreshBlackUd.Maximum = new decimal(new int[] {
             1,
@@ -1065,7 +1044,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.gammaUd.Location = new System.Drawing.Point(58, 71);
             this.gammaUd.Maximum = new decimal(new int[] {
             10,
@@ -1111,7 +1090,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.grayscaleBlueUd.Location = new System.Drawing.Point(253, 45);
             this.grayscaleBlueUd.Maximum = new decimal(new int[] {
             1,
@@ -1139,7 +1118,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.grayscaleGreenUd.Location = new System.Drawing.Point(156, 45);
             this.grayscaleGreenUd.Maximum = new decimal(new int[] {
             1,
@@ -1167,7 +1146,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.grayscaleRedUd.Location = new System.Drawing.Point(58, 45);
             this.grayscaleRedUd.Maximum = new decimal(new int[] {
             1,
@@ -1300,7 +1279,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.blankSwapAfterYUd.Location = new System.Drawing.Point(253, 73);
             this.blankSwapAfterYUd.Maximum = new decimal(new int[] {
             1,
@@ -1345,7 +1324,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.blankSwapAfterXUd.Location = new System.Drawing.Point(156, 73);
             this.blankSwapAfterXUd.Maximum = new decimal(new int[] {
             1,
@@ -1381,7 +1360,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.blankValueTopUd.Location = new System.Drawing.Point(253, 19);
             this.blankValueTopUd.Maximum = new decimal(new int[] {
             1,
@@ -1413,7 +1392,7 @@
             1,
             0,
             0,
-            65536});
+            131072});
             this.blankValueBottomUd.Location = new System.Drawing.Point(156, 19);
             this.blankValueBottomUd.Maximum = new decimal(new int[] {
             1,
@@ -1589,7 +1568,6 @@
         private System.Windows.Forms.NumericUpDown blankSwapAfterXUd;
         private System.Windows.Forms.CheckBox vgachannel1BitGreenChb;
         private System.Windows.Forms.CheckBox vgachannel1BitRedChb;
-        private System.Windows.Forms.Button vgachannelClearAllB;
         private System.Windows.Forms.CheckBox vgachannel1BitBlueChb;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.NumericUpDown ditherOrderedMatrixUd;
@@ -1608,6 +1586,5 @@
         private System.Windows.Forms.NumericUpDown blankSwapEveryYUd;
         private System.Windows.Forms.NumericUpDown blankSwapEveryXUd;
         private System.Windows.Forms.RadioButton blankSwapEveryRb;
-        private System.Windows.Forms.Button outputOrigArB;
     }
 }

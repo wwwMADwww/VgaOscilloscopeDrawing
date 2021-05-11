@@ -328,5 +328,12 @@ namespace vgarender
             animationFpsUd.Maximum = refreshrateud.Maximum;
         }
 
+        private void outputBoundsResetB_Click(object sender, EventArgs e)
+        {
+            outputBoundsLeftUd.Value = 0;
+            outputBoundsRightUd.Value = 1;
+            outputBoundsTopUd.Value = 0;
+            outputBoundsBottomUd.Value = 1;
+        }
     }
 }

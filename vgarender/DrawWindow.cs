@@ -134,6 +134,8 @@ namespace vgarender
         CancellationToken _drawingCancelToken;
 
 
+        Vector2i _windowPos  = new Vector2i(0, 0);
+        Vector2u _windowSize = new Vector2u(800, 600);
 
         #region props
 
@@ -228,6 +230,8 @@ namespace vgarender
                 else
                 {
                     window = new RenderWindow(new VideoMode(800, 600), "VGA Oscilloscope drawing", Styles.Default);
+                    window.Position = _windowPos;
+                    window.Size = _windowSize;
                 }
 
                 window.KeyReleased += (o, e) =>
@@ -235,6 +239,7 @@ namespace vgarender
                     if (e.Code == Keyboard.Key.Escape)
                         window.Close();
                 };
+
                 window.Closed += (_, __) =>
                 {
                     window.Close();
@@ -259,21 +264,29 @@ namespace vgarender
 
                 #region gradients
 
-                Dictionary<ColorChannel, VertexArray> createRgbGradients(uint sizeX, uint sizeY) => colorChannels
+                // Func allows to edit during debugging
+                // Dictionary<ColorChannel, VertexArray> createRgbGradients(uint sizeX, uint sizeY) => colorChannels
+                Func<Vector2f, Vector2f, Dictionary<ColorChannel, VertexArray>> createRgbGradients = (pos, size) => colorChannels
                     .Select(color => new KeyValuePair<ColorChannel, VertexArray>(
-                        color,
-                        CreateGradient(
-                            sizeX, 
-                            sizeY,
-                            colorChannelMap[color],
-                            ymap.Any(ym => ym.Color == color))))
+                            color,
+                            CreateGradient(
+                                pos,
+                                size,
+                                colorChannelMap[color],
+                                ymap.Any(ym => ym.Color == color))))
                     .ToDictionary(kv => kv.Key, kv => kv.Value);
 
-                var gradientMap = createRgbGradients(window.Size.X, window.Size.Y);
+                var gradientMap = createRgbGradients(
+                    new Vector2f(window.Size.X * OutputSettings.Bounds.X    , window.Size.Y * OutputSettings.Bounds.Y),
+                    new Vector2f(window.Size.X * OutputSettings.Bounds.Width, window.Size.Y * OutputSettings.Bounds.Height)
+                    );
 
                 window.Resized += (o, e) =>
                 {
-                    gradientMap = createRgbGradients(e.Width, e.Height);
+                    gradientMap = createRgbGradients(
+                        new Vector2f(e.Width * OutputSettings.Bounds.X    , e.Height * OutputSettings.Bounds.Y),
+                        new Vector2f(e.Width * OutputSettings.Bounds.Width, e.Height * OutputSettings.Bounds.Height)
+                        );
                 };
 
                 #endregion gradients
@@ -388,17 +401,23 @@ namespace vgarender
 
                     if (OutputSettings.SwapXY)
                     {
+                        frameSprite.Position = new Vector2f(
+                            (float)window.Size.X * OutputSettings.Bounds.X,
+                            (float)window.Size.Y * OutputSettings.Bounds.Y);
                         frameSprite.Origin = new Vector2f(0, frameSprite.TextureRect.Height);
                         frameSprite.Rotation = 90;
                         frameSprite.Scale = new Vector2f(
-                            window.Size.Y / (float)frameSprite.TextureRect.Width,
-                            window.Size.X / (float)frameSprite.TextureRect.Height);
+                            (window.Size.Y / (float)frameSprite.TextureRect.Width) * OutputSettings.Bounds.Height,
+                            (window.Size.X / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Width);
                     }
                     else
                     {
+                        frameSprite.Position = new Vector2f(
+                            (float) window.Size.X * OutputSettings.Bounds.X,
+                            (float) window.Size.Y * OutputSettings.Bounds.Y);
                         frameSprite.Scale = new Vector2f(
-                        window.Size.X / (float)frameSprite.TextureRect.Width,
-                        window.Size.Y / (float)frameSprite.TextureRect.Height);
+                        (window.Size.X / (float)frameSprite.TextureRect.Width) * OutputSettings.Bounds.Width,
+                        (window.Size.Y / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Height);
                     }
 
 
@@ -409,7 +428,7 @@ namespace vgarender
                         var renderSprite = new Sprite();
 
                         var rt = new RenderTexture(window.Size.X, window.Size.Y);
-                        rt.Smooth = !OutputSettings.DisableAntialiasing;
+                        rt.Smooth = false; // !OutputSettings.DisableAntialiasing;
 
                         rt.Clear(Color.Black);
 
@@ -490,6 +509,13 @@ namespace vgarender
                 }
 
                 #endregion drawing loop
+
+
+                if (!Fullscreen)
+                {
+                    _windowSize = window.Size;
+                    _windowPos = window.Position;
+                }
 
                 #region cleanup
 
@@ -627,7 +653,7 @@ namespace vgarender
         }
 
 
-        VertexArray CreateGradient(uint width, uint height, ChannelsMapInfo mapinfo, bool vertical)
+        VertexArray CreateGradient(Vector2f pos, Vector2f size, ChannelsMapInfo mapinfo, bool vertical)
         {
             if (mapinfo == null || mapinfo.Source == SourceChannel.Gray)
                 return new VertexArray(PrimitiveType.Quads, 4);
@@ -659,10 +685,10 @@ namespace vgarender
             }
 
             var res = new VertexArray(PrimitiveType.Quads, 4);
-            res.Append(new Vertex(new Vector2f(    0,      0), colors[0]));
-            res.Append(new Vertex(new Vector2f(width,      0), colors[1]));
-            res.Append(new Vertex(new Vector2f(width, height), colors[2]));
-            res.Append(new Vertex(new Vector2f(    0, height), colors[3]));
+            res.Append(new Vertex(new Vector2f(pos.X         , pos.Y         ), colors[0]));
+            res.Append(new Vertex(new Vector2f(pos.X + size.X, pos.Y         ), colors[1]));
+            res.Append(new Vertex(new Vector2f(pos.X + size.X, pos.Y + size.Y), colors[2]));
+            res.Append(new Vertex(new Vector2f(pos.X         , pos.Y + size.Y), colors[3]));
 
             return res;
         }
