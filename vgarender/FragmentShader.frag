@@ -5,12 +5,12 @@ uniform sampler2D texture;
 uniform vec2 windowSize;
 
 uniform int activeChannel;
-uniform int invertChannel;
 
 uniform vec3  grayColorRatio;
 uniform float grayThreshBlack;
 uniform float grayThreshWhite;
 uniform float gamma;
+uniform int   colorInvert;
 
 uniform int   oneBitEncodingMode;
 uniform float oneBitTop;
@@ -127,7 +127,7 @@ void main()
         pixelColor.g * grayColorRatio.g + 
         pixelColor.b * grayColorRatio.b;
 
-    if (invertChannel == 1)
+    if (colorInvert == 1)
         gray = 1.0 - gray;
 
     gray = gammaCorrect(gray, gamma);

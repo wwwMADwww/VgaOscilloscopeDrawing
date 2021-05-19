@@ -41,11 +41,8 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.vgachannelinvertRedChb = new System.Windows.Forms.CheckBox();
             this.channelMapRedCb = new System.Windows.Forms.ComboBox();
-            this.vgachannelinvertGreenChb = new System.Windows.Forms.CheckBox();
             this.channelMapGreenCb = new System.Windows.Forms.ComboBox();
-            this.vgachannelinvertBlueChb = new System.Windows.Forms.CheckBox();
             this.channelMapBlueCb = new System.Windows.Forms.ComboBox();
             this.swapxyB = new System.Windows.Forms.Button();
             this.sourceGb = new System.Windows.Forms.GroupBox();
@@ -71,7 +68,7 @@
             this.monitorListCb = new System.Windows.Forms.ComboBox();
             this.refreshMonitoListB = new System.Windows.Forms.Button();
             this.refreshrateud = new System.Windows.Forms.NumericUpDown();
-            this.disableAntialiasingChb = new System.Windows.Forms.CheckBox();
+            this.enableAntialiasingChb = new System.Windows.Forms.CheckBox();
             this.fpslabel = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.currentmonitorlabel = new System.Windows.Forms.Label();
@@ -92,6 +89,7 @@
             this.oneBitMethodOrderedRb = new System.Windows.Forms.RadioButton();
             this.oneBitMethodRandomRb = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.colorInvertChb = new System.Windows.Forms.CheckBox();
             this.label18 = new System.Windows.Forms.Label();
             this.toneThreshWhiteUd = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
@@ -126,6 +124,24 @@
             this.blankValueBottomUd = new System.Windows.Forms.NumericUpDown();
             this.label26 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.coordRangeYInvertB = new System.Windows.Forms.Button();
+            this.coordRangeXInvertB = new System.Windows.Forms.Button();
+            this.label38 = new System.Windows.Forms.Label();
+            this.coordRangeCMaxUd = new System.Windows.Forms.NumericUpDown();
+            this.label39 = new System.Windows.Forms.Label();
+            this.coordRangeCMinUd = new System.Windows.Forms.NumericUpDown();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.coordRangeYMaxUd = new System.Windows.Forms.NumericUpDown();
+            this.label36 = new System.Windows.Forms.Label();
+            this.coordRangeYMinUd = new System.Windows.Forms.NumericUpDown();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.coordRangeXMaxUd = new System.Windows.Forms.NumericUpDown();
+            this.label33 = new System.Windows.Forms.Label();
+            this.coordRangeXMinUd = new System.Windows.Forms.NumericUpDown();
+            this.label32 = new System.Windows.Forms.Label();
             this.mapGb.SuspendLayout();
             this.sourceGb.SuspendLayout();
             this.outputGb.SuspendLayout();
@@ -155,11 +171,18 @@
             ((System.ComponentModel.ISupportInitialize)(this.blankValueTopUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueBottomUd)).BeginInit();
             this.groupBox4.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeCMaxUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeCMinUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMaxUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMinUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMaxUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMinUd)).BeginInit();
             this.SuspendLayout();
             // 
             // startB
             // 
-            this.startB.Location = new System.Drawing.Point(567, 44);
+            this.startB.Location = new System.Drawing.Point(564, 35);
             this.startB.Name = "startB";
             this.startB.Size = new System.Drawing.Size(75, 23);
             this.startB.TabIndex = 8;
@@ -169,7 +192,7 @@
             // 
             // stopB
             // 
-            this.stopB.Location = new System.Drawing.Point(486, 44);
+            this.stopB.Location = new System.Drawing.Point(483, 35);
             this.stopB.Name = "stopB";
             this.stopB.Size = new System.Drawing.Size(75, 23);
             this.stopB.TabIndex = 7;
@@ -197,16 +220,13 @@
             this.mapGb.Controls.Add(this.label8);
             this.mapGb.Controls.Add(this.label7);
             this.mapGb.Controls.Add(this.label6);
-            this.mapGb.Controls.Add(this.vgachannelinvertRedChb);
             this.mapGb.Controls.Add(this.channelMapRedCb);
-            this.mapGb.Controls.Add(this.vgachannelinvertGreenChb);
             this.mapGb.Controls.Add(this.channelMapGreenCb);
-            this.mapGb.Controls.Add(this.vgachannelinvertBlueChb);
             this.mapGb.Controls.Add(this.channelMapBlueCb);
             this.mapGb.Controls.Add(this.swapxyB);
             this.mapGb.Location = new System.Drawing.Point(12, 106);
             this.mapGb.Name = "mapGb";
-            this.mapGb.Size = new System.Drawing.Size(321, 112);
+            this.mapGb.Size = new System.Drawing.Size(321, 88);
             this.mapGb.TabIndex = 1;
             this.mapGb.TabStop = false;
             this.mapGb.Text = "VGA channel mapping";
@@ -214,7 +234,7 @@
             // vgachannel1BitBlueChb
             // 
             this.vgachannel1BitBlueChb.AutoSize = true;
-            this.vgachannel1BitBlueChb.Location = new System.Drawing.Point(164, 89);
+            this.vgachannel1BitBlueChb.Location = new System.Drawing.Point(164, 66);
             this.vgachannel1BitBlueChb.Name = "vgachannel1BitBlueChb";
             this.vgachannel1BitBlueChb.Size = new System.Drawing.Size(72, 17);
             this.vgachannel1BitBlueChb.TabIndex = 22;
@@ -224,7 +244,7 @@
             // vgachannel1BitGreenChb
             // 
             this.vgachannel1BitGreenChb.AutoSize = true;
-            this.vgachannel1BitGreenChb.Location = new System.Drawing.Point(84, 89);
+            this.vgachannel1BitGreenChb.Location = new System.Drawing.Point(84, 66);
             this.vgachannel1BitGreenChb.Name = "vgachannel1BitGreenChb";
             this.vgachannel1BitGreenChb.Size = new System.Drawing.Size(72, 17);
             this.vgachannel1BitGreenChb.TabIndex = 21;
@@ -234,7 +254,7 @@
             // vgachannel1BitRedChb
             // 
             this.vgachannel1BitRedChb.AutoSize = true;
-            this.vgachannel1BitRedChb.Location = new System.Drawing.Point(6, 89);
+            this.vgachannel1BitRedChb.Location = new System.Drawing.Point(6, 66);
             this.vgachannel1BitRedChb.Name = "vgachannel1BitRedChb";
             this.vgachannel1BitRedChb.Size = new System.Drawing.Size(72, 17);
             this.vgachannel1BitRedChb.TabIndex = 20;
@@ -268,16 +288,6 @@
             this.label6.Text = "Red";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // vgachannelinvertRedChb
-            // 
-            this.vgachannelinvertRedChb.AutoSize = true;
-            this.vgachannelinvertRedChb.Location = new System.Drawing.Point(6, 66);
-            this.vgachannelinvertRedChb.Name = "vgachannelinvertRedChb";
-            this.vgachannelinvertRedChb.Size = new System.Drawing.Size(53, 17);
-            this.vgachannelinvertRedChb.TabIndex = 1;
-            this.vgachannelinvertRedChb.Text = "Invert";
-            this.vgachannelinvertRedChb.UseVisualStyleBackColor = true;
-            // 
             // channelMapRedCb
             // 
             this.channelMapRedCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -291,16 +301,6 @@
             this.channelMapRedCb.Size = new System.Drawing.Size(72, 21);
             this.channelMapRedCb.TabIndex = 2;
             // 
-            // vgachannelinvertGreenChb
-            // 
-            this.vgachannelinvertGreenChb.AutoSize = true;
-            this.vgachannelinvertGreenChb.Location = new System.Drawing.Point(84, 67);
-            this.vgachannelinvertGreenChb.Name = "vgachannelinvertGreenChb";
-            this.vgachannelinvertGreenChb.Size = new System.Drawing.Size(53, 17);
-            this.vgachannelinvertGreenChb.TabIndex = 3;
-            this.vgachannelinvertGreenChb.Text = "Invert";
-            this.vgachannelinvertGreenChb.UseVisualStyleBackColor = true;
-            // 
             // channelMapGreenCb
             // 
             this.channelMapGreenCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -313,16 +313,6 @@
             this.channelMapGreenCb.Name = "channelMapGreenCb";
             this.channelMapGreenCb.Size = new System.Drawing.Size(72, 21);
             this.channelMapGreenCb.TabIndex = 4;
-            // 
-            // vgachannelinvertBlueChb
-            // 
-            this.vgachannelinvertBlueChb.AutoSize = true;
-            this.vgachannelinvertBlueChb.Location = new System.Drawing.Point(164, 66);
-            this.vgachannelinvertBlueChb.Name = "vgachannelinvertBlueChb";
-            this.vgachannelinvertBlueChb.Size = new System.Drawing.Size(53, 17);
-            this.vgachannelinvertBlueChb.TabIndex = 5;
-            this.vgachannelinvertBlueChb.Text = "Invert";
-            this.vgachannelinvertBlueChb.UseVisualStyleBackColor = true;
             // 
             // channelMapBlueCb
             // 
@@ -438,8 +428,8 @@
             this.outputGb.Controls.Add(this.monitorListCb);
             this.outputGb.Controls.Add(this.refreshMonitoListB);
             this.outputGb.Controls.Add(this.refreshrateud);
-            this.outputGb.Controls.Add(this.disableAntialiasingChb);
-            this.outputGb.Location = new System.Drawing.Point(12, 224);
+            this.outputGb.Controls.Add(this.enableAntialiasingChb);
+            this.outputGb.Location = new System.Drawing.Point(12, 200);
             this.outputGb.Name = "outputGb";
             this.outputGb.Size = new System.Drawing.Size(321, 224);
             this.outputGb.TabIndex = 2;
@@ -454,7 +444,7 @@
             0,
             0,
             131072});
-            this.outputBoundsBottomUd.Location = new System.Drawing.Point(51, 190);
+            this.outputBoundsBottomUd.Location = new System.Drawing.Point(108, 190);
             this.outputBoundsBottomUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -477,7 +467,7 @@
             0,
             0,
             131072});
-            this.outputBoundsRightUd.Location = new System.Drawing.Point(84, 164);
+            this.outputBoundsRightUd.Location = new System.Drawing.Point(141, 164);
             this.outputBoundsRightUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -500,7 +490,7 @@
             0,
             0,
             131072});
-            this.outputBoundsLeftUd.Location = new System.Drawing.Point(9, 164);
+            this.outputBoundsLeftUd.Location = new System.Drawing.Point(66, 164);
             this.outputBoundsLeftUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -512,9 +502,9 @@
             // 
             // outputBoundsResetB
             // 
-            this.outputBoundsResetB.Location = new System.Drawing.Point(198, 161);
+            this.outputBoundsResetB.Location = new System.Drawing.Point(241, 187);
             this.outputBoundsResetB.Name = "outputBoundsResetB";
-            this.outputBoundsResetB.Size = new System.Drawing.Size(114, 23);
+            this.outputBoundsResetB.Size = new System.Drawing.Size(71, 23);
             this.outputBoundsResetB.TabIndex = 52;
             this.outputBoundsResetB.Text = "Reset";
             this.outputBoundsResetB.UseVisualStyleBackColor = true;
@@ -528,7 +518,7 @@
             0,
             0,
             131072});
-            this.outputBoundsTopUd.Location = new System.Drawing.Point(51, 138);
+            this.outputBoundsTopUd.Location = new System.Drawing.Point(108, 138);
             this.outputBoundsTopUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -658,20 +648,22 @@
             0});
             this.refreshrateud.ValueChanged += new System.EventHandler(this.refreshrateud_ValueChanged);
             // 
-            // disableAntialiasingChb
+            // enableAntialiasingChb
             // 
-            this.disableAntialiasingChb.AutoSize = true;
-            this.disableAntialiasingChb.Location = new System.Drawing.Point(9, 99);
-            this.disableAntialiasingChb.Name = "disableAntialiasingChb";
-            this.disableAntialiasingChb.Size = new System.Drawing.Size(116, 17);
-            this.disableAntialiasingChb.TabIndex = 3;
-            this.disableAntialiasingChb.Text = "Disable antialiasing";
-            this.disableAntialiasingChb.UseVisualStyleBackColor = true;
+            this.enableAntialiasingChb.AutoSize = true;
+            this.enableAntialiasingChb.Checked = true;
+            this.enableAntialiasingChb.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.enableAntialiasingChb.Location = new System.Drawing.Point(9, 99);
+            this.enableAntialiasingChb.Name = "enableAntialiasingChb";
+            this.enableAntialiasingChb.Size = new System.Drawing.Size(114, 17);
+            this.enableAntialiasingChb.TabIndex = 3;
+            this.enableAntialiasingChb.Text = "Enable antialiasing";
+            this.enableAntialiasingChb.UseVisualStyleBackColor = true;
             // 
             // fpslabel
             // 
             this.fpslabel.AutoSize = true;
-            this.fpslabel.Location = new System.Drawing.Point(123, 49);
+            this.fpslabel.Location = new System.Drawing.Point(252, 19);
             this.fpslabel.Name = "fpslabel";
             this.fpslabel.Size = new System.Drawing.Size(33, 13);
             this.fpslabel.TabIndex = 2;
@@ -680,7 +672,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(7, 49);
+            this.label5.Location = new System.Drawing.Point(136, 19);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(107, 13);
             this.label5.TabIndex = 44;
@@ -689,7 +681,7 @@
             // currentmonitorlabel
             // 
             this.currentmonitorlabel.AutoSize = true;
-            this.currentmonitorlabel.Location = new System.Drawing.Point(265, 49);
+            this.currentmonitorlabel.Location = new System.Drawing.Point(220, 43);
             this.currentmonitorlabel.Name = "currentmonitorlabel";
             this.currentmonitorlabel.Size = new System.Drawing.Size(76, 13);
             this.currentmonitorlabel.TabIndex = 43;
@@ -698,7 +690,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(181, 49);
+            this.label2.Location = new System.Drawing.Point(136, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 13);
             this.label2.TabIndex = 42;
@@ -722,7 +714,7 @@
             this.drawWinFullscreenChb.AutoSize = true;
             this.drawWinFullscreenChb.Checked = true;
             this.drawWinFullscreenChb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.drawWinFullscreenChb.Location = new System.Drawing.Point(145, 19);
+            this.drawWinFullscreenChb.Location = new System.Drawing.Point(9, 42);
             this.drawWinFullscreenChb.Name = "drawWinFullscreenChb";
             this.drawWinFullscreenChb.Size = new System.Drawing.Size(113, 17);
             this.drawWinFullscreenChb.TabIndex = 6;
@@ -743,7 +735,7 @@
             this.groupBox1.Controls.Add(this.ditherOrderedShiftFrameUd);
             this.groupBox1.Controls.Add(this.oneBitMethodOrderedRb);
             this.groupBox1.Controls.Add(this.oneBitMethodRandomRb);
-            this.groupBox1.Location = new System.Drawing.Point(339, 298);
+            this.groupBox1.Location = new System.Drawing.Point(666, 168);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(321, 150);
             this.groupBox1.TabIndex = 3;
@@ -915,6 +907,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.colorInvertChb);
             this.groupBox2.Controls.Add(this.label18);
             this.groupBox2.Controls.Add(this.toneThreshWhiteUd);
             this.groupBox2.Controls.Add(this.label17);
@@ -932,19 +925,29 @@
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Location = new System.Drawing.Point(339, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(321, 124);
+            this.groupBox2.Size = new System.Drawing.Size(321, 168);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Image color";
             // 
+            // colorInvertChb
+            // 
+            this.colorInvertChb.AutoSize = true;
+            this.colorInvertChb.Location = new System.Drawing.Point(9, 82);
+            this.colorInvertChb.Name = "colorInvertChb";
+            this.colorInvertChb.Size = new System.Drawing.Size(53, 17);
+            this.colorInvertChb.TabIndex = 15;
+            this.colorInvertChb.Text = "Invert";
+            this.colorInvertChb.UseVisualStyleBackColor = true;
+            // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(216, 100);
+            this.label18.Location = new System.Drawing.Point(203, 140);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(35, 13);
+            this.label18.Size = new System.Drawing.Size(44, 13);
             this.label18.TabIndex = 14;
-            this.label18.Text = "White";
+            this.label18.Text = "White >";
             // 
             // toneThreshWhiteUd
             // 
@@ -954,7 +957,7 @@
             0,
             0,
             131072});
-            this.toneThreshWhiteUd.Location = new System.Drawing.Point(253, 98);
+            this.toneThreshWhiteUd.Location = new System.Drawing.Point(253, 138);
             this.toneThreshWhiteUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -972,11 +975,11 @@
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(116, 100);
+            this.label17.Location = new System.Drawing.Point(86, 141);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(34, 13);
+            this.label17.Size = new System.Drawing.Size(43, 13);
             this.label17.TabIndex = 12;
-            this.label17.Text = "Black";
+            this.label17.Text = "Black <";
             // 
             // toneThreshBlackUd
             // 
@@ -986,7 +989,7 @@
             0,
             0,
             131072});
-            this.toneThreshBlackUd.Location = new System.Drawing.Point(156, 98);
+            this.toneThreshBlackUd.Location = new System.Drawing.Point(135, 138);
             this.toneThreshBlackUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1004,38 +1007,38 @@
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(6, 100);
+            this.label16.Location = new System.Drawing.Point(6, 141);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(83, 13);
+            this.label16.Size = new System.Drawing.Size(59, 13);
             this.label16.TabIndex = 10;
-            this.label16.Text = "Tone thresholds";
+            this.label16.Text = "Thresholds";
             // 
             // label15
             // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(221, 47);
+            this.label15.Location = new System.Drawing.Point(162, 37);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(28, 13);
+            this.label15.Size = new System.Drawing.Size(75, 13);
             this.label15.TabIndex = 9;
             this.label15.Text = "Blue";
+            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label14
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(114, 47);
+            this.label14.Location = new System.Drawing.Point(84, 37);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(36, 13);
+            this.label14.Size = new System.Drawing.Size(75, 13);
             this.label14.TabIndex = 8;
             this.label14.Text = "Green";
+            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label13
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(25, 47);
+            this.label13.Location = new System.Drawing.Point(9, 37);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(27, 13);
+            this.label13.Size = new System.Drawing.Size(72, 13);
             this.label13.TabIndex = 7;
             this.label13.Text = "Red";
+            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // gammaUd
             // 
@@ -1045,7 +1048,7 @@
             0,
             0,
             131072});
-            this.gammaUd.Location = new System.Drawing.Point(58, 71);
+            this.gammaUd.Location = new System.Drawing.Point(58, 109);
             this.gammaUd.Maximum = new decimal(new int[] {
             10,
             0,
@@ -1057,7 +1060,7 @@
             0,
             196608});
             this.gammaUd.Name = "gammaUd";
-            this.gammaUd.Size = new System.Drawing.Size(56, 20);
+            this.gammaUd.Size = new System.Drawing.Size(59, 20);
             this.gammaUd.TabIndex = 6;
             this.gammaUd.Value = new decimal(new int[] {
             1,
@@ -1068,7 +1071,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(6, 73);
+            this.label12.Location = new System.Drawing.Point(6, 111);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(43, 13);
             this.label12.TabIndex = 5;
@@ -1076,12 +1079,13 @@
             // 
             // grayscaleDefB
             // 
-            this.grayscaleDefB.Location = new System.Drawing.Point(237, 17);
+            this.grayscaleDefB.Location = new System.Drawing.Point(244, 50);
             this.grayscaleDefB.Name = "grayscaleDefB";
-            this.grayscaleDefB.Size = new System.Drawing.Size(75, 23);
+            this.grayscaleDefB.Size = new System.Drawing.Size(71, 23);
             this.grayscaleDefB.TabIndex = 4;
             this.grayscaleDefB.Text = "Default";
             this.grayscaleDefB.UseVisualStyleBackColor = true;
+            this.grayscaleDefB.Click += new System.EventHandler(this.grayscaleDefB_Click);
             // 
             // grayscaleBlueUd
             // 
@@ -1091,7 +1095,7 @@
             0,
             0,
             131072});
-            this.grayscaleBlueUd.Location = new System.Drawing.Point(253, 45);
+            this.grayscaleBlueUd.Location = new System.Drawing.Point(165, 53);
             this.grayscaleBlueUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1103,7 +1107,7 @@
             0,
             -2147483648});
             this.grayscaleBlueUd.Name = "grayscaleBlueUd";
-            this.grayscaleBlueUd.Size = new System.Drawing.Size(59, 20);
+            this.grayscaleBlueUd.Size = new System.Drawing.Size(72, 20);
             this.grayscaleBlueUd.TabIndex = 3;
             this.grayscaleBlueUd.Value = new decimal(new int[] {
             114,
@@ -1119,7 +1123,7 @@
             0,
             0,
             131072});
-            this.grayscaleGreenUd.Location = new System.Drawing.Point(156, 45);
+            this.grayscaleGreenUd.Location = new System.Drawing.Point(87, 53);
             this.grayscaleGreenUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1131,7 +1135,7 @@
             0,
             -2147483648});
             this.grayscaleGreenUd.Name = "grayscaleGreenUd";
-            this.grayscaleGreenUd.Size = new System.Drawing.Size(59, 20);
+            this.grayscaleGreenUd.Size = new System.Drawing.Size(72, 20);
             this.grayscaleGreenUd.TabIndex = 2;
             this.grayscaleGreenUd.Value = new decimal(new int[] {
             587,
@@ -1147,7 +1151,7 @@
             0,
             0,
             131072});
-            this.grayscaleRedUd.Location = new System.Drawing.Point(58, 45);
+            this.grayscaleRedUd.Location = new System.Drawing.Point(9, 53);
             this.grayscaleRedUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1159,7 +1163,7 @@
             0,
             -2147483648});
             this.grayscaleRedUd.Name = "grayscaleRedUd";
-            this.grayscaleRedUd.Size = new System.Drawing.Size(56, 20);
+            this.grayscaleRedUd.Size = new System.Drawing.Size(72, 20);
             this.grayscaleRedUd.TabIndex = 1;
             this.grayscaleRedUd.Value = new decimal(new int[] {
             299,
@@ -1170,7 +1174,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(6, 22);
+            this.label10.Location = new System.Drawing.Point(6, 16);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(125, 13);
             this.label10.TabIndex = 0;
@@ -1195,7 +1199,7 @@
             this.groupBox3.Controls.Add(this.label27);
             this.groupBox3.Controls.Add(this.blankValueBottomUd);
             this.groupBox3.Controls.Add(this.label26);
-            this.groupBox3.Location = new System.Drawing.Point(339, 142);
+            this.groupBox3.Location = new System.Drawing.Point(666, 12);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(321, 150);
             this.groupBox3.TabIndex = 5;
@@ -1422,18 +1426,269 @@
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Controls.Add(this.label5);
             this.groupBox4.Controls.Add(this.currentmonitorlabel);
-            this.groupBox4.Location = new System.Drawing.Point(12, 454);
+            this.groupBox4.Location = new System.Drawing.Point(339, 352);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(648, 72);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Control";
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.coordRangeYInvertB);
+            this.groupBox5.Controls.Add(this.coordRangeXInvertB);
+            this.groupBox5.Controls.Add(this.label38);
+            this.groupBox5.Controls.Add(this.coordRangeCMaxUd);
+            this.groupBox5.Controls.Add(this.label39);
+            this.groupBox5.Controls.Add(this.coordRangeCMinUd);
+            this.groupBox5.Controls.Add(this.label40);
+            this.groupBox5.Controls.Add(this.label35);
+            this.groupBox5.Controls.Add(this.coordRangeYMaxUd);
+            this.groupBox5.Controls.Add(this.label36);
+            this.groupBox5.Controls.Add(this.coordRangeYMinUd);
+            this.groupBox5.Controls.Add(this.label37);
+            this.groupBox5.Controls.Add(this.label34);
+            this.groupBox5.Controls.Add(this.coordRangeXMaxUd);
+            this.groupBox5.Controls.Add(this.label33);
+            this.groupBox5.Controls.Add(this.coordRangeXMinUd);
+            this.groupBox5.Controls.Add(this.label32);
+            this.groupBox5.Location = new System.Drawing.Point(339, 186);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(321, 108);
+            this.groupBox5.TabIndex = 7;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Coordinate ranges";
+            // 
+            // coordRangeYInvertB
+            // 
+            this.coordRangeYInvertB.Location = new System.Drawing.Point(46, 51);
+            this.coordRangeYInvertB.Name = "coordRangeYInvertB";
+            this.coordRangeYInvertB.Size = new System.Drawing.Size(53, 23);
+            this.coordRangeYInvertB.TabIndex = 16;
+            this.coordRangeYInvertB.Text = "Invert";
+            this.coordRangeYInvertB.UseVisualStyleBackColor = true;
+            this.coordRangeYInvertB.Click += new System.EventHandler(this.coordRangeYInvertB_Click);
+            // 
+            // coordRangeXInvertB
+            // 
+            this.coordRangeXInvertB.Location = new System.Drawing.Point(46, 25);
+            this.coordRangeXInvertB.Name = "coordRangeXInvertB";
+            this.coordRangeXInvertB.Size = new System.Drawing.Size(53, 23);
+            this.coordRangeXInvertB.TabIndex = 15;
+            this.coordRangeXInvertB.Text = "Invert";
+            this.coordRangeXInvertB.UseVisualStyleBackColor = true;
+            this.coordRangeXInvertB.Click += new System.EventHandler(this.coordRangeXInvertB_Click);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(220, 82);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(27, 13);
+            this.label38.TabIndex = 14;
+            this.label38.Text = "Max";
+            // 
+            // coordRangeCMaxUd
+            // 
+            this.coordRangeCMaxUd.DecimalPlaces = 4;
+            this.coordRangeCMaxUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.coordRangeCMaxUd.Location = new System.Drawing.Point(253, 80);
+            this.coordRangeCMaxUd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.coordRangeCMaxUd.Name = "coordRangeCMaxUd";
+            this.coordRangeCMaxUd.Size = new System.Drawing.Size(59, 20);
+            this.coordRangeCMaxUd.TabIndex = 13;
+            this.coordRangeCMaxUd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(105, 82);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(24, 13);
+            this.label39.TabIndex = 12;
+            this.label39.Text = "Min";
+            // 
+            // coordRangeCMinUd
+            // 
+            this.coordRangeCMinUd.DecimalPlaces = 4;
+            this.coordRangeCMinUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.coordRangeCMinUd.Location = new System.Drawing.Point(135, 80);
+            this.coordRangeCMinUd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.coordRangeCMinUd.Name = "coordRangeCMinUd";
+            this.coordRangeCMinUd.Size = new System.Drawing.Size(59, 20);
+            this.coordRangeCMinUd.TabIndex = 11;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(6, 82);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(34, 13);
+            this.label40.TabIndex = 10;
+            this.label40.Text = "Const";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(220, 56);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(27, 13);
+            this.label35.TabIndex = 9;
+            this.label35.Text = "Max";
+            // 
+            // coordRangeYMaxUd
+            // 
+            this.coordRangeYMaxUd.DecimalPlaces = 4;
+            this.coordRangeYMaxUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.coordRangeYMaxUd.Location = new System.Drawing.Point(253, 54);
+            this.coordRangeYMaxUd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.coordRangeYMaxUd.Name = "coordRangeYMaxUd";
+            this.coordRangeYMaxUd.Size = new System.Drawing.Size(59, 20);
+            this.coordRangeYMaxUd.TabIndex = 8;
+            this.coordRangeYMaxUd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(105, 56);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(24, 13);
+            this.label36.TabIndex = 7;
+            this.label36.Text = "Min";
+            // 
+            // coordRangeYMinUd
+            // 
+            this.coordRangeYMinUd.DecimalPlaces = 4;
+            this.coordRangeYMinUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.coordRangeYMinUd.Location = new System.Drawing.Point(135, 54);
+            this.coordRangeYMinUd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.coordRangeYMinUd.Name = "coordRangeYMinUd";
+            this.coordRangeYMinUd.Size = new System.Drawing.Size(59, 20);
+            this.coordRangeYMinUd.TabIndex = 6;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(6, 56);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(14, 13);
+            this.label37.TabIndex = 5;
+            this.label37.Text = "Y";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(220, 30);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(27, 13);
+            this.label34.TabIndex = 4;
+            this.label34.Text = "Max";
+            // 
+            // coordRangeXMaxUd
+            // 
+            this.coordRangeXMaxUd.DecimalPlaces = 4;
+            this.coordRangeXMaxUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.coordRangeXMaxUd.Location = new System.Drawing.Point(253, 28);
+            this.coordRangeXMaxUd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.coordRangeXMaxUd.Name = "coordRangeXMaxUd";
+            this.coordRangeXMaxUd.Size = new System.Drawing.Size(59, 20);
+            this.coordRangeXMaxUd.TabIndex = 3;
+            this.coordRangeXMaxUd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(105, 30);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(24, 13);
+            this.label33.TabIndex = 2;
+            this.label33.Text = "Min";
+            // 
+            // coordRangeXMinUd
+            // 
+            this.coordRangeXMinUd.DecimalPlaces = 4;
+            this.coordRangeXMinUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.coordRangeXMinUd.Location = new System.Drawing.Point(135, 28);
+            this.coordRangeXMinUd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.coordRangeXMinUd.Name = "coordRangeXMinUd";
+            this.coordRangeXMinUd.Size = new System.Drawing.Size(59, 20);
+            this.coordRangeXMinUd.TabIndex = 1;
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(6, 30);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(14, 13);
+            this.label32.TabIndex = 0;
+            this.label32.Text = "X";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(670, 536);
+            this.ClientSize = new System.Drawing.Size(997, 433);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -1483,6 +1738,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.blankValueBottomUd)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeCMaxUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeCMinUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMaxUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMinUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMaxUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMinUd)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1501,9 +1764,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox channelMapRedCb;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.CheckBox vgachannelinvertBlueChb;
-        private System.Windows.Forms.CheckBox vgachannelinvertGreenChb;
-        private System.Windows.Forms.CheckBox vgachannelinvertRedChb;
         private System.Windows.Forms.GroupBox sourceGb;
         private System.Windows.Forms.RadioButton pathDirRb;
         private System.Windows.Forms.RadioButton pathFileRb;
@@ -1511,7 +1771,7 @@
         private System.Windows.Forms.TextBox framesdirpathed;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox outputGb;
-        private System.Windows.Forms.CheckBox disableAntialiasingChb;
+        private System.Windows.Forms.CheckBox enableAntialiasingChb;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown refreshrateud;
         private System.Windows.Forms.Button refreshMonitoListB;
@@ -1586,5 +1846,24 @@
         private System.Windows.Forms.NumericUpDown blankSwapEveryYUd;
         private System.Windows.Forms.NumericUpDown blankSwapEveryXUd;
         private System.Windows.Forms.RadioButton blankSwapEveryRb;
+        private System.Windows.Forms.CheckBox colorInvertChb;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.NumericUpDown coordRangeYMaxUd;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.NumericUpDown coordRangeYMinUd;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.NumericUpDown coordRangeXMaxUd;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.NumericUpDown coordRangeXMinUd;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.NumericUpDown coordRangeCMaxUd;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.NumericUpDown coordRangeCMinUd;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Button coordRangeYInvertB;
+        private System.Windows.Forms.Button coordRangeXInvertB;
     }
 }

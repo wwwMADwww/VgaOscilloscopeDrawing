@@ -65,11 +65,11 @@ namespace vgarender
         private void FillLists()
         {
             var channels = new ComboBoxItem<SourceChannel>[] {
-                new ComboBoxItem<SourceChannel>(SourceChannel.X),
-                new ComboBoxItem<SourceChannel>(SourceChannel.Y),
-                new ComboBoxItem<SourceChannel>(SourceChannel.Gray),
-                new ComboBoxItem<SourceChannel>(SourceChannel.Max),
-                new ComboBoxItem<SourceChannel>(SourceChannel.Min)
+                new ComboBoxItem<SourceChannel>(SourceChannel.X   , "X Coord"),
+                new ComboBoxItem<SourceChannel>(SourceChannel.Y   , "Y Coord"),
+                new ComboBoxItem<SourceChannel>(SourceChannel.Gray, "Gray image"),
+                new ComboBoxItem<SourceChannel>(SourceChannel.Max , "Const Max"),
+                new ComboBoxItem<SourceChannel>(SourceChannel.Min , "Const Min")
             };
 
             channelMapRedCb.Items.Clear();
@@ -178,44 +178,49 @@ namespace vgarender
             var outputSettings = new OutputSettings()
             {
                 SwapXY = swapxyChb.Checked,
-                DisableAntialiasing = disableAntialiasingChb.Checked,
+                EnableAntialiasing = enableAntialiasingChb.Checked,
                 RefreshRate = (int)refreshrateud.Value,
                 AnimationFrameRate = (int)animationFpsUd.Value,
+
+                SourceRanges = new Dictionary<SourceChannel, (float Min, float Max)>() {
+                    { SourceChannel.X, ((float)coordRangeXMinUd.Value, (float)coordRangeXMaxUd.Value) },
+                    { SourceChannel.Y, ((float)coordRangeYMinUd.Value, (float)coordRangeYMaxUd.Value) },
+                    { SourceChannel.Min, ((float)coordRangeCMinUd.Value, (float)coordRangeCMinUd.Value) },
+                    { SourceChannel.Max, ((float)coordRangeCMaxUd.Value, (float)coordRangeCMaxUd.Value) },
+                },
 
                 ChannelMap = new[]
                 {
                     new ChannelsMapInfo() {
                         Source = ((ComboBoxItem<SourceChannel>)channelMapRedCb.SelectedItem).Value,
                         Color = ColorChannel.Red,
-                        Invert = vgachannelinvertRedChb.Checked,
-                        OneBitColor = vgachannel1BitRedChb.Checked
+                        CoordinateModulateWithOneBitColor = vgachannel1BitRedChb.Checked
                     },
                     new ChannelsMapInfo() {
                         Source = ((ComboBoxItem<SourceChannel>)channelMapGreenCb.SelectedItem).Value,
                         Color = ColorChannel.Green,
-                        Invert = vgachannelinvertGreenChb.Checked,
-                        OneBitColor = vgachannel1BitGreenChb.Checked
+                        CoordinateModulateWithOneBitColor = vgachannel1BitGreenChb.Checked
                     },
                     new ChannelsMapInfo() {
                         Source = ((ComboBoxItem<SourceChannel>)channelMapBlueCb.SelectedItem).Value,
                         Color = ColorChannel.Blue,
-                        Invert = vgachannelinvertBlueChb.Checked,
-                        OneBitColor = vgachannel1BitBlueChb.Checked
+                        CoordinateModulateWithOneBitColor = vgachannel1BitBlueChb.Checked
                     }
                 },
 
                 Bounds = new RectangleF(
-                    (float) outputBoundsLeftUd.Value,
-                    (float) outputBoundsTopUd.Value,
-                    (float) (outputBoundsRightUd.Value - outputBoundsLeftUd.Value),
-                    (float) (outputBoundsBottomUd.Value - outputBoundsTopUd.Value)),
-                
+                    (float)outputBoundsLeftUd.Value,
+                    (float)outputBoundsTopUd.Value,
+                    (float)(outputBoundsRightUd.Value - outputBoundsLeftUd.Value),
+                    (float)(outputBoundsBottomUd.Value - outputBoundsTopUd.Value)),
+                                
                 ImageColorSettings = new ImageColorSettings()
                 { 
                     Gamma = (float) gammaUd.Value,
                     GrayscaleRatios = new float[] { (float)grayscaleRedUd.Value, (float)grayscaleGreenUd.Value, (float)grayscaleBlueUd.Value, },
                     GrayThresholdBlack = (float)toneThreshBlackUd.Value,
                     GrayThresholdWhite = (float)toneThreshWhiteUd.Value,
+                    Invert = colorInvertChb.Checked,
                     OneBitSettings = new OneBitSettings()
                     { 
                         Mode = _oneBitModeMap.First(p => p.rb.Checked).mode,
@@ -334,6 +339,23 @@ namespace vgarender
             outputBoundsRightUd.Value = 1;
             outputBoundsTopUd.Value = 0;
             outputBoundsBottomUd.Value = 1;
+        }
+
+        private void grayscaleDefB_Click(object sender, EventArgs e)
+        {
+            grayscaleRedUd.Value   = 0.299M;
+            grayscaleGreenUd.Value = 0.587M;
+            grayscaleBlueUd.Value  = 0.114M;
+        }
+
+        private void coordRangeXInvertB_Click(object sender, EventArgs e)
+        {
+            (coordRangeXMinUd.Value, coordRangeXMaxUd.Value) = (coordRangeXMaxUd.Value, coordRangeXMinUd.Value);
+        }
+
+        private void coordRangeYInvertB_Click(object sender, EventArgs e)
+        {
+            (coordRangeYMinUd.Value, coordRangeYMaxUd.Value) = (coordRangeYMaxUd.Value, coordRangeYMinUd.Value);
         }
     }
 }

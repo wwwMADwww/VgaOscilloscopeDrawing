@@ -26,7 +26,7 @@ namespace vgarender
 
     public class OutputSettings
     {
-        public bool DisableAntialiasing { get; set; }
+        public bool EnableAntialiasing { get; set; }
 
         //  0 = no limit
         // -1 = vsync
@@ -35,6 +35,8 @@ namespace vgarender
         public int AnimationFrameRate { get; set; }
 
         public ImageColorSettings ImageColorSettings { get; set; }
+
+        public Dictionary<SourceChannel, (float Min, float Max)> SourceRanges { get; set; }
 
         public RectangleF Bounds { get; set; }
 
@@ -46,18 +48,19 @@ namespace vgarender
     public class ImageColorSettings
     {
         public float[] GrayscaleRatios { get; set; }
+        public bool Invert { get; set; }
         public float Gamma { get; set; }
         public float GrayThresholdBlack { get; set; }
         public float GrayThresholdWhite { get; set; }
         public OneBitSettings OneBitSettings { get; set; }
     }
 
+
     public class ChannelsMapInfo
     {
         public SourceChannel Source { get; set; }
         public ColorChannel Color { get; set; }
-        public bool Invert { get; set; }
-        public bool OneBitColor { get; set; }
+        public bool CoordinateModulateWithOneBitColor { get; set; }
     }
 
     public class OneBitSettings
@@ -97,12 +100,12 @@ namespace vgarender
         private const string suWindowSize = "windowSize";
 
         private const string suActiveChannel   = "activeChannel";
-        private const string suInvertChannel   = "invertChannel";
 
         private const string suGrayColorRatio   = "grayColorRatio";
         private const string suGrayThreshBlack  = "grayThreshBlack";
         private const string suGrayThreshWhite  = "grayThreshWhite";
         private const string suGamma            = "gamma";
+        private const string suColorInvert      = "colorInvert";
 
         private const string suOneBitEncodingMode   = "oneBitEncodingMode";
         private const string suOneBitTop            = "oneBitTop";
@@ -338,6 +341,8 @@ namespace vgarender
 
                 shader.SetUniform(suGamma, OutputSettings.ImageColorSettings.Gamma);
 
+                shader.SetUniform(suColorInvert, OutputSettings.ImageColorSettings.Invert ? 1 : 0);
+
                 #endregion shader
 
                 #region frames
@@ -349,7 +354,7 @@ namespace vgarender
                     var tex = new Texture(filepath);
                     if (frames.Count > 0 && tex.Size != frames[0].Size)
                         throw new Exception("Texture sizes must be equal.");
-                    tex.Smooth = !OutputSettings.DisableAntialiasing;
+                    tex.Smooth = OutputSettings.EnableAntialiasing;
                     frames.Add(tex);
                 }
 
@@ -428,7 +433,7 @@ namespace vgarender
                         var renderSprite = new Sprite();
 
                         var rt = new RenderTexture(window.Size.X, window.Size.Y);
-                        rt.Smooth = false; // !OutputSettings.DisableAntialiasing;
+                        rt.Smooth = false;
 
                         rt.Clear(Color.Black);
 
@@ -438,17 +443,15 @@ namespace vgarender
 
                         rt.Draw(gradientMap[color], gradientStage);
 
-                        if (colorMap.OneBitColor || colorMap.Source == SourceChannel.Gray)
+                        if (colorMap.CoordinateModulateWithOneBitColor || colorMap.Source == SourceChannel.Gray)
                         {
-                            var oneBitMode = colorMap.OneBitColor & colorMap.Source != SourceChannel.Gray
+                            var oneBitMode = colorMap.CoordinateModulateWithOneBitColor & colorMap.Source != SourceChannel.Gray
                                 ? OutputSettings.ImageColorSettings.OneBitSettings.Mode
                                 : OneBitMode.None;
 
                             shader.SetUniform(suOneBitEncodingMode, (int)oneBitMode);
 
                             shader.SetUniform(suActiveChannel, (int)colorMap.Color);
-
-                            shader.SetUniform(suInvertChannel, colorMap.Invert ? 1 : 0);
 
 
                             var state = new RenderStates() { 
@@ -460,10 +463,10 @@ namespace vgarender
                             rt.Draw(frameSprite, state);
                         }
 
-                        var renderSpriteState = new RenderStates() { Transform = Transform.Identity, BlendMode = BlendMode.Add };
-
                         rt.Display();
                         renderSprite.Texture = rt.Texture;
+
+                        var renderSpriteState = new RenderStates() { Transform = Transform.Identity, BlendMode = BlendMode.Add };
 
                         window.Draw(renderSprite, renderSpriteState);
 
@@ -556,11 +559,12 @@ namespace vgarender
 
         int ModF(float a, float b) => (int)(a - b * Math.Floor(a / b));
 
-        int Index(int i, int arraySize) => i < 0 ? arraySize + i : i % arraySize;
-
 
         float[] GenerateOrderedDitherMatrix(int matrixSize)
         {
+
+            int Index(int i, int arraySize) => i < 0 ? arraySize + i : i % arraySize;
+
             // https://github.com/curioustorvald/arbitrary-bayer-matrix-generator
 
             var matrix = Enumerable.Range(0, matrixSize)
@@ -631,26 +635,6 @@ namespace vgarender
 
         }
 
-        VertexArray CreateGradient(uint width, uint height, IEnumerable<ChannelsMapInfo> mapinfo, bool vertical)
-        {
-            if (!mapinfo?.Any() ?? true)
-                return new VertexArray(PrimitiveType.Quads, 4);
-
-            var color1 = mapinfo.Select(m => m.Invert ? _colorMap[m.Color] : Color.Black).Aggregate((c1, c2) => c1 + c2);
-            var color2 = mapinfo.Select(m => m.Invert ? Color.Black : _colorMap[m.Color]).Aggregate((c1, c2) => c1 + c2);
-
-            var colors = vertical
-                ? new Color[] { color1, color1, color2, color2 }
-                : new Color[] { color1, color2, color2, color1 };
-
-            var res = new VertexArray(PrimitiveType.Quads, 4);
-            res.Append(new Vertex(new Vector2f(0, 0), colors[0]));
-            res.Append(new Vertex(new Vector2f(width, 0), colors[1]));
-            res.Append(new Vertex(new Vector2f(width, height), colors[2]));
-            res.Append(new Vertex(new Vector2f(0, height), colors[3]));
-
-            return res;
-        }
 
 
         VertexArray CreateGradient(Vector2f pos, Vector2f size, ChannelsMapInfo mapinfo, bool vertical)
@@ -658,37 +642,46 @@ namespace vgarender
             if (mapinfo == null || mapinfo.Source == SourceChannel.Gray)
                 return new VertexArray(PrimitiveType.Quads, 4);
             
-            Color[] colors;
+            Color MulColor(Color c, float m)
+            {
+                c.R = (byte)(m * (float)c.R);
+                c.G = (byte)(m * (float)c.G);
+                c.B = (byte)(m * (float)c.B);
+                return c;
+            }
+
+            Color[] gradientColors;
 
             var color = _colorMap[mapinfo.Color];
 
+            var colorRanges = OutputSettings.SourceRanges[mapinfo.Source];
+
+            var colorMin = MulColor(color, colorRanges.Min);
+            var colorMax = MulColor(color, colorRanges.Max);
+
             if (mapinfo.Source == SourceChannel.Min)
             {
-                colors = mapinfo.Invert
-                    ? new Color[] { color, color, color, color }
-                    : new Color[] { Color.Black, Color.Black, Color.Black, Color.Black };
+                gradientColors = new Color[] { colorMin, colorMin, colorMin, colorMin };
             }
             else if (mapinfo.Source == SourceChannel.Max)
             {
-                colors = mapinfo.Invert
-                    ? new Color[] { Color.Black, Color.Black, Color.Black, Color.Black }
-                    : new Color[] { color, color, color, color };
+                gradientColors = new Color[] { colorMax, colorMax, colorMax, colorMax };
             }
             else
             {
-                var color1 = mapinfo.Invert ? _colorMap[mapinfo.Color] : Color.Black;
-                var color2 = mapinfo.Invert ? Color.Black : _colorMap[mapinfo.Color];
+                var colorStart = colorMin;
+                var colorEnd   = colorMax;
 
-                colors = vertical
-                    ? new Color[] { color1, color1, color2, color2 }
-                    : new Color[] { color1, color2, color2, color1 };
+                gradientColors = vertical
+                    ? new Color[] { colorStart, colorStart, colorEnd, colorEnd   }
+                    : new Color[] { colorStart, colorEnd  , colorEnd, colorStart };
             }
 
             var res = new VertexArray(PrimitiveType.Quads, 4);
-            res.Append(new Vertex(new Vector2f(pos.X         , pos.Y         ), colors[0]));
-            res.Append(new Vertex(new Vector2f(pos.X + size.X, pos.Y         ), colors[1]));
-            res.Append(new Vertex(new Vector2f(pos.X + size.X, pos.Y + size.Y), colors[2]));
-            res.Append(new Vertex(new Vector2f(pos.X         , pos.Y + size.Y), colors[3]));
+            res.Append(new Vertex(new Vector2f(pos.X         , pos.Y         ), gradientColors[0]));
+            res.Append(new Vertex(new Vector2f(pos.X + size.X, pos.Y         ), gradientColors[1]));
+            res.Append(new Vertex(new Vector2f(pos.X + size.X, pos.Y + size.Y), gradientColors[2]));
+            res.Append(new Vertex(new Vector2f(pos.X         , pos.Y + size.Y), gradientColors[3]));
 
             return res;
         }
