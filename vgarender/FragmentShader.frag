@@ -18,7 +18,7 @@ uniform float oneBitBottom;
 
 uniform int   oneBitSwapMode;
 uniform vec2  oneBitSwapAfter;
-uniform vec2  oneBitSwapEvery;
+uniform vec2  oneBitSwapCheckered;
 
 // accept matrix from external code
 // size of (orderedMatrixFlat) should be (orderedMatrixFlatSize ^ 2)
@@ -50,10 +50,10 @@ const int ONEBIT_RANDOM  = 1;
 const int ONEBIT_ORDERED = 2;
 const int ONEBIT_PWM     = 3;
 
-const int ONEBIT_SWAP_NONE   = 0;
-const int ONEBIT_SWAP_AFTER  = 1;
-const int ONEBIT_SWAP_EVERY  = 2;
-const int ONEBIT_SWAP_RANDOM = 3;
+const int ONEBIT_SWAP_NONE       = 0;
+const int ONEBIT_SWAP_AFTER      = 1;
+const int ONEBIT_SWAP_CHECKERED  = 2;
+const int ONEBIT_SWAP_RANDOM     = 3;
 
 
 
@@ -78,15 +78,22 @@ float getOneBitValue()
     }
     else if (oneBitSwapMode == ONEBIT_SWAP_AFTER)
     {
-        return (float(gl_FragCoord.x) / oneBitSwapAfter.x > windowSize.x) || (float(gl_FragCoord.y) / oneBitSwapAfter.y > windowSize.y)
+        return (float(gl_FragCoord.x) / oneBitSwapAfter.x < windowSize.x) || (float(gl_FragCoord.y) / oneBitSwapAfter.y < windowSize.y)
             ? oneBitTop
             : oneBitBottom;
     }
-    else if (oneBitSwapMode == ONEBIT_SWAP_EVERY)
+    else if (oneBitSwapMode == ONEBIT_SWAP_CHECKERED)
     {
-        return (mod(int(gl_FragCoord.x / oneBitSwapEvery.x), 2) == 0) || (mod(int(gl_FragCoord.y / oneBitSwapEvery.y), 2) == 0)
-            ? oneBitTop
-            : oneBitBottom;
+        float checkW = windowSize.x * oneBitSwapCheckered.x;
+        float checkH = windowSize.y * oneBitSwapCheckered.y;
+
+        int fx = int(float(gl_FragCoord.x) / checkW);
+        int fy = int(float(gl_FragCoord.y) / checkH);
+
+        if (mod(fx, 2) == 1)
+            return mod(fy, 2) == 1 ? oneBitTop : oneBitBottom;
+        else
+            return mod(fy, 2) == 1 ? oneBitBottom : oneBitTop;
     }
     else if (oneBitSwapMode == ONEBIT_SWAP_RANDOM)
     {

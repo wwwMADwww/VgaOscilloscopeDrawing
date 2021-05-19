@@ -21,7 +21,7 @@ namespace vgarender
 
     public enum OneBitMode { None = 0, RandomNoise = 1, OrderedDithering = 2, Pwm = 3 };
 
-    public enum OneBitSwapMode { None = 0, AfterPosition = 1, EveryNPixels = 2, Random = 3 };
+    public enum OneBitSwapMode { None = 0, AfterPosition = 1, Checkered = 2, Random = 3 };
 
 
     public class OutputSettings
@@ -69,14 +69,15 @@ namespace vgarender
 
         public float BlankingTop { get; set; }
         public float BlankingBottom { get; set; }
-
+                
+        public float SwapEveryNFrame { get; set; } // -1 = disabled
         public OneBitSwapMode SwapMode { get; set; }
 
         public float SwapAfterX { get; set; }
         public float SwapAfterY { get; set; }
 
-        public float SwapEveryX { get; set; }
-        public float SwapEveryY { get; set; }
+        public float SwapCheckeredW { get; set; }
+        public float SwapCheckeredH { get; set; }
 
 
         public OrderedDitherSettings OrderedDitherSettings { get; set; }
@@ -112,7 +113,7 @@ namespace vgarender
         private const string suOneBitBottom         = "oneBitBottom";
         private const string suOneBitSwapMode       = "oneBitSwapMode";
         private const string suOneBitSwapAfter      = "oneBitSwapAfter";
-        private const string suOneBitSwapEvery      = "oneBitSwapEvery";
+        private const string suOneBitSwapCheckered  = "oneBitSwapCheckered";
 
         private const string suOrderedMatrixFlat        = "orderedMatrixFlat";
         private const string suOrderedMatrixFlatSize    = "orderedMatrixFlatSize";
@@ -313,19 +314,15 @@ namespace vgarender
                 shader.SetUniform(suGrayThreshBlack, OutputSettings.ImageColorSettings.GrayThresholdBlack);
                 shader.SetUniform(suGrayThreshWhite, OutputSettings.ImageColorSettings.GrayThresholdWhite);
 
-                shader.SetUniform(suOneBitTop, OutputSettings.ImageColorSettings.OneBitSettings.BlankingTop);
-                shader.SetUniform(suOneBitBottom, OutputSettings.ImageColorSettings.OneBitSettings.BlankingBottom);
-
-
                 shader.SetUniform(suOneBitSwapMode, (int)OutputSettings.ImageColorSettings.OneBitSettings.SwapMode);
 
                 shader.SetUniform(suOneBitSwapAfter, new Vec2(
                     OutputSettings.ImageColorSettings.OneBitSettings.SwapAfterX,
                     OutputSettings.ImageColorSettings.OneBitSettings.SwapAfterY));
 
-                shader.SetUniform(suOneBitSwapEvery, new Vec2(
-                    OutputSettings.ImageColorSettings.OneBitSettings.SwapEveryX,
-                    OutputSettings.ImageColorSettings.OneBitSettings.SwapEveryY));
+                shader.SetUniform(suOneBitSwapCheckered, new Vec2(
+                    OutputSettings.ImageColorSettings.OneBitSettings.SwapCheckeredW,
+                    OutputSettings.ImageColorSettings.OneBitSettings.SwapCheckeredH));
 
                 var matrix = GenerateOrderedDitherMatrix(OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.MatrixSize);
                 shader.SetUniformArray(suOrderedMatrixFlat, matrix);
@@ -372,6 +369,8 @@ namespace vgarender
                 int animationFrame = 0;
                 var frameSprite = new Sprite(frames[0]);
 
+                float blankValueTop     = OutputSettings.ImageColorSettings.OneBitSettings.BlankingTop;
+                float blankValueBottom  = OutputSettings.ImageColorSettings.OneBitSettings.BlankingBottom;
 
                 #endregion drawing vars
 
@@ -397,6 +396,9 @@ namespace vgarender
                             (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift),
                         OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.ShiftY * 
                             (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift)));
+
+                    shader.SetUniform(suOneBitTop   , blankValueTop);
+                    shader.SetUniform(suOneBitBottom, blankValueBottom);
 
                     #endregion update shader uniform
 
@@ -490,6 +492,13 @@ namespace vgarender
                     {
                         animationFrame++;
                         animationFrame %= frames.Count;
+                    }
+
+                    if (
+                        OutputSettings.ImageColorSettings.OneBitSettings.SwapEveryNFrame > 0 &&
+                        ModF(refreshCounter, OutputSettings.ImageColorSettings.OneBitSettings.SwapEveryNFrame) == 0)
+                    {
+                        (blankValueTop, blankValueBottom) = (blankValueBottom, blankValueTop);
                     }
 
                     #endregion animation and colors sequencing

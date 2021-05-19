@@ -108,9 +108,9 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label25 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
-            this.blankSwapEveryYUd = new System.Windows.Forms.NumericUpDown();
-            this.blankSwapEveryXUd = new System.Windows.Forms.NumericUpDown();
-            this.blankSwapEveryRb = new System.Windows.Forms.RadioButton();
+            this.blankSwapCheckerHUd = new System.Windows.Forms.NumericUpDown();
+            this.blankSwapCheckerWUd = new System.Windows.Forms.NumericUpDown();
+            this.blankSwapCheckeredRb = new System.Windows.Forms.RadioButton();
             this.label30 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.blankSwapAfterYUd = new System.Windows.Forms.NumericUpDown();
@@ -120,7 +120,6 @@
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.blankValueTopUd = new System.Windows.Forms.NumericUpDown();
-            this.label27 = new System.Windows.Forms.Label();
             this.blankValueBottomUd = new System.Windows.Forms.NumericUpDown();
             this.label26 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -142,6 +141,9 @@
             this.label33 = new System.Windows.Forms.Label();
             this.coordRangeXMinUd = new System.Windows.Forms.NumericUpDown();
             this.label32 = new System.Windows.Forms.Label();
+            this.blankSwapEveryNFrameChb = new System.Windows.Forms.CheckBox();
+            this.blankSwapEveryNFrameUd = new System.Windows.Forms.NumericUpDown();
+            this.blankSwapByPosChb = new System.Windows.Forms.CheckBox();
             this.mapGb.SuspendLayout();
             this.sourceGb.SuspendLayout();
             this.outputGb.SuspendLayout();
@@ -164,8 +166,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleGreenUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleRedUd)).BeginInit();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryYUd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryXUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blankSwapCheckerHUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blankSwapCheckerWUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapAfterYUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapAfterXUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueTopUd)).BeginInit();
@@ -178,6 +180,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMinUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMaxUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMinUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryNFrameUd)).BeginInit();
             this.SuspendLayout();
             // 
             // startB
@@ -735,7 +738,7 @@
             this.groupBox1.Controls.Add(this.ditherOrderedShiftFrameUd);
             this.groupBox1.Controls.Add(this.oneBitMethodOrderedRb);
             this.groupBox1.Controls.Add(this.oneBitMethodRandomRb);
-            this.groupBox1.Location = new System.Drawing.Point(666, 168);
+            this.groupBox1.Location = new System.Drawing.Point(666, 196);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(321, 150);
             this.groupBox1.TabIndex = 3;
@@ -1182,11 +1185,14 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.blankSwapByPosChb);
+            this.groupBox3.Controls.Add(this.blankSwapEveryNFrameUd);
+            this.groupBox3.Controls.Add(this.blankSwapEveryNFrameChb);
             this.groupBox3.Controls.Add(this.label25);
             this.groupBox3.Controls.Add(this.label31);
-            this.groupBox3.Controls.Add(this.blankSwapEveryYUd);
-            this.groupBox3.Controls.Add(this.blankSwapEveryXUd);
-            this.groupBox3.Controls.Add(this.blankSwapEveryRb);
+            this.groupBox3.Controls.Add(this.blankSwapCheckerHUd);
+            this.groupBox3.Controls.Add(this.blankSwapCheckerWUd);
+            this.groupBox3.Controls.Add(this.blankSwapCheckeredRb);
             this.groupBox3.Controls.Add(this.label30);
             this.groupBox3.Controls.Add(this.label24);
             this.groupBox3.Controls.Add(this.blankSwapAfterYUd);
@@ -1196,12 +1202,11 @@
             this.groupBox3.Controls.Add(this.label29);
             this.groupBox3.Controls.Add(this.label28);
             this.groupBox3.Controls.Add(this.blankValueTopUd);
-            this.groupBox3.Controls.Add(this.label27);
             this.groupBox3.Controls.Add(this.blankValueBottomUd);
             this.groupBox3.Controls.Add(this.label26);
             this.groupBox3.Location = new System.Drawing.Point(666, 12);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(321, 150);
+            this.groupBox3.Size = new System.Drawing.Size(321, 177);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "1 bit encoding levels";
@@ -1209,59 +1214,81 @@
             // label25
             // 
             this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(233, 101);
+            this.label25.Location = new System.Drawing.Point(233, 126);
             this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(14, 13);
+            this.label25.Size = new System.Drawing.Size(15, 13);
             this.label25.TabIndex = 52;
-            this.label25.Text = "Y";
+            this.label25.Text = "H";
             // 
             // label31
             // 
             this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(136, 101);
+            this.label31.Location = new System.Drawing.Point(136, 126);
             this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(14, 13);
+            this.label31.Size = new System.Drawing.Size(18, 13);
             this.label31.TabIndex = 51;
-            this.label31.Text = "X";
+            this.label31.Text = "W";
             // 
-            // blankSwapEveryYUd
+            // blankSwapCheckerHUd
             // 
-            this.blankSwapEveryYUd.Location = new System.Drawing.Point(253, 99);
-            this.blankSwapEveryYUd.Maximum = new decimal(new int[] {
-            10000,
+            this.blankSwapCheckerHUd.DecimalPlaces = 4;
+            this.blankSwapCheckerHUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.blankSwapCheckerHUd.Location = new System.Drawing.Point(253, 124);
+            this.blankSwapCheckerHUd.Maximum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.blankSwapEveryYUd.Name = "blankSwapEveryYUd";
-            this.blankSwapEveryYUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapEveryYUd.TabIndex = 50;
+            this.blankSwapCheckerHUd.Name = "blankSwapCheckerHUd";
+            this.blankSwapCheckerHUd.Size = new System.Drawing.Size(59, 20);
+            this.blankSwapCheckerHUd.TabIndex = 50;
+            this.blankSwapCheckerHUd.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            131072});
             // 
-            // blankSwapEveryXUd
+            // blankSwapCheckerWUd
             // 
-            this.blankSwapEveryXUd.Location = new System.Drawing.Point(156, 99);
-            this.blankSwapEveryXUd.Maximum = new decimal(new int[] {
-            10000,
+            this.blankSwapCheckerWUd.DecimalPlaces = 4;
+            this.blankSwapCheckerWUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            this.blankSwapCheckerWUd.Location = new System.Drawing.Point(156, 124);
+            this.blankSwapCheckerWUd.Maximum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
-            this.blankSwapEveryXUd.Name = "blankSwapEveryXUd";
-            this.blankSwapEveryXUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapEveryXUd.TabIndex = 49;
+            this.blankSwapCheckerWUd.Name = "blankSwapCheckerWUd";
+            this.blankSwapCheckerWUd.Size = new System.Drawing.Size(59, 20);
+            this.blankSwapCheckerWUd.TabIndex = 49;
+            this.blankSwapCheckerWUd.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            131072});
             // 
-            // blankSwapEveryRb
+            // blankSwapCheckeredRb
             // 
-            this.blankSwapEveryRb.AutoSize = true;
-            this.blankSwapEveryRb.Location = new System.Drawing.Point(22, 99);
-            this.blankSwapEveryRb.Name = "blankSwapEveryRb";
-            this.blankSwapEveryRb.Size = new System.Drawing.Size(92, 17);
-            this.blankSwapEveryRb.TabIndex = 48;
-            this.blankSwapEveryRb.Text = "Every N pixels";
-            this.blankSwapEveryRb.UseVisualStyleBackColor = true;
+            this.blankSwapCheckeredRb.AutoSize = true;
+            this.blankSwapCheckeredRb.Location = new System.Drawing.Point(22, 124);
+            this.blankSwapCheckeredRb.Name = "blankSwapCheckeredRb";
+            this.blankSwapCheckeredRb.Size = new System.Drawing.Size(77, 17);
+            this.blankSwapCheckeredRb.TabIndex = 48;
+            this.blankSwapCheckeredRb.Text = "Checkered";
+            this.blankSwapCheckeredRb.UseVisualStyleBackColor = true;
             // 
             // label30
             // 
             this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(233, 75);
+            this.label30.Location = new System.Drawing.Point(233, 100);
             this.label30.Name = "label30";
             this.label30.Size = new System.Drawing.Size(14, 13);
             this.label30.TabIndex = 47;
@@ -1270,7 +1297,7 @@
             // label24
             // 
             this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(136, 75);
+            this.label24.Location = new System.Drawing.Point(136, 100);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(14, 13);
             this.label24.TabIndex = 46;
@@ -1284,7 +1311,7 @@
             0,
             0,
             131072});
-            this.blankSwapAfterYUd.Location = new System.Drawing.Point(253, 73);
+            this.blankSwapAfterYUd.Location = new System.Drawing.Point(253, 98);
             this.blankSwapAfterYUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1302,7 +1329,7 @@
             // blankSwapRandomRb
             // 
             this.blankSwapRandomRb.AutoSize = true;
-            this.blankSwapRandomRb.Location = new System.Drawing.Point(22, 124);
+            this.blankSwapRandomRb.Location = new System.Drawing.Point(22, 149);
             this.blankSwapRandomRb.Name = "blankSwapRandomRb";
             this.blankSwapRandomRb.Size = new System.Drawing.Size(65, 17);
             this.blankSwapRandomRb.TabIndex = 44;
@@ -1313,7 +1340,7 @@
             // 
             this.blankSwapAfterRb.AutoSize = true;
             this.blankSwapAfterRb.Checked = true;
-            this.blankSwapAfterRb.Location = new System.Drawing.Point(22, 73);
+            this.blankSwapAfterRb.Location = new System.Drawing.Point(22, 98);
             this.blankSwapAfterRb.Name = "blankSwapAfterRb";
             this.blankSwapAfterRb.Size = new System.Drawing.Size(86, 17);
             this.blankSwapAfterRb.TabIndex = 43;
@@ -1329,7 +1356,7 @@
             0,
             0,
             131072});
-            this.blankSwapAfterXUd.Location = new System.Drawing.Point(156, 73);
+            this.blankSwapAfterXUd.Location = new System.Drawing.Point(156, 98);
             this.blankSwapAfterXUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1379,15 +1406,6 @@
             0,
             0,
             0});
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(6, 53);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(204, 13);
-            this.label27.TabIndex = 38;
-            this.label27.Text = "Swap blanking values from Bottom to Top";
             // 
             // blankValueBottomUd
             // 
@@ -1683,6 +1701,44 @@
             this.label32.TabIndex = 0;
             this.label32.Text = "X";
             // 
+            // blankSwapEveryNFrameChb
+            // 
+            this.blankSwapEveryNFrameChb.AutoSize = true;
+            this.blankSwapEveryNFrameChb.Location = new System.Drawing.Point(9, 51);
+            this.blankSwapEveryNFrameChb.Name = "blankSwapEveryNFrameChb";
+            this.blankSwapEveryNFrameChb.Size = new System.Drawing.Size(137, 17);
+            this.blankSwapEveryNFrameChb.TabIndex = 53;
+            this.blankSwapEveryNFrameChb.Text = "Swap every Nth refresh";
+            this.blankSwapEveryNFrameChb.UseVisualStyleBackColor = true;
+            // 
+            // blankSwapEveryNFrameUd
+            // 
+            this.blankSwapEveryNFrameUd.DecimalPlaces = 4;
+            this.blankSwapEveryNFrameUd.Location = new System.Drawing.Point(156, 50);
+            this.blankSwapEveryNFrameUd.Maximum = new decimal(new int[] {
+            1000,
+            0,
+            0,
+            0});
+            this.blankSwapEveryNFrameUd.Name = "blankSwapEveryNFrameUd";
+            this.blankSwapEveryNFrameUd.Size = new System.Drawing.Size(59, 20);
+            this.blankSwapEveryNFrameUd.TabIndex = 54;
+            this.blankSwapEveryNFrameUd.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // blankSwapByPosChb
+            // 
+            this.blankSwapByPosChb.AutoSize = true;
+            this.blankSwapByPosChb.Location = new System.Drawing.Point(9, 74);
+            this.blankSwapByPosChb.Name = "blankSwapByPosChb";
+            this.blankSwapByPosChb.Size = new System.Drawing.Size(130, 17);
+            this.blankSwapByPosChb.TabIndex = 55;
+            this.blankSwapByPosChb.Text = "Swap by pixel position";
+            this.blankSwapByPosChb.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1730,8 +1786,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleRedUd)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryYUd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryXUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blankSwapCheckerHUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blankSwapCheckerWUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapAfterYUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapAfterXUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueTopUd)).EndInit();
@@ -1746,6 +1802,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMinUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMaxUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMinUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryNFrameUd)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1821,7 +1878,6 @@
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.NumericUpDown blankValueTopUd;
-        private System.Windows.Forms.Label label27;
         private System.Windows.Forms.NumericUpDown blankValueBottomUd;
         private System.Windows.Forms.RadioButton blankSwapRandomRb;
         private System.Windows.Forms.RadioButton blankSwapAfterRb;
@@ -1843,9 +1899,9 @@
         private System.Windows.Forms.NumericUpDown blankSwapAfterYUd;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label31;
-        private System.Windows.Forms.NumericUpDown blankSwapEveryYUd;
-        private System.Windows.Forms.NumericUpDown blankSwapEveryXUd;
-        private System.Windows.Forms.RadioButton blankSwapEveryRb;
+        private System.Windows.Forms.NumericUpDown blankSwapCheckerHUd;
+        private System.Windows.Forms.NumericUpDown blankSwapCheckerWUd;
+        private System.Windows.Forms.RadioButton blankSwapCheckeredRb;
         private System.Windows.Forms.CheckBox colorInvertChb;
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.Label label35;
@@ -1865,5 +1921,8 @@
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Button coordRangeYInvertB;
         private System.Windows.Forms.Button coordRangeXInvertB;
+        private System.Windows.Forms.NumericUpDown blankSwapEveryNFrameUd;
+        private System.Windows.Forms.CheckBox blankSwapEveryNFrameChb;
+        private System.Windows.Forms.CheckBox blankSwapByPosChb;
     }
 }

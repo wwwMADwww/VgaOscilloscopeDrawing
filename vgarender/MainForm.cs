@@ -112,7 +112,7 @@ namespace vgarender
 
             _oneBitSwapModeMap = new List<(RadioButton rb, OneBitSwapMode swapMode)>() {
                 ( blankSwapAfterRb, OneBitSwapMode.AfterPosition ),
-                ( blankSwapEveryRb, OneBitSwapMode.EveryNPixels ),
+                ( blankSwapCheckeredRb, OneBitSwapMode.Checkered ),
                 ( blankSwapRandomRb, OneBitSwapMode.Random )
             };
 
@@ -236,13 +236,19 @@ namespace vgarender
                             ShiftY = (float) ditherOrderedShiftYUd.Value
                         },
 
-                        SwapMode = _oneBitSwapModeMap.First(p => p.rb.Checked).swapMode,
+                        SwapEveryNFrame = blankSwapEveryNFrameChb.Checked 
+                            ? (float) blankSwapEveryNFrameUd.Value
+                            : -1,
+
+                        SwapMode = blankSwapByPosChb.Checked 
+                            ? _oneBitSwapModeMap.First(p => p.rb.Checked).swapMode
+                            : OneBitSwapMode.None,
 
                         SwapAfterX = (float) blankSwapAfterXUd.Value,
                         SwapAfterY = (float) blankSwapAfterYUd.Value,
 
-                        SwapEveryX = (float) blankSwapEveryXUd.Value,
-                        SwapEveryY = (float) blankSwapEveryYUd.Value,
+                        SwapCheckeredW = (float) blankSwapCheckerWUd.Value,
+                        SwapCheckeredH = (float) blankSwapCheckerHUd.Value,
                     }
                 }
             };
