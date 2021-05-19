@@ -76,7 +76,6 @@
             this.mainWinTopmostChb = new System.Windows.Forms.CheckBox();
             this.drawWinFullscreenChb = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ditherOrderedMatrixUd = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
@@ -144,6 +143,7 @@
             this.blankSwapEveryNFrameChb = new System.Windows.Forms.CheckBox();
             this.blankSwapEveryNFrameUd = new System.Windows.Forms.NumericUpDown();
             this.blankSwapByPosChb = new System.Windows.Forms.CheckBox();
+            this.oneBitOrderedMatrixSizeCb = new System.Windows.Forms.ComboBox();
             this.mapGb.SuspendLayout();
             this.sourceGb.SuspendLayout();
             this.outputGb.SuspendLayout();
@@ -154,7 +154,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.animationFpsUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.refreshrateud)).BeginInit();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedMatrixUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftYUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftXUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftFrameUd)).BeginInit();
@@ -726,7 +725,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.ditherOrderedMatrixUd);
+            this.groupBox1.Controls.Add(this.oneBitOrderedMatrixSizeCb);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.label23);
             this.groupBox1.Controls.Add(this.label22);
@@ -738,34 +737,12 @@
             this.groupBox1.Controls.Add(this.ditherOrderedShiftFrameUd);
             this.groupBox1.Controls.Add(this.oneBitMethodOrderedRb);
             this.groupBox1.Controls.Add(this.oneBitMethodRandomRb);
-            this.groupBox1.Location = new System.Drawing.Point(666, 196);
+            this.groupBox1.Location = new System.Drawing.Point(666, 200);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(321, 150);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "1 bit encoding method";
-            // 
-            // ditherOrderedMatrixUd
-            // 
-            this.ditherOrderedMatrixUd.Location = new System.Drawing.Point(253, 43);
-            this.ditherOrderedMatrixUd.Maximum = new decimal(new int[] {
-            256,
-            0,
-            0,
-            0});
-            this.ditherOrderedMatrixUd.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.ditherOrderedMatrixUd.Name = "ditherOrderedMatrixUd";
-            this.ditherOrderedMatrixUd.Size = new System.Drawing.Size(59, 20);
-            this.ditherOrderedMatrixUd.TabIndex = 38;
-            this.ditherOrderedMatrixUd.Value = new decimal(new int[] {
-            8,
-            0,
-            0,
-            0});
             // 
             // label11
             // 
@@ -1470,7 +1447,7 @@
             this.groupBox5.Controls.Add(this.label33);
             this.groupBox5.Controls.Add(this.coordRangeXMinUd);
             this.groupBox5.Controls.Add(this.label32);
-            this.groupBox5.Location = new System.Drawing.Point(339, 186);
+            this.groupBox5.Location = new System.Drawing.Point(339, 200);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(321, 108);
             this.groupBox5.TabIndex = 7;
@@ -1739,6 +1716,15 @@
             this.blankSwapByPosChb.Text = "Swap by pixel position";
             this.blankSwapByPosChb.UseVisualStyleBackColor = true;
             // 
+            // oneBitOrderedMatrixSizeCb
+            // 
+            this.oneBitOrderedMatrixSizeCb.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.oneBitOrderedMatrixSizeCb.FormattingEnabled = true;
+            this.oneBitOrderedMatrixSizeCb.Location = new System.Drawing.Point(253, 42);
+            this.oneBitOrderedMatrixSizeCb.Name = "oneBitOrderedMatrixSizeCb";
+            this.oneBitOrderedMatrixSizeCb.Size = new System.Drawing.Size(59, 21);
+            this.oneBitOrderedMatrixSizeCb.TabIndex = 38;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1772,7 +1758,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.refreshrateud)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedMatrixUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftYUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftXUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftFrameUd)).EndInit();
@@ -1886,7 +1871,6 @@
         private System.Windows.Forms.CheckBox vgachannel1BitRedChb;
         private System.Windows.Forms.CheckBox vgachannel1BitBlueChb;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.NumericUpDown ditherOrderedMatrixUd;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.NumericUpDown outputBoundsBottomUd;
@@ -1924,5 +1908,6 @@
         private System.Windows.Forms.NumericUpDown blankSwapEveryNFrameUd;
         private System.Windows.Forms.CheckBox blankSwapEveryNFrameChb;
         private System.Windows.Forms.CheckBox blankSwapByPosChb;
+        private System.Windows.Forms.ComboBox oneBitOrderedMatrixSizeCb;
     }
 }

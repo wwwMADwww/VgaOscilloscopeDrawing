@@ -391,11 +391,18 @@ namespace vgarender
 
                     shader.SetUniform(suPwmColor, ModF(refreshCounter, refreshesPerFrame) / refreshesPerFrame);
 
-                    shader.SetUniform(suOrderedShift, new Vec2(
-                        OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.ShiftX * 
-                            (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift),
-                        OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.ShiftY * 
-                            (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift)));
+                    if (OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift > 0)
+                    {
+                        shader.SetUniform(suOrderedShift, new Vec2(
+                            OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.ShiftX *
+                                (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift),
+                            OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.ShiftY *
+                                (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift)));
+                    }
+                    else
+                    {
+                        shader.SetUniform(suOrderedShift, new Vec2(0, 0));
+                    }
 
                     shader.SetUniform(suOneBitTop   , blankValueTop);
                     shader.SetUniform(suOneBitBottom, blankValueBottom);
@@ -426,6 +433,7 @@ namespace vgarender
                         (window.Size.X / (float)frameSprite.TextureRect.Width) * OutputSettings.Bounds.Width,
                         (window.Size.Y / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Height);
                     }
+
 
 
                     foreach (var color in colorChannels)
@@ -476,6 +484,7 @@ namespace vgarender
 
                         renderSprite.Dispose();
                     }
+
 
                     #endregion draw animation frame
 
@@ -569,79 +578,37 @@ namespace vgarender
         int ModF(float a, float b) => (int)(a - b * Math.Floor(a / b));
 
 
-        float[] GenerateOrderedDitherMatrix(int matrixSize)
+        float[] GenerateOrderedDitherMatrix(int size)
         {
+            var matrix = InitBayer(0, 0, size, 0, 1);
+            return matrix.SelectMany(m => m.Select(x => (float) x)).ToArray();
+        }
 
-            int Index(int i, int arraySize) => i < 0 ? arraySize + i : i % arraySize;
+        int[][] InitBayer(int x, int y, int size, int value, int step, int[][] matrix = null)
+        {
+            // https://github.com/tromero/BayerMatrix/blob/1c8c8b9ff3119461dda969514b6885707cfc29e8/MakeBayer.py#L1-L18
 
-            // https://github.com/curioustorvald/arbitrary-bayer-matrix-generator
+            if (matrix == null)
+                matrix = Enumerable.Range(0, size)
+                    .Select(a => Enumerable.Range(0, size)
+                        .Select((b, i) => i)
+                        .ToArray())
+                    .ToArray();
 
-            var matrix = Enumerable.Range(0, matrixSize)
-                .Select(a => Enumerable.Range(0, matrixSize)
-                    .Select(b => -1)
-                    .ToArray())
-                .ToArray();
-
-            var cellX = 0;
-            var cellY = (matrixSize >> 1);
-
-            // init matrix
-            foreach (var num in Enumerable.Range(0, matrixSize * matrixSize))
+            if (size == 1)
             {
-                int y = Index(cellY, matrixSize);
-
-                if (matrix[y][cellX] == -1)
-                {
-                    matrix[y][cellX] = num;
-                }
-                else
-                {
-                    var thefuck = matrix[y][cellX];
-                    throw new Exception($"Matrix position ({cellX}, {y}) is occupied by {thefuck}");
-                }
-
-
-                y = Index((cellY - 1) % matrixSize, matrixSize);
-
-                if (matrix[y][(cellX + 1) % matrixSize] == -1)
-                {
-                    cellX = (cellX + 1) % matrixSize;
-                    cellY = (cellY - 1) % matrixSize;
-                }
-                else
-                {
-                    cellY = (cellY + 1) % matrixSize;
-                }
-
+                matrix[y][x] = value;
+                return matrix;
             }
 
+            var half = size / 2;
 
+            matrix = InitBayer(x,      y,      half, value+(step*0), step*4, matrix);
+            matrix = InitBayer(x+half, y+half, half, value+(step*1), step*4, matrix);
+            matrix = InitBayer(x+half, y,      half, value+(step*2), step*4, matrix);
+            matrix = InitBayer(x,      y+half, half, value+(step*3), step*4, matrix);
 
-            // vertical shifts
-            foreach (var xpos in Enumerable.Range(0, matrixSize))
-            {
-                var lookup = Enumerable.Range(0, matrixSize).Select(_ => -1).ToArray();
-            
-                foreach (var ycursor in Enumerable.Range(0, matrixSize))
-                    lookup[ycursor] = matrix[ycursor][xpos];
-            
-            
-                foreach (var ycursor in Enumerable.Range(0, matrixSize))
-                    matrix[Index((ycursor - xpos) % matrixSize, matrixSize)][xpos] = lookup[ycursor];
-            }
-            
-            // horizontal shifts
-            foreach (var ypos in Enumerable.Range(0, matrixSize))
-            {
-                var shift = (matrixSize - 1) - ypos + 1;
-                var lookup = matrix[ypos].ToArray();
-            
-                foreach (var xcursor in Enumerable.Range(0, matrixSize))
-                    matrix[ypos][(xcursor + shift) % matrixSize] = lookup[xcursor];
-            }
-
-            return matrix.SelectMany(m => m.Select(n => (float) n)).ToArray();
-
+            return matrix;
         }
 
 

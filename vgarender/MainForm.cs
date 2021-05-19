@@ -85,6 +85,13 @@ namespace vgarender
             channelMapGreenCb.SelectedIndex = 2;
             channelMapBlueCb.SelectedIndex = 1;
 
+            oneBitOrderedMatrixSizeCb.Items.Clear();
+            oneBitOrderedMatrixSizeCb.Items.Add(new ComboBoxItem<int>(2));
+            oneBitOrderedMatrixSizeCb.Items.Add(new ComboBoxItem<int>(4));
+            oneBitOrderedMatrixSizeCb.Items.Add(new ComboBoxItem<int>(8));
+            oneBitOrderedMatrixSizeCb.Items.Add(new ComboBoxItem<int>(16));
+            oneBitOrderedMatrixSizeCb.SelectedIndex = 2;
+
         }
 
         private void LoadSettings()
@@ -229,8 +236,8 @@ namespace vgarender
                         BlankingTop = (float) blankValueTopUd.Value,
                         
                         OrderedDitherSettings = new OrderedDitherSettings()
-                        { 
-                            MatrixSize = (int) ditherOrderedMatrixUd.Value,
+                        {                             
+                            MatrixSize = ((ComboBoxItem<int>) oneBitOrderedMatrixSizeCb.SelectedItem).Value,
                             RefreshesPerShift = (float) ditherOrderedShiftFrameUd.Value,
                             ShiftX = (float) ditherOrderedShiftXUd.Value,
                             ShiftY = (float) ditherOrderedShiftYUd.Value
