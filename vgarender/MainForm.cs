@@ -184,8 +184,6 @@ namespace vgarender
 
             var outputSettings = new OutputSettings()
             {
-                SwapXY = swapxyChb.Checked,
-                EnableAntialiasing = enableAntialiasingChb.Checked,
                 RefreshRate = (int)refreshrateud.Value,
                 AnimationFrameRate = (int)animationFpsUd.Value,
 
@@ -221,8 +219,12 @@ namespace vgarender
                     (float)(outputBoundsRightUd.Value - outputBoundsLeftUd.Value),
                     (float)(outputBoundsBottomUd.Value - outputBoundsTopUd.Value)),
                                 
-                ImageColorSettings = new ImageColorSettings()
-                { 
+                ImageSettings = new ImageSettings()
+                {
+                    EnableAntialiasing = enableAntialiasingChb.Checked,
+                    SwapXY = swapxyChb.Checked,
+                    ScaleX = (float)imageScaleXUd.Value,
+                    ScaleY = (float)imageScaleYUd.Value,
                     Gamma = (float) gammaUd.Value,
                     GrayscaleRatios = new float[] { (float)grayscaleRedUd.Value, (float)grayscaleGreenUd.Value, (float)grayscaleBlueUd.Value, },
                     GrayThresholdBlack = (float)toneThreshBlackUd.Value,
@@ -369,6 +371,16 @@ namespace vgarender
         private void coordRangeYInvertB_Click(object sender, EventArgs e)
         {
             (coordRangeYMinUd.Value, coordRangeYMaxUd.Value) = (coordRangeYMaxUd.Value, coordRangeYMinUd.Value);
+        }
+
+        private void outBoundsFlipHB_Click(object sender, EventArgs e)
+        {
+            (outputBoundsLeftUd.Value, outputBoundsRightUd.Value) = (outputBoundsRightUd.Value, outputBoundsLeftUd.Value);
+        }
+
+        private void outBoundsFlipVB_Click(object sender, EventArgs e)
+        {
+            (outputBoundsTopUd.Value, outputBoundsBottomUd.Value) = (outputBoundsBottomUd.Value, outputBoundsTopUd.Value);
         }
     }
 }

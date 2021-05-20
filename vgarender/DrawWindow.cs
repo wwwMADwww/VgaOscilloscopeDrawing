@@ -26,7 +26,6 @@ namespace vgarender
 
     public class OutputSettings
     {
-        public bool EnableAntialiasing { get; set; }
 
         //  0 = no limit
         // -1 = vsync
@@ -34,7 +33,7 @@ namespace vgarender
 
         public int AnimationFrameRate { get; set; }
 
-        public ImageColorSettings ImageColorSettings { get; set; }
+        public ImageSettings ImageSettings { get; set; }
 
         public Dictionary<SourceChannel, (float Min, float Max)> SourceRanges { get; set; }
 
@@ -42,16 +41,19 @@ namespace vgarender
 
         public IEnumerable<ChannelsMapInfo> ChannelMap { get; set; }
 
-        public bool SwapXY { get; set; }
     }
 
-    public class ImageColorSettings
+    public class ImageSettings
     {
         public float[] GrayscaleRatios { get; set; }
-        public bool Invert { get; set; }
+        public bool EnableAntialiasing { get; set; }
+        public bool  Invert { get; set; }
         public float Gamma { get; set; }
         public float GrayThresholdBlack { get; set; }
         public float GrayThresholdWhite { get; set; }
+        public bool  SwapXY { get; set; }
+        public float ScaleX { get; set; }
+        public float ScaleY { get; set; }
         public OneBitSettings OneBitSettings { get; set; }
     }
 
@@ -281,15 +283,23 @@ namespace vgarender
                     .ToDictionary(kv => kv.Key, kv => kv.Value);
 
                 var gradientMap = createRgbGradients(
-                    new Vector2f(window.Size.X * OutputSettings.Bounds.X    , window.Size.Y * OutputSettings.Bounds.Y),
-                    new Vector2f(window.Size.X * OutputSettings.Bounds.Width, window.Size.Y * OutputSettings.Bounds.Height)
+                    new Vector2f(
+                        window.Size.X * OutputSettings.Bounds.X * OutputSettings.ImageSettings.ScaleX, 
+                        window.Size.Y * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.ScaleY),
+                    new Vector2f(
+                        window.Size.X * OutputSettings.Bounds.Width  * OutputSettings.ImageSettings.ScaleX, 
+                        window.Size.Y * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.ScaleY)
                     );
 
                 window.Resized += (o, e) =>
                 {
                     gradientMap = createRgbGradients(
-                        new Vector2f(e.Width * OutputSettings.Bounds.X    , e.Height * OutputSettings.Bounds.Y),
-                        new Vector2f(e.Width * OutputSettings.Bounds.Width, e.Height * OutputSettings.Bounds.Height)
+                        new Vector2f(
+                            e.Width  * OutputSettings.Bounds.X * OutputSettings.ImageSettings.ScaleX, 
+                            e.Height * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.ScaleY),
+                        new Vector2f(
+                            e.Width  * OutputSettings.Bounds.Width  * OutputSettings.ImageSettings.ScaleX, 
+                            e.Height * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.ScaleY)
                         );
                 };
 
@@ -304,41 +314,45 @@ namespace vgarender
 
                 shader.SetUniform(suTexture, Shader.CurrentTexture);
 
-                shader.SetUniform(suWindowSize, new Vec2(window.Size.X, window.Size.Y));
+                shader.SetUniform(suWindowSize, new Vec2(
+                    (float)window.Size.X * OutputSettings.ImageSettings.ScaleX,
+                    (float)window.Size.Y * OutputSettings.ImageSettings.ScaleY));
 
                 window.Resized += (o, e) =>
                 {
-                    shader.SetUniform(suWindowSize, new Vec2(e.Width, e.Height));
+                    shader.SetUniform(suWindowSize, new Vec2(
+                        (float)e.Width  * OutputSettings.ImageSettings.ScaleX,
+                        (float)e.Height * OutputSettings.ImageSettings.ScaleY));
                 };
 
-                shader.SetUniform(suGrayThreshBlack, OutputSettings.ImageColorSettings.GrayThresholdBlack);
-                shader.SetUniform(suGrayThreshWhite, OutputSettings.ImageColorSettings.GrayThresholdWhite);
+                shader.SetUniform(suGrayThreshBlack, OutputSettings.ImageSettings.GrayThresholdBlack);
+                shader.SetUniform(suGrayThreshWhite, OutputSettings.ImageSettings.GrayThresholdWhite);
 
-                shader.SetUniform(suOneBitSwapMode, (int)OutputSettings.ImageColorSettings.OneBitSettings.SwapMode);
+                shader.SetUniform(suOneBitSwapMode, (int)OutputSettings.ImageSettings.OneBitSettings.SwapMode);
 
                 shader.SetUniform(suOneBitSwapAfter, new Vec2(
-                    OutputSettings.ImageColorSettings.OneBitSettings.SwapAfterX,
-                    OutputSettings.ImageColorSettings.OneBitSettings.SwapAfterY));
+                    OutputSettings.ImageSettings.OneBitSettings.SwapAfterX,
+                    OutputSettings.ImageSettings.OneBitSettings.SwapAfterY));
 
                 shader.SetUniform(suOneBitSwapCheckered, new Vec2(
-                    OutputSettings.ImageColorSettings.OneBitSettings.SwapCheckeredW,
-                    OutputSettings.ImageColorSettings.OneBitSettings.SwapCheckeredH));
+                    OutputSettings.ImageSettings.OneBitSettings.SwapCheckeredW,
+                    OutputSettings.ImageSettings.OneBitSettings.SwapCheckeredH));
 
-                var matrix = GenerateOrderedDitherMatrix(OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.MatrixSize);
+                var matrix = GenerateOrderedDitherMatrix(OutputSettings.ImageSettings.OneBitSettings.OrderedDitherSettings.MatrixSize);
                 shader.SetUniformArray(suOrderedMatrixFlat, matrix);
 
-                shader.SetUniform(suOrderedMatrixFlatSize, OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.MatrixSize);
+                shader.SetUniform(suOrderedMatrixFlatSize, OutputSettings.ImageSettings.OneBitSettings.OrderedDitherSettings.MatrixSize);
 
 
                 shader.SetUniform(suGrayColorRatio, new Vec3(
-                    OutputSettings.ImageColorSettings.GrayscaleRatios[0],
-                    OutputSettings.ImageColorSettings.GrayscaleRatios[1],
-                    OutputSettings.ImageColorSettings.GrayscaleRatios[2]));
+                    OutputSettings.ImageSettings.GrayscaleRatios[0],
+                    OutputSettings.ImageSettings.GrayscaleRatios[1],
+                    OutputSettings.ImageSettings.GrayscaleRatios[2]));
 
 
-                shader.SetUniform(suGamma, OutputSettings.ImageColorSettings.Gamma);
+                shader.SetUniform(suGamma, OutputSettings.ImageSettings.Gamma);
 
-                shader.SetUniform(suColorInvert, OutputSettings.ImageColorSettings.Invert ? 1 : 0);
+                shader.SetUniform(suColorInvert, OutputSettings.ImageSettings.Invert ? 1 : 0);
 
                 #endregion shader
 
@@ -351,7 +365,7 @@ namespace vgarender
                     var tex = new Texture(filepath);
                     if (frames.Count > 0 && tex.Size != frames[0].Size)
                         throw new Exception("Texture sizes must be equal.");
-                    tex.Smooth = OutputSettings.EnableAntialiasing;
+                    tex.Smooth = OutputSettings.ImageSettings.EnableAntialiasing;
                     frames.Add(tex);
                 }
 
@@ -369,8 +383,8 @@ namespace vgarender
                 int animationFrame = 0;
                 var frameSprite = new Sprite(frames[0]);
 
-                float blankValueTop     = OutputSettings.ImageColorSettings.OneBitSettings.BlankingTop;
-                float blankValueBottom  = OutputSettings.ImageColorSettings.OneBitSettings.BlankingBottom;
+                float blankValueTop     = OutputSettings.ImageSettings.OneBitSettings.BlankingTop;
+                float blankValueBottom  = OutputSettings.ImageSettings.OneBitSettings.BlankingBottom;
 
                 #endregion drawing vars
 
@@ -391,13 +405,13 @@ namespace vgarender
 
                     shader.SetUniform(suPwmColor, ModF(refreshCounter, refreshesPerFrame) / refreshesPerFrame);
 
-                    if (OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift > 0)
+                    if (OutputSettings.ImageSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift > 0)
                     {
                         shader.SetUniform(suOrderedShift, new Vec2(
-                            OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.ShiftX *
-                                (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift),
-                            OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.ShiftY *
-                                (int)(refreshCounter / OutputSettings.ImageColorSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift)));
+                            OutputSettings.ImageSettings.OneBitSettings.OrderedDitherSettings.ShiftX *
+                                (int)(refreshCounter / OutputSettings.ImageSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift),
+                            OutputSettings.ImageSettings.OneBitSettings.OrderedDitherSettings.ShiftY *
+                                (int)(refreshCounter / OutputSettings.ImageSettings.OneBitSettings.OrderedDitherSettings.RefreshesPerShift)));
                     }
                     else
                     {
@@ -413,26 +427,29 @@ namespace vgarender
 
                     frameSprite.Texture = frames[animationFrame];
 
-                    if (OutputSettings.SwapXY)
+
+
+                    if (OutputSettings.ImageSettings.SwapXY)
                     {
                         frameSprite.Position = new Vector2f(
-                            (float)window.Size.X * OutputSettings.Bounds.X,
-                            (float)window.Size.Y * OutputSettings.Bounds.Y);
+                            (float)window.Size.X * OutputSettings.Bounds.X * OutputSettings.ImageSettings.ScaleX,
+                            (float)window.Size.Y * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.ScaleY);
                         frameSprite.Origin = new Vector2f(0, frameSprite.TextureRect.Height);
                         frameSprite.Rotation = 90;
                         frameSprite.Scale = new Vector2f(
-                            (window.Size.Y / (float)frameSprite.TextureRect.Width) * OutputSettings.Bounds.Height,
-                            (window.Size.X / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Width);
+                            (window.Size.Y / (float)frameSprite.TextureRect.Width) * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.ScaleY,
+                            (window.Size.X / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Width * OutputSettings.ImageSettings.ScaleX);
                     }
                     else
                     {
                         frameSprite.Position = new Vector2f(
-                            (float) window.Size.X * OutputSettings.Bounds.X,
-                            (float) window.Size.Y * OutputSettings.Bounds.Y);
+                            (float) window.Size.X * OutputSettings.Bounds.X * OutputSettings.ImageSettings.ScaleX,
+                            (float) window.Size.Y * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.ScaleY);
                         frameSprite.Scale = new Vector2f(
-                        (window.Size.X / (float)frameSprite.TextureRect.Width) * OutputSettings.Bounds.Width,
-                        (window.Size.Y / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Height);
+                        (window.Size.X / (float)frameSprite.TextureRect.Width ) * OutputSettings.Bounds.Width  * OutputSettings.ImageSettings.ScaleX,
+                        (window.Size.Y / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.ScaleY);
                     }
+
 
 
 
@@ -442,21 +459,23 @@ namespace vgarender
 
                         var renderSprite = new Sprite();
 
-                        var rt = new RenderTexture(window.Size.X, window.Size.Y);
+                        var rt = new RenderTexture(
+                            (uint) (window.Size.X * OutputSettings.ImageSettings.ScaleX), 
+                            (uint) (window.Size.Y * OutputSettings.ImageSettings.ScaleY));
                         rt.Smooth = false;
 
                         rt.Clear(Color.Black);
 
 
                         var gradientBlend = new BlendMode(BlendMode.Factor.One, BlendMode.Factor.One, BlendMode.Equation.Add);
-                        var gradientStage = new RenderStates(gradientBlend);
+                        var gradientState = new RenderStates(gradientBlend);
 
-                        rt.Draw(gradientMap[color], gradientStage);
+                        rt.Draw(gradientMap[color], gradientState);
 
                         if (colorMap.CoordinateModulateWithOneBitColor || colorMap.Source == SourceChannel.Gray)
                         {
                             var oneBitMode = colorMap.CoordinateModulateWithOneBitColor & colorMap.Source != SourceChannel.Gray
-                                ? OutputSettings.ImageColorSettings.OneBitSettings.Mode
+                                ? OutputSettings.ImageSettings.OneBitSettings.Mode
                                 : OneBitMode.None;
 
                             shader.SetUniform(suOneBitEncodingMode, (int)oneBitMode);
@@ -475,6 +494,8 @@ namespace vgarender
 
                         rt.Display();
                         renderSprite.Texture = rt.Texture;
+
+                        renderSprite.Scale = new Vector2f(1 / OutputSettings.ImageSettings.ScaleX, 1 / OutputSettings.ImageSettings.ScaleY);
 
                         var renderSpriteState = new RenderStates() { Transform = Transform.Identity, BlendMode = BlendMode.Add };
 
@@ -504,8 +525,8 @@ namespace vgarender
                     }
 
                     if (
-                        OutputSettings.ImageColorSettings.OneBitSettings.SwapEveryNFrame > 0 &&
-                        ModF(refreshCounter, OutputSettings.ImageColorSettings.OneBitSettings.SwapEveryNFrame) == 0)
+                        OutputSettings.ImageSettings.OneBitSettings.SwapEveryNFrame > 0 &&
+                        ModF(refreshCounter, OutputSettings.ImageSettings.OneBitSettings.SwapEveryNFrame) == 0)
                     {
                         (blankValueTop, blankValueBottom) = (blankValueBottom, blankValueTop);
                     }
