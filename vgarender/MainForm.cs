@@ -187,11 +187,11 @@ namespace vgarender
                 RefreshRate = (int)refreshrateud.Value,
                 AnimationFrameRate = (int)animationFpsUd.Value,
 
-                SourceRanges = new Dictionary<SourceChannel, (float Min, float Max)>() {
-                    { SourceChannel.X, ((float)coordRangeXMinUd.Value, (float)coordRangeXMaxUd.Value) },
-                    { SourceChannel.Y, ((float)coordRangeYMinUd.Value, (float)coordRangeYMaxUd.Value) },
-                    { SourceChannel.Min, ((float)coordRangeCMinUd.Value, (float)coordRangeCMinUd.Value) },
-                    { SourceChannel.Max, ((float)coordRangeCMaxUd.Value, (float)coordRangeCMaxUd.Value) },
+                SourceRanges = new Dictionary<SourceChannel, RangeF>() {
+                    { SourceChannel.X  , new RangeF((float)coordRangeXMinUd.Value, (float)coordRangeXMaxUd.Value) },
+                    { SourceChannel.Y  , new RangeF((float)coordRangeYMinUd.Value, (float)coordRangeYMaxUd.Value) },
+                    { SourceChannel.Min, new RangeF((float)coordRangeCMinUd.Value, (float)coordRangeCMinUd.Value) },
+                    { SourceChannel.Max, new RangeF((float)coordRangeCMaxUd.Value, (float)coordRangeCMaxUd.Value) },
                 },
 
                 ChannelMap = new[]
@@ -223,26 +223,22 @@ namespace vgarender
                 {
                     EnableAntialiasing = enableAntialiasingChb.Checked,
                     SwapXY = swapxyChb.Checked,
-                    ScaleX = (float)imageScaleXUd.Value,
-                    ScaleY = (float)imageScaleYUd.Value,
+                    Scale = new PointF((float)imageScaleXUd.Value, (float)imageScaleYUd.Value),
                     Gamma = (float) gammaUd.Value,
-                    GrayscaleRatios = new float[] { (float)grayscaleRedUd.Value, (float)grayscaleGreenUd.Value, (float)grayscaleBlueUd.Value, },
-                    GrayThresholdBlack = (float)toneThreshBlackUd.Value,
-                    GrayThresholdWhite = (float)toneThreshWhiteUd.Value,
+                    GrayscaleRatios = new ColorF((float)grayscaleRedUd.Value, (float)grayscaleGreenUd.Value, (float)grayscaleBlueUd.Value),
+                    GrayThreshold = new RangeF((float)toneThreshBlackUd.Value, (float)toneThreshWhiteUd.Value),
                     Invert = colorInvertChb.Checked,
                     OneBitSettings = new OneBitSettings()
                     { 
                         Mode = _oneBitModeMap.First(p => p.rb.Checked).mode,
 
-                        BlankingBottom = (float) blankValueBottomUd.Value,
-                        BlankingTop = (float) blankValueTopUd.Value,
+                        Blanking = new RangeF((float) blankValueBottomUd.Value, (float) blankValueTopUd.Value),
                         
                         OrderedDitherSettings = new OrderedDitherSettings()
                         {                             
                             MatrixSize = ((ComboBoxItem<int>) oneBitOrderedMatrixSizeCb.SelectedItem).Value,
                             RefreshesPerShift = (float) ditherOrderedShiftFrameUd.Value,
-                            ShiftX = (float) ditherOrderedShiftXUd.Value,
-                            ShiftY = (float) ditherOrderedShiftYUd.Value
+                            Shift = new PointF((float) ditherOrderedShiftXUd.Value, (float) ditherOrderedShiftYUd.Value)
                         },
 
                         SwapEveryNFrame = blankSwapEveryNFrameChb.Checked 
@@ -253,11 +249,9 @@ namespace vgarender
                             ? _oneBitSwapModeMap.First(p => p.rb.Checked).swapMode
                             : OneBitSwapMode.None,
 
-                        SwapAfterX = (float) blankSwapAfterXUd.Value,
-                        SwapAfterY = (float) blankSwapAfterYUd.Value,
+                        SwapAfter = new PointF((float) blankSwapAfterXUd.Value, (float) blankSwapAfterYUd.Value),
 
-                        SwapCheckeredW = (float) blankSwapCheckerWUd.Value,
-                        SwapCheckeredH = (float) blankSwapCheckerHUd.Value,
+                        SwapCheckeredSize = new PointF((float) blankSwapCheckerWUd.Value, (float) blankSwapCheckerHUd.Value),
                     }
                 }
             };
