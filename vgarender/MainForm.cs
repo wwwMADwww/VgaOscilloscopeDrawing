@@ -218,10 +218,12 @@ namespace vgarender
                     (float)outputBoundsTopUd.Value,
                     (float)(outputBoundsRightUd.Value - outputBoundsLeftUd.Value),
                     (float)(outputBoundsBottomUd.Value - outputBoundsTopUd.Value)),
+
+                GaussBlurRadius = new PointF((float) gaussBlurRadiusXUd.Value, (float)gaussBlurRadiusYUd.Value),
                                 
                 ImageSettings = new ImageSettings()
                 {
-                    EnableAntialiasing = enableAntialiasingChb.Checked,
+                    AntialiasingEnable = enableAntialiasingChb.Checked,
                     SwapXY = swapxyChb.Checked,
                     Scale = new PointF((float)imageScaleXUd.Value, (float)imageScaleYUd.Value),
                     Gamma = (float) gammaUd.Value,
