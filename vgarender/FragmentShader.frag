@@ -1,5 +1,4 @@
-#version 130 core
-// #version 330 core
+#version 130
 
 uniform sampler2D texture;
 uniform vec2 windowSize;

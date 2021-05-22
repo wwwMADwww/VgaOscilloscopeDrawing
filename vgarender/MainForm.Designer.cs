@@ -33,8 +33,7 @@
             this.stopB = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
-            this.mapGb = new System.Windows.Forms.GroupBox();
+            this.vgaChannelMappingGb = new System.Windows.Forms.GroupBox();
             this.vgachannel1BitBlueChb = new System.Windows.Forms.CheckBox();
             this.vgachannel1BitGreenChb = new System.Windows.Forms.CheckBox();
             this.vgachannel1BitRedChb = new System.Windows.Forms.CheckBox();
@@ -45,7 +44,7 @@
             this.channelMapGreenCb = new System.Windows.Forms.ComboBox();
             this.channelMapBlueCb = new System.Windows.Forms.ComboBox();
             this.swapxyB = new System.Windows.Forms.Button();
-            this.sourceGb = new System.Windows.Forms.GroupBox();
+            this.sourceImagesGb = new System.Windows.Forms.GroupBox();
             this.label3 = new System.Windows.Forms.Label();
             this.framesdirpathed = new System.Windows.Forms.TextBox();
             this.selectFramesPathB = new System.Windows.Forms.Button();
@@ -77,7 +76,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.mainWinTopmostChb = new System.Windows.Forms.CheckBox();
             this.drawWinFullscreenChb = new System.Windows.Forms.CheckBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.oneBitMethodGb = new System.Windows.Forms.GroupBox();
             this.oneBitOrderedMatrixSizeCb = new System.Windows.Forms.ComboBox();
             this.label11 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
@@ -90,7 +89,7 @@
             this.ditherOrderedShiftFrameUd = new System.Windows.Forms.NumericUpDown();
             this.oneBitMethodOrderedRb = new System.Windows.Forms.RadioButton();
             this.oneBitMethodRandomRb = new System.Windows.Forms.RadioButton();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.imageGb = new System.Windows.Forms.GroupBox();
             this.label41 = new System.Windows.Forms.Label();
             this.imageScaleYUd = new System.Windows.Forms.NumericUpDown();
             this.label42 = new System.Windows.Forms.Label();
@@ -112,7 +111,7 @@
             this.grayscaleGreenUd = new System.Windows.Forms.NumericUpDown();
             this.grayscaleRedUd = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.oneBitLevelsGb = new System.Windows.Forms.GroupBox();
             this.blankSwapByPosChb = new System.Windows.Forms.CheckBox();
             this.blankSwapEveryNFrameUd = new System.Windows.Forms.NumericUpDown();
             this.blankSwapEveryNFrameChb = new System.Windows.Forms.CheckBox();
@@ -132,8 +131,8 @@
             this.blankValueTopUd = new System.Windows.Forms.NumericUpDown();
             this.blankValueBottomUd = new System.Windows.Forms.NumericUpDown();
             this.label26 = new System.Windows.Forms.Label();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.controlGb = new System.Windows.Forms.GroupBox();
+            this.coordRangesGb = new System.Windows.Forms.GroupBox();
             this.coordRangeYInvertB = new System.Windows.Forms.Button();
             this.coordRangeXInvertB = new System.Windows.Forms.Button();
             this.label38 = new System.Windows.Forms.Label();
@@ -156,8 +155,8 @@
             this.label43 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
-            this.mapGb.SuspendLayout();
-            this.sourceGb.SuspendLayout();
+            this.vgaChannelMappingGb.SuspendLayout();
+            this.sourceImagesGb.SuspendLayout();
             this.outputGb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsBottomUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsRightUd)).BeginInit();
@@ -165,11 +164,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsTopUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.animationFpsUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.refreshrateud)).BeginInit();
-            this.groupBox1.SuspendLayout();
+            this.oneBitMethodGb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftYUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftXUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftFrameUd)).BeginInit();
-            this.groupBox2.SuspendLayout();
+            this.imageGb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageScaleYUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageScaleXUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toneThreshWhiteUd)).BeginInit();
@@ -178,7 +177,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleBlueUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleGreenUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleRedUd)).BeginInit();
-            this.groupBox3.SuspendLayout();
+            this.oneBitLevelsGb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryNFrameUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapCheckerHUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapCheckerWUd)).BeginInit();
@@ -186,8 +185,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapAfterXUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueTopUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueBottomUd)).BeginInit();
-            this.groupBox4.SuspendLayout();
-            this.groupBox5.SuspendLayout();
+            this.controlGb.SuspendLayout();
+            this.coordRangesGb.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeCMaxUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeCMinUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMaxUd)).BeginInit();
@@ -203,7 +202,7 @@
             this.startB.Location = new System.Drawing.Point(564, 63);
             this.startB.Name = "startB";
             this.startB.Size = new System.Drawing.Size(75, 23);
-            this.startB.TabIndex = 8;
+            this.startB.TabIndex = 3;
             this.startB.Text = "(re)start";
             this.startB.UseVisualStyleBackColor = true;
             this.startB.Click += new System.EventHandler(this.startB_Click);
@@ -213,7 +212,7 @@
             this.stopB.Location = new System.Drawing.Point(564, 34);
             this.stopB.Name = "stopB";
             this.stopB.Size = new System.Drawing.Size(75, 23);
-            this.stopB.TabIndex = 7;
+            this.stopB.TabIndex = 2;
             this.stopB.Text = "stop";
             this.stopB.UseVisualStyleBackColor = true;
             this.stopB.Click += new System.EventHandler(this.stopB_Click);
@@ -230,32 +229,32 @@
             this.openFileDialog1.Filter = "BMP, PNG, JPG, GIF|*.bmp;*.png;*jpg;*.gif|All files|*.*";
             this.openFileDialog1.ValidateNames = false;
             // 
-            // mapGb
+            // vgaChannelMappingGb
             // 
-            this.mapGb.Controls.Add(this.vgachannel1BitBlueChb);
-            this.mapGb.Controls.Add(this.vgachannel1BitGreenChb);
-            this.mapGb.Controls.Add(this.vgachannel1BitRedChb);
-            this.mapGb.Controls.Add(this.label8);
-            this.mapGb.Controls.Add(this.label7);
-            this.mapGb.Controls.Add(this.label6);
-            this.mapGb.Controls.Add(this.channelMapRedCb);
-            this.mapGb.Controls.Add(this.channelMapGreenCb);
-            this.mapGb.Controls.Add(this.channelMapBlueCb);
-            this.mapGb.Controls.Add(this.swapxyB);
-            this.mapGb.Location = new System.Drawing.Point(666, 126);
-            this.mapGb.Name = "mapGb";
-            this.mapGb.Size = new System.Drawing.Size(321, 88);
-            this.mapGb.TabIndex = 1;
-            this.mapGb.TabStop = false;
-            this.mapGb.Text = "VGA channel mapping";
+            this.vgaChannelMappingGb.Controls.Add(this.vgachannel1BitBlueChb);
+            this.vgaChannelMappingGb.Controls.Add(this.vgachannel1BitGreenChb);
+            this.vgaChannelMappingGb.Controls.Add(this.vgachannel1BitRedChb);
+            this.vgaChannelMappingGb.Controls.Add(this.label8);
+            this.vgaChannelMappingGb.Controls.Add(this.label7);
+            this.vgaChannelMappingGb.Controls.Add(this.label6);
+            this.vgaChannelMappingGb.Controls.Add(this.channelMapRedCb);
+            this.vgaChannelMappingGb.Controls.Add(this.channelMapGreenCb);
+            this.vgaChannelMappingGb.Controls.Add(this.channelMapBlueCb);
+            this.vgaChannelMappingGb.Controls.Add(this.swapxyB);
+            this.vgaChannelMappingGb.Location = new System.Drawing.Point(666, 126);
+            this.vgaChannelMappingGb.Name = "vgaChannelMappingGb";
+            this.vgaChannelMappingGb.Size = new System.Drawing.Size(321, 88);
+            this.vgaChannelMappingGb.TabIndex = 5;
+            this.vgaChannelMappingGb.TabStop = false;
+            this.vgaChannelMappingGb.Text = "VGA channel mapping";
             // 
             // vgachannel1BitBlueChb
             // 
             this.vgachannel1BitBlueChb.AutoSize = true;
-            this.vgachannel1BitBlueChb.Location = new System.Drawing.Point(164, 66);
+            this.vgachannel1BitBlueChb.Location = new System.Drawing.Point(163, 66);
             this.vgachannel1BitBlueChb.Name = "vgachannel1BitBlueChb";
             this.vgachannel1BitBlueChb.Size = new System.Drawing.Size(72, 17);
-            this.vgachannel1BitBlueChb.TabIndex = 22;
+            this.vgachannel1BitBlueChb.TabIndex = 6;
             this.vgachannel1BitBlueChb.Text = "1 bit color";
             this.vgachannel1BitBlueChb.UseVisualStyleBackColor = true;
             // 
@@ -265,7 +264,7 @@
             this.vgachannel1BitGreenChb.Location = new System.Drawing.Point(84, 66);
             this.vgachannel1BitGreenChb.Name = "vgachannel1BitGreenChb";
             this.vgachannel1BitGreenChb.Size = new System.Drawing.Size(72, 17);
-            this.vgachannel1BitGreenChb.TabIndex = 21;
+            this.vgachannel1BitGreenChb.TabIndex = 5;
             this.vgachannel1BitGreenChb.Text = "1 bit color";
             this.vgachannel1BitGreenChb.UseVisualStyleBackColor = true;
             // 
@@ -275,7 +274,7 @@
             this.vgachannel1BitRedChb.Location = new System.Drawing.Point(6, 66);
             this.vgachannel1BitRedChb.Name = "vgachannel1BitRedChb";
             this.vgachannel1BitRedChb.Size = new System.Drawing.Size(72, 17);
-            this.vgachannel1BitRedChb.TabIndex = 20;
+            this.vgachannel1BitRedChb.TabIndex = 4;
             this.vgachannel1BitRedChb.Text = "1 bit color";
             this.vgachannel1BitRedChb.UseVisualStyleBackColor = true;
             // 
@@ -317,7 +316,7 @@
             this.channelMapRedCb.Location = new System.Drawing.Point(6, 39);
             this.channelMapRedCb.Name = "channelMapRedCb";
             this.channelMapRedCb.Size = new System.Drawing.Size(72, 21);
-            this.channelMapRedCb.TabIndex = 2;
+            this.channelMapRedCb.TabIndex = 0;
             // 
             // channelMapGreenCb
             // 
@@ -330,7 +329,7 @@
             this.channelMapGreenCb.Location = new System.Drawing.Point(84, 39);
             this.channelMapGreenCb.Name = "channelMapGreenCb";
             this.channelMapGreenCb.Size = new System.Drawing.Size(72, 21);
-            this.channelMapGreenCb.TabIndex = 4;
+            this.channelMapGreenCb.TabIndex = 1;
             // 
             // channelMapBlueCb
             // 
@@ -343,31 +342,31 @@
             this.channelMapBlueCb.Location = new System.Drawing.Point(163, 39);
             this.channelMapBlueCb.Name = "channelMapBlueCb";
             this.channelMapBlueCb.Size = new System.Drawing.Size(72, 21);
-            this.channelMapBlueCb.TabIndex = 6;
+            this.channelMapBlueCb.TabIndex = 2;
             // 
             // swapxyB
             // 
             this.swapxyB.Location = new System.Drawing.Point(241, 37);
             this.swapxyB.Name = "swapxyB";
             this.swapxyB.Size = new System.Drawing.Size(71, 23);
-            this.swapxyB.TabIndex = 7;
+            this.swapxyB.TabIndex = 3;
             this.swapxyB.Text = "Swap X Y";
             this.swapxyB.UseVisualStyleBackColor = true;
             this.swapxyB.Click += new System.EventHandler(this.swapxyB_Click);
             // 
-            // sourceGb
+            // sourceImagesGb
             // 
-            this.sourceGb.Controls.Add(this.label3);
-            this.sourceGb.Controls.Add(this.framesdirpathed);
-            this.sourceGb.Controls.Add(this.selectFramesPathB);
-            this.sourceGb.Controls.Add(this.pathFileRb);
-            this.sourceGb.Controls.Add(this.pathDirRb);
-            this.sourceGb.Location = new System.Drawing.Point(12, 12);
-            this.sourceGb.Name = "sourceGb";
-            this.sourceGb.Size = new System.Drawing.Size(321, 70);
-            this.sourceGb.TabIndex = 0;
-            this.sourceGb.TabStop = false;
-            this.sourceGb.Text = "Source images";
+            this.sourceImagesGb.Controls.Add(this.label3);
+            this.sourceImagesGb.Controls.Add(this.framesdirpathed);
+            this.sourceImagesGb.Controls.Add(this.selectFramesPathB);
+            this.sourceImagesGb.Controls.Add(this.pathFileRb);
+            this.sourceImagesGb.Controls.Add(this.pathDirRb);
+            this.sourceImagesGb.Location = new System.Drawing.Point(12, 12);
+            this.sourceImagesGb.Name = "sourceImagesGb";
+            this.sourceImagesGb.Size = new System.Drawing.Size(321, 70);
+            this.sourceImagesGb.TabIndex = 0;
+            this.sourceImagesGb.TabStop = false;
+            this.sourceImagesGb.Text = "Source images";
             // 
             // label3
             // 
@@ -424,7 +423,7 @@
             this.swapxyChb.Location = new System.Drawing.Point(11, 69);
             this.swapxyChb.Name = "swapxyChb";
             this.swapxyChb.Size = new System.Drawing.Size(164, 17);
-            this.swapxyChb.TabIndex = 4;
+            this.swapxyChb.TabIndex = 3;
             this.swapxyChb.Text = "Rotate 90 degrees clockwise";
             this.swapxyChb.UseVisualStyleBackColor = true;
             // 
@@ -455,7 +454,7 @@
             this.outputGb.Location = new System.Drawing.Point(666, 219);
             this.outputGb.Name = "outputGb";
             this.outputGb.Size = new System.Drawing.Size(321, 224);
-            this.outputGb.TabIndex = 2;
+            this.outputGb.TabIndex = 6;
             this.outputGb.TabStop = false;
             this.outputGb.Text = "Output";
             // 
@@ -464,7 +463,7 @@
             this.outBoundsFlipHB.Location = new System.Drawing.Point(208, 169);
             this.outBoundsFlipHB.Name = "outBoundsFlipHB";
             this.outBoundsFlipHB.Size = new System.Drawing.Size(104, 23);
-            this.outBoundsFlipHB.TabIndex = 57;
+            this.outBoundsFlipHB.TabIndex = 13;
             this.outBoundsFlipHB.Text = "Flip Horizontally";
             this.outBoundsFlipHB.UseVisualStyleBackColor = true;
             this.outBoundsFlipHB.Click += new System.EventHandler(this.outBoundsFlipHB_Click);
@@ -474,7 +473,7 @@
             this.outBoundsFlipVB.Location = new System.Drawing.Point(208, 143);
             this.outBoundsFlipVB.Name = "outBoundsFlipVB";
             this.outBoundsFlipVB.Size = new System.Drawing.Size(104, 23);
-            this.outBoundsFlipVB.TabIndex = 56;
+            this.outBoundsFlipVB.TabIndex = 12;
             this.outBoundsFlipVB.Text = "Flip Vertically";
             this.outBoundsFlipVB.UseVisualStyleBackColor = true;
             this.outBoundsFlipVB.Click += new System.EventHandler(this.outBoundsFlipVB_Click);
@@ -495,7 +494,7 @@
             0});
             this.outputBoundsBottomUd.Name = "outputBoundsBottomUd";
             this.outputBoundsBottomUd.Size = new System.Drawing.Size(63, 20);
-            this.outputBoundsBottomUd.TabIndex = 55;
+            this.outputBoundsBottomUd.TabIndex = 9;
             this.outputBoundsBottomUd.Value = new decimal(new int[] {
             1,
             0,
@@ -518,7 +517,7 @@
             0});
             this.outputBoundsRightUd.Name = "outputBoundsRightUd";
             this.outputBoundsRightUd.Size = new System.Drawing.Size(63, 20);
-            this.outputBoundsRightUd.TabIndex = 54;
+            this.outputBoundsRightUd.TabIndex = 11;
             this.outputBoundsRightUd.Value = new decimal(new int[] {
             1,
             0,
@@ -541,14 +540,14 @@
             0});
             this.outputBoundsLeftUd.Name = "outputBoundsLeftUd";
             this.outputBoundsLeftUd.Size = new System.Drawing.Size(63, 20);
-            this.outputBoundsLeftUd.TabIndex = 53;
+            this.outputBoundsLeftUd.TabIndex = 10;
             // 
             // outputBoundsResetB
             // 
             this.outputBoundsResetB.Location = new System.Drawing.Point(208, 195);
             this.outputBoundsResetB.Name = "outputBoundsResetB";
             this.outputBoundsResetB.Size = new System.Drawing.Size(104, 23);
-            this.outputBoundsResetB.TabIndex = 52;
+            this.outputBoundsResetB.TabIndex = 14;
             this.outputBoundsResetB.Text = "Reset";
             this.outputBoundsResetB.UseVisualStyleBackColor = true;
             this.outputBoundsResetB.Click += new System.EventHandler(this.outputBoundsResetB_Click);
@@ -569,7 +568,7 @@
             0});
             this.outputBoundsTopUd.Name = "outputBoundsTopUd";
             this.outputBoundsTopUd.Size = new System.Drawing.Size(63, 20);
-            this.outputBoundsTopUd.TabIndex = 51;
+            this.outputBoundsTopUd.TabIndex = 8;
             // 
             // label19
             // 
@@ -604,7 +603,7 @@
             -2147483648});
             this.animationFpsUd.Name = "animationFpsUd";
             this.animationFpsUd.Size = new System.Drawing.Size(105, 20);
-            this.animationFpsUd.TabIndex = 48;
+            this.animationFpsUd.TabIndex = 5;
             this.animationFpsUd.Value = new decimal(new int[] {
             60,
             0,
@@ -616,7 +615,7 @@
             this.vsyncB.Location = new System.Drawing.Point(237, 43);
             this.vsyncB.Name = "vsyncB";
             this.vsyncB.Size = new System.Drawing.Size(51, 23);
-            this.vsyncB.TabIndex = 47;
+            this.vsyncB.TabIndex = 3;
             this.vsyncB.Text = "VSync";
             this.vsyncB.UseVisualStyleBackColor = true;
             this.vsyncB.Click += new System.EventHandler(this.vsyncB_Click);
@@ -626,7 +625,7 @@
             this.nofpsB.Location = new System.Drawing.Point(294, 43);
             this.nofpsB.Name = "nofpsB";
             this.nofpsB.Size = new System.Drawing.Size(18, 23);
-            this.nofpsB.TabIndex = 46;
+            this.nofpsB.TabIndex = 4;
             this.nofpsB.Text = "X";
             this.nofpsB.UseVisualStyleBackColor = true;
             this.nofpsB.Click += new System.EventHandler(this.nofpsB_Click);
@@ -699,7 +698,7 @@
             this.enableAntialiasingChb.Location = new System.Drawing.Point(11, 46);
             this.enableAntialiasingChb.Name = "enableAntialiasingChb";
             this.enableAntialiasingChb.Size = new System.Drawing.Size(114, 17);
-            this.enableAntialiasingChb.TabIndex = 3;
+            this.enableAntialiasingChb.TabIndex = 2;
             this.enableAntialiasingChb.Text = "Enable antialiasing";
             this.enableAntialiasingChb.UseVisualStyleBackColor = true;
             // 
@@ -747,7 +746,7 @@
             this.mainWinTopmostChb.Location = new System.Drawing.Point(9, 19);
             this.mainWinTopmostChb.Name = "mainWinTopmostChb";
             this.mainWinTopmostChb.Size = new System.Drawing.Size(121, 17);
-            this.mainWinTopmostChb.TabIndex = 5;
+            this.mainWinTopmostChb.TabIndex = 0;
             this.mainWinTopmostChb.Text = "Main window on top";
             this.mainWinTopmostChb.UseVisualStyleBackColor = true;
             this.mainWinTopmostChb.CheckedChanged += new System.EventHandler(this.mainWinTopmostChb_CheckedChanged);
@@ -760,30 +759,30 @@
             this.drawWinFullscreenChb.Location = new System.Drawing.Point(9, 42);
             this.drawWinFullscreenChb.Name = "drawWinFullscreenChb";
             this.drawWinFullscreenChb.Size = new System.Drawing.Size(113, 17);
-            this.drawWinFullscreenChb.TabIndex = 6;
+            this.drawWinFullscreenChb.TabIndex = 1;
             this.drawWinFullscreenChb.Text = "Drawing fullscreen";
             this.drawWinFullscreenChb.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // oneBitMethodGb
             // 
-            this.groupBox1.Controls.Add(this.oneBitOrderedMatrixSizeCb);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label23);
-            this.groupBox1.Controls.Add(this.label22);
-            this.groupBox1.Controls.Add(this.ditherOrderedShiftYUd);
-            this.groupBox1.Controls.Add(this.ditherOrderedShiftXUd);
-            this.groupBox1.Controls.Add(this.label21);
-            this.groupBox1.Controls.Add(this.label20);
-            this.groupBox1.Controls.Add(this.oneBitMethodPwmRb);
-            this.groupBox1.Controls.Add(this.ditherOrderedShiftFrameUd);
-            this.groupBox1.Controls.Add(this.oneBitMethodOrderedRb);
-            this.groupBox1.Controls.Add(this.oneBitMethodRandomRb);
-            this.groupBox1.Location = new System.Drawing.Point(339, 195);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(321, 150);
-            this.groupBox1.TabIndex = 3;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "1 bit encoding method";
+            this.oneBitMethodGb.Controls.Add(this.oneBitOrderedMatrixSizeCb);
+            this.oneBitMethodGb.Controls.Add(this.label11);
+            this.oneBitMethodGb.Controls.Add(this.label23);
+            this.oneBitMethodGb.Controls.Add(this.label22);
+            this.oneBitMethodGb.Controls.Add(this.ditherOrderedShiftYUd);
+            this.oneBitMethodGb.Controls.Add(this.ditherOrderedShiftXUd);
+            this.oneBitMethodGb.Controls.Add(this.label21);
+            this.oneBitMethodGb.Controls.Add(this.label20);
+            this.oneBitMethodGb.Controls.Add(this.oneBitMethodPwmRb);
+            this.oneBitMethodGb.Controls.Add(this.ditherOrderedShiftFrameUd);
+            this.oneBitMethodGb.Controls.Add(this.oneBitMethodOrderedRb);
+            this.oneBitMethodGb.Controls.Add(this.oneBitMethodRandomRb);
+            this.oneBitMethodGb.Location = new System.Drawing.Point(339, 195);
+            this.oneBitMethodGb.Name = "oneBitMethodGb";
+            this.oneBitMethodGb.Size = new System.Drawing.Size(321, 150);
+            this.oneBitMethodGb.TabIndex = 3;
+            this.oneBitMethodGb.TabStop = false;
+            this.oneBitMethodGb.Text = "1 bit encoding method";
             // 
             // oneBitOrderedMatrixSizeCb
             // 
@@ -792,7 +791,7 @@
             this.oneBitOrderedMatrixSizeCb.Location = new System.Drawing.Point(253, 42);
             this.oneBitOrderedMatrixSizeCb.Name = "oneBitOrderedMatrixSizeCb";
             this.oneBitOrderedMatrixSizeCb.Size = new System.Drawing.Size(59, 21);
-            this.oneBitOrderedMatrixSizeCb.TabIndex = 38;
+            this.oneBitOrderedMatrixSizeCb.TabIndex = 2;
             // 
             // label11
             // 
@@ -837,7 +836,7 @@
             -2147483648});
             this.ditherOrderedShiftYUd.Name = "ditherOrderedShiftYUd";
             this.ditherOrderedShiftYUd.Size = new System.Drawing.Size(59, 20);
-            this.ditherOrderedShiftYUd.TabIndex = 20;
+            this.ditherOrderedShiftYUd.TabIndex = 7;
             this.ditherOrderedShiftYUd.Value = new decimal(new int[] {
             125,
             0,
@@ -860,7 +859,7 @@
             -2147483648});
             this.ditherOrderedShiftXUd.Name = "ditherOrderedShiftXUd";
             this.ditherOrderedShiftXUd.Size = new System.Drawing.Size(59, 20);
-            this.ditherOrderedShiftXUd.TabIndex = 19;
+            this.ditherOrderedShiftXUd.TabIndex = 6;
             this.ditherOrderedShiftXUd.Value = new decimal(new int[] {
             1,
             0,
@@ -873,7 +872,7 @@
             this.label21.Location = new System.Drawing.Point(29, 97);
             this.label21.Name = "label21";
             this.label21.Size = new System.Drawing.Size(58, 13);
-            this.label21.TabIndex = 18;
+            this.label21.TabIndex = 5;
             this.label21.Text = "by N pixels";
             // 
             // label20
@@ -882,7 +881,7 @@
             this.label20.Location = new System.Drawing.Point(29, 71);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(183, 13);
-            this.label20.TabIndex = 17;
+            this.label20.TabIndex = 3;
             this.label20.Text = "Shift pattern every Nth display refresh";
             // 
             // oneBitMethodPwmRb
@@ -891,7 +890,7 @@
             this.oneBitMethodPwmRb.Location = new System.Drawing.Point(9, 120);
             this.oneBitMethodPwmRb.Name = "oneBitMethodPwmRb";
             this.oneBitMethodPwmRb.Size = new System.Drawing.Size(173, 17);
-            this.oneBitMethodPwmRb.TabIndex = 2;
+            this.oneBitMethodPwmRb.TabIndex = 8;
             this.oneBitMethodPwmRb.Text = "Pulse Width Modulation (PWM)";
             this.oneBitMethodPwmRb.UseVisualStyleBackColor = true;
             // 
@@ -906,7 +905,7 @@
             0});
             this.ditherOrderedShiftFrameUd.Name = "ditherOrderedShiftFrameUd";
             this.ditherOrderedShiftFrameUd.Size = new System.Drawing.Size(59, 20);
-            this.ditherOrderedShiftFrameUd.TabIndex = 15;
+            this.ditherOrderedShiftFrameUd.TabIndex = 4;
             this.ditherOrderedShiftFrameUd.Value = new decimal(new int[] {
             1,
             0,
@@ -935,37 +934,37 @@
             this.oneBitMethodRandomRb.Text = "Random noise";
             this.oneBitMethodRandomRb.UseVisualStyleBackColor = true;
             // 
-            // groupBox2
+            // imageGb
             // 
-            this.groupBox2.Controls.Add(this.label41);
-            this.groupBox2.Controls.Add(this.imageScaleYUd);
-            this.groupBox2.Controls.Add(this.label42);
-            this.groupBox2.Controls.Add(this.imageScaleXUd);
-            this.groupBox2.Controls.Add(this.label27);
-            this.groupBox2.Controls.Add(this.swapxyChb);
-            this.groupBox2.Controls.Add(this.colorInvertChb);
-            this.groupBox2.Controls.Add(this.label18);
-            this.groupBox2.Controls.Add(this.toneThreshWhiteUd);
-            this.groupBox2.Controls.Add(this.label17);
-            this.groupBox2.Controls.Add(this.toneThreshBlackUd);
-            this.groupBox2.Controls.Add(this.label16);
-            this.groupBox2.Controls.Add(this.label15);
-            this.groupBox2.Controls.Add(this.label14);
-            this.groupBox2.Controls.Add(this.label13);
-            this.groupBox2.Controls.Add(this.gammaUd);
-            this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.enableAntialiasingChb);
-            this.groupBox2.Controls.Add(this.grayscaleDefB);
-            this.groupBox2.Controls.Add(this.grayscaleBlueUd);
-            this.groupBox2.Controls.Add(this.grayscaleGreenUd);
-            this.groupBox2.Controls.Add(this.grayscaleRedUd);
-            this.groupBox2.Controls.Add(this.label10);
-            this.groupBox2.Location = new System.Drawing.Point(12, 88);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(321, 257);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Image";
+            this.imageGb.Controls.Add(this.label41);
+            this.imageGb.Controls.Add(this.imageScaleYUd);
+            this.imageGb.Controls.Add(this.label42);
+            this.imageGb.Controls.Add(this.imageScaleXUd);
+            this.imageGb.Controls.Add(this.label27);
+            this.imageGb.Controls.Add(this.swapxyChb);
+            this.imageGb.Controls.Add(this.colorInvertChb);
+            this.imageGb.Controls.Add(this.label18);
+            this.imageGb.Controls.Add(this.toneThreshWhiteUd);
+            this.imageGb.Controls.Add(this.label17);
+            this.imageGb.Controls.Add(this.toneThreshBlackUd);
+            this.imageGb.Controls.Add(this.label16);
+            this.imageGb.Controls.Add(this.label15);
+            this.imageGb.Controls.Add(this.label14);
+            this.imageGb.Controls.Add(this.label13);
+            this.imageGb.Controls.Add(this.gammaUd);
+            this.imageGb.Controls.Add(this.label12);
+            this.imageGb.Controls.Add(this.enableAntialiasingChb);
+            this.imageGb.Controls.Add(this.grayscaleDefB);
+            this.imageGb.Controls.Add(this.grayscaleBlueUd);
+            this.imageGb.Controls.Add(this.grayscaleGreenUd);
+            this.imageGb.Controls.Add(this.grayscaleRedUd);
+            this.imageGb.Controls.Add(this.label10);
+            this.imageGb.Location = new System.Drawing.Point(12, 88);
+            this.imageGb.Name = "imageGb";
+            this.imageGb.Size = new System.Drawing.Size(321, 257);
+            this.imageGb.TabIndex = 1;
+            this.imageGb.TabStop = false;
+            this.imageGb.Text = "Image";
             // 
             // label41
             // 
@@ -973,7 +972,7 @@
             this.label41.Location = new System.Drawing.Point(203, 21);
             this.label41.Name = "label41";
             this.label41.Size = new System.Drawing.Size(42, 13);
-            this.label41.TabIndex = 20;
+            this.label41.TabIndex = 3;
             this.label41.Text = "Vertical";
             // 
             // imageScaleYUd
@@ -992,7 +991,7 @@
             0});
             this.imageScaleYUd.Name = "imageScaleYUd";
             this.imageScaleYUd.Size = new System.Drawing.Size(59, 20);
-            this.imageScaleYUd.TabIndex = 19;
+            this.imageScaleYUd.TabIndex = 1;
             this.imageScaleYUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1005,7 +1004,7 @@
             this.label42.Location = new System.Drawing.Point(75, 21);
             this.label42.Name = "label42";
             this.label42.Size = new System.Drawing.Size(54, 13);
-            this.label42.TabIndex = 18;
+            this.label42.TabIndex = 1;
             this.label42.Text = "Horizontal";
             // 
             // imageScaleXUd
@@ -1024,7 +1023,7 @@
             0});
             this.imageScaleXUd.Name = "imageScaleXUd";
             this.imageScaleXUd.Size = new System.Drawing.Size(59, 20);
-            this.imageScaleXUd.TabIndex = 17;
+            this.imageScaleXUd.TabIndex = 0;
             this.imageScaleXUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1037,7 +1036,7 @@
             this.label27.Location = new System.Drawing.Point(8, 21);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(34, 13);
-            this.label27.TabIndex = 16;
+            this.label27.TabIndex = 0;
             this.label27.Text = "Scale";
             // 
             // colorInvertChb
@@ -1046,7 +1045,7 @@
             this.colorInvertChb.Location = new System.Drawing.Point(12, 171);
             this.colorInvertChb.Name = "colorInvertChb";
             this.colorInvertChb.Size = new System.Drawing.Size(53, 17);
-            this.colorInvertChb.TabIndex = 15;
+            this.colorInvertChb.TabIndex = 9;
             this.colorInvertChb.Text = "Invert";
             this.colorInvertChb.UseVisualStyleBackColor = true;
             // 
@@ -1075,7 +1074,7 @@
             0});
             this.toneThreshWhiteUd.Name = "toneThreshWhiteUd";
             this.toneThreshWhiteUd.Size = new System.Drawing.Size(59, 20);
-            this.toneThreshWhiteUd.TabIndex = 13;
+            this.toneThreshWhiteUd.TabIndex = 12;
             this.toneThreshWhiteUd.Value = new decimal(new int[] {
             99,
             0,
@@ -1171,7 +1170,7 @@
             196608});
             this.gammaUd.Name = "gammaUd";
             this.gammaUd.Size = new System.Drawing.Size(59, 20);
-            this.gammaUd.TabIndex = 6;
+            this.gammaUd.TabIndex = 10;
             this.gammaUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1192,7 +1191,7 @@
             this.grayscaleDefB.Location = new System.Drawing.Point(247, 139);
             this.grayscaleDefB.Name = "grayscaleDefB";
             this.grayscaleDefB.Size = new System.Drawing.Size(71, 23);
-            this.grayscaleDefB.TabIndex = 4;
+            this.grayscaleDefB.TabIndex = 8;
             this.grayscaleDefB.Text = "Default";
             this.grayscaleDefB.UseVisualStyleBackColor = true;
             this.grayscaleDefB.Click += new System.EventHandler(this.grayscaleDefB_Click);
@@ -1218,7 +1217,7 @@
             -2147483648});
             this.grayscaleBlueUd.Name = "grayscaleBlueUd";
             this.grayscaleBlueUd.Size = new System.Drawing.Size(72, 20);
-            this.grayscaleBlueUd.TabIndex = 3;
+            this.grayscaleBlueUd.TabIndex = 7;
             this.grayscaleBlueUd.Value = new decimal(new int[] {
             114,
             0,
@@ -1246,7 +1245,7 @@
             -2147483648});
             this.grayscaleGreenUd.Name = "grayscaleGreenUd";
             this.grayscaleGreenUd.Size = new System.Drawing.Size(72, 20);
-            this.grayscaleGreenUd.TabIndex = 2;
+            this.grayscaleGreenUd.TabIndex = 6;
             this.grayscaleGreenUd.Value = new decimal(new int[] {
             587,
             0,
@@ -1274,7 +1273,7 @@
             -2147483648});
             this.grayscaleRedUd.Name = "grayscaleRedUd";
             this.grayscaleRedUd.Size = new System.Drawing.Size(72, 20);
-            this.grayscaleRedUd.TabIndex = 1;
+            this.grayscaleRedUd.TabIndex = 5;
             this.grayscaleRedUd.Value = new decimal(new int[] {
             299,
             0,
@@ -1287,36 +1286,36 @@
             this.label10.Location = new System.Drawing.Point(9, 105);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(125, 13);
-            this.label10.TabIndex = 0;
+            this.label10.TabIndex = 4;
             this.label10.Text = "Grayscale blending ratios";
             // 
-            // groupBox3
+            // oneBitLevelsGb
             // 
-            this.groupBox3.Controls.Add(this.blankSwapByPosChb);
-            this.groupBox3.Controls.Add(this.blankSwapEveryNFrameUd);
-            this.groupBox3.Controls.Add(this.blankSwapEveryNFrameChb);
-            this.groupBox3.Controls.Add(this.label25);
-            this.groupBox3.Controls.Add(this.label31);
-            this.groupBox3.Controls.Add(this.blankSwapCheckerHUd);
-            this.groupBox3.Controls.Add(this.blankSwapCheckerWUd);
-            this.groupBox3.Controls.Add(this.blankSwapCheckeredRb);
-            this.groupBox3.Controls.Add(this.label30);
-            this.groupBox3.Controls.Add(this.label24);
-            this.groupBox3.Controls.Add(this.blankSwapAfterYUd);
-            this.groupBox3.Controls.Add(this.blankSwapRandomRb);
-            this.groupBox3.Controls.Add(this.blankSwapAfterRb);
-            this.groupBox3.Controls.Add(this.blankSwapAfterXUd);
-            this.groupBox3.Controls.Add(this.label29);
-            this.groupBox3.Controls.Add(this.label28);
-            this.groupBox3.Controls.Add(this.blankValueTopUd);
-            this.groupBox3.Controls.Add(this.blankValueBottomUd);
-            this.groupBox3.Controls.Add(this.label26);
-            this.groupBox3.Location = new System.Drawing.Point(339, 12);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(321, 177);
-            this.groupBox3.TabIndex = 5;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "1 bit encoding levels";
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapByPosChb);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapEveryNFrameUd);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapEveryNFrameChb);
+            this.oneBitLevelsGb.Controls.Add(this.label25);
+            this.oneBitLevelsGb.Controls.Add(this.label31);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapCheckerHUd);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapCheckerWUd);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapCheckeredRb);
+            this.oneBitLevelsGb.Controls.Add(this.label30);
+            this.oneBitLevelsGb.Controls.Add(this.label24);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapAfterYUd);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapRandomRb);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapAfterRb);
+            this.oneBitLevelsGb.Controls.Add(this.blankSwapAfterXUd);
+            this.oneBitLevelsGb.Controls.Add(this.label29);
+            this.oneBitLevelsGb.Controls.Add(this.label28);
+            this.oneBitLevelsGb.Controls.Add(this.blankValueTopUd);
+            this.oneBitLevelsGb.Controls.Add(this.blankValueBottomUd);
+            this.oneBitLevelsGb.Controls.Add(this.label26);
+            this.oneBitLevelsGb.Location = new System.Drawing.Point(339, 12);
+            this.oneBitLevelsGb.Name = "oneBitLevelsGb";
+            this.oneBitLevelsGb.Size = new System.Drawing.Size(321, 177);
+            this.oneBitLevelsGb.TabIndex = 2;
+            this.oneBitLevelsGb.TabStop = false;
+            this.oneBitLevelsGb.Text = "1 bit encoding levels";
             // 
             // blankSwapByPosChb
             // 
@@ -1324,7 +1323,7 @@
             this.blankSwapByPosChb.Location = new System.Drawing.Point(9, 74);
             this.blankSwapByPosChb.Name = "blankSwapByPosChb";
             this.blankSwapByPosChb.Size = new System.Drawing.Size(130, 17);
-            this.blankSwapByPosChb.TabIndex = 55;
+            this.blankSwapByPosChb.TabIndex = 4;
             this.blankSwapByPosChb.Text = "Swap by pixel position";
             this.blankSwapByPosChb.UseVisualStyleBackColor = true;
             // 
@@ -1339,7 +1338,7 @@
             0});
             this.blankSwapEveryNFrameUd.Name = "blankSwapEveryNFrameUd";
             this.blankSwapEveryNFrameUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapEveryNFrameUd.TabIndex = 54;
+            this.blankSwapEveryNFrameUd.TabIndex = 3;
             this.blankSwapEveryNFrameUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1352,7 +1351,7 @@
             this.blankSwapEveryNFrameChb.Location = new System.Drawing.Point(9, 51);
             this.blankSwapEveryNFrameChb.Name = "blankSwapEveryNFrameChb";
             this.blankSwapEveryNFrameChb.Size = new System.Drawing.Size(137, 17);
-            this.blankSwapEveryNFrameChb.TabIndex = 53;
+            this.blankSwapEveryNFrameChb.TabIndex = 2;
             this.blankSwapEveryNFrameChb.Text = "Swap every Nth refresh";
             this.blankSwapEveryNFrameChb.UseVisualStyleBackColor = true;
             // 
@@ -1390,7 +1389,7 @@
             0});
             this.blankSwapCheckerHUd.Name = "blankSwapCheckerHUd";
             this.blankSwapCheckerHUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapCheckerHUd.TabIndex = 50;
+            this.blankSwapCheckerHUd.TabIndex = 10;
             this.blankSwapCheckerHUd.Value = new decimal(new int[] {
             2,
             0,
@@ -1413,7 +1412,7 @@
             0});
             this.blankSwapCheckerWUd.Name = "blankSwapCheckerWUd";
             this.blankSwapCheckerWUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapCheckerWUd.TabIndex = 49;
+            this.blankSwapCheckerWUd.TabIndex = 9;
             this.blankSwapCheckerWUd.Value = new decimal(new int[] {
             2,
             0,
@@ -1426,7 +1425,7 @@
             this.blankSwapCheckeredRb.Location = new System.Drawing.Point(22, 124);
             this.blankSwapCheckeredRb.Name = "blankSwapCheckeredRb";
             this.blankSwapCheckeredRb.Size = new System.Drawing.Size(77, 17);
-            this.blankSwapCheckeredRb.TabIndex = 48;
+            this.blankSwapCheckeredRb.TabIndex = 8;
             this.blankSwapCheckeredRb.Text = "Checkered";
             this.blankSwapCheckeredRb.UseVisualStyleBackColor = true;
             // 
@@ -1464,7 +1463,7 @@
             0});
             this.blankSwapAfterYUd.Name = "blankSwapAfterYUd";
             this.blankSwapAfterYUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapAfterYUd.TabIndex = 45;
+            this.blankSwapAfterYUd.TabIndex = 7;
             this.blankSwapAfterYUd.Value = new decimal(new int[] {
             5,
             0,
@@ -1477,7 +1476,7 @@
             this.blankSwapRandomRb.Location = new System.Drawing.Point(22, 149);
             this.blankSwapRandomRb.Name = "blankSwapRandomRb";
             this.blankSwapRandomRb.Size = new System.Drawing.Size(65, 17);
-            this.blankSwapRandomRb.TabIndex = 44;
+            this.blankSwapRandomRb.TabIndex = 11;
             this.blankSwapRandomRb.Text = "Random";
             this.blankSwapRandomRb.UseVisualStyleBackColor = true;
             // 
@@ -1488,7 +1487,7 @@
             this.blankSwapAfterRb.Location = new System.Drawing.Point(22, 98);
             this.blankSwapAfterRb.Name = "blankSwapAfterRb";
             this.blankSwapAfterRb.Size = new System.Drawing.Size(86, 17);
-            this.blankSwapAfterRb.TabIndex = 43;
+            this.blankSwapAfterRb.TabIndex = 5;
             this.blankSwapAfterRb.TabStop = true;
             this.blankSwapAfterRb.Text = "After position";
             this.blankSwapAfterRb.UseVisualStyleBackColor = true;
@@ -1509,7 +1508,7 @@
             0});
             this.blankSwapAfterXUd.Name = "blankSwapAfterXUd";
             this.blankSwapAfterXUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapAfterXUd.TabIndex = 42;
+            this.blankSwapAfterXUd.TabIndex = 6;
             // 
             // label29
             // 
@@ -1545,7 +1544,7 @@
             0});
             this.blankValueTopUd.Name = "blankValueTopUd";
             this.blankValueTopUd.Size = new System.Drawing.Size(59, 20);
-            this.blankValueTopUd.TabIndex = 39;
+            this.blankValueTopUd.TabIndex = 1;
             this.blankValueTopUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1568,7 +1567,7 @@
             0});
             this.blankValueBottomUd.Name = "blankValueBottomUd";
             this.blankValueBottomUd.Size = new System.Drawing.Size(59, 20);
-            this.blankValueBottomUd.TabIndex = 37;
+            this.blankValueBottomUd.TabIndex = 0;
             // 
             // label26
             // 
@@ -1579,55 +1578,55 @@
             this.label26.TabIndex = 0;
             this.label26.Text = "Blanking value";
             // 
-            // groupBox4
+            // controlGb
             // 
-            this.groupBox4.Controls.Add(this.mainWinTopmostChb);
-            this.groupBox4.Controls.Add(this.startB);
-            this.groupBox4.Controls.Add(this.stopB);
-            this.groupBox4.Controls.Add(this.drawWinFullscreenChb);
-            this.groupBox4.Controls.Add(this.fpslabel);
-            this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Controls.Add(this.label5);
-            this.groupBox4.Controls.Add(this.currentmonitorlabel);
-            this.groupBox4.Location = new System.Drawing.Point(12, 351);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(648, 92);
-            this.groupBox4.TabIndex = 6;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Control";
+            this.controlGb.Controls.Add(this.mainWinTopmostChb);
+            this.controlGb.Controls.Add(this.startB);
+            this.controlGb.Controls.Add(this.stopB);
+            this.controlGb.Controls.Add(this.drawWinFullscreenChb);
+            this.controlGb.Controls.Add(this.fpslabel);
+            this.controlGb.Controls.Add(this.label2);
+            this.controlGb.Controls.Add(this.label5);
+            this.controlGb.Controls.Add(this.currentmonitorlabel);
+            this.controlGb.Location = new System.Drawing.Point(12, 351);
+            this.controlGb.Name = "controlGb";
+            this.controlGb.Size = new System.Drawing.Size(648, 92);
+            this.controlGb.TabIndex = 7;
+            this.controlGb.TabStop = false;
+            this.controlGb.Text = "Control";
             // 
-            // groupBox5
+            // coordRangesGb
             // 
-            this.groupBox5.Controls.Add(this.coordRangeYInvertB);
-            this.groupBox5.Controls.Add(this.coordRangeXInvertB);
-            this.groupBox5.Controls.Add(this.label38);
-            this.groupBox5.Controls.Add(this.coordRangeCMaxUd);
-            this.groupBox5.Controls.Add(this.label39);
-            this.groupBox5.Controls.Add(this.coordRangeCMinUd);
-            this.groupBox5.Controls.Add(this.label40);
-            this.groupBox5.Controls.Add(this.label35);
-            this.groupBox5.Controls.Add(this.coordRangeYMaxUd);
-            this.groupBox5.Controls.Add(this.label36);
-            this.groupBox5.Controls.Add(this.coordRangeYMinUd);
-            this.groupBox5.Controls.Add(this.label37);
-            this.groupBox5.Controls.Add(this.label34);
-            this.groupBox5.Controls.Add(this.coordRangeXMaxUd);
-            this.groupBox5.Controls.Add(this.label33);
-            this.groupBox5.Controls.Add(this.coordRangeXMinUd);
-            this.groupBox5.Controls.Add(this.label32);
-            this.groupBox5.Location = new System.Drawing.Point(666, 12);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(321, 108);
-            this.groupBox5.TabIndex = 7;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Coordinate ranges";
+            this.coordRangesGb.Controls.Add(this.coordRangeYInvertB);
+            this.coordRangesGb.Controls.Add(this.coordRangeXInvertB);
+            this.coordRangesGb.Controls.Add(this.label38);
+            this.coordRangesGb.Controls.Add(this.coordRangeCMaxUd);
+            this.coordRangesGb.Controls.Add(this.label39);
+            this.coordRangesGb.Controls.Add(this.coordRangeCMinUd);
+            this.coordRangesGb.Controls.Add(this.label40);
+            this.coordRangesGb.Controls.Add(this.label35);
+            this.coordRangesGb.Controls.Add(this.coordRangeYMaxUd);
+            this.coordRangesGb.Controls.Add(this.label36);
+            this.coordRangesGb.Controls.Add(this.coordRangeYMinUd);
+            this.coordRangesGb.Controls.Add(this.label37);
+            this.coordRangesGb.Controls.Add(this.label34);
+            this.coordRangesGb.Controls.Add(this.coordRangeXMaxUd);
+            this.coordRangesGb.Controls.Add(this.label33);
+            this.coordRangesGb.Controls.Add(this.coordRangeXMinUd);
+            this.coordRangesGb.Controls.Add(this.label32);
+            this.coordRangesGb.Location = new System.Drawing.Point(666, 12);
+            this.coordRangesGb.Name = "coordRangesGb";
+            this.coordRangesGb.Size = new System.Drawing.Size(321, 108);
+            this.coordRangesGb.TabIndex = 4;
+            this.coordRangesGb.TabStop = false;
+            this.coordRangesGb.Text = "Coordinate ranges";
             // 
             // coordRangeYInvertB
             // 
             this.coordRangeYInvertB.Location = new System.Drawing.Point(46, 51);
             this.coordRangeYInvertB.Name = "coordRangeYInvertB";
             this.coordRangeYInvertB.Size = new System.Drawing.Size(53, 23);
-            this.coordRangeYInvertB.TabIndex = 16;
+            this.coordRangeYInvertB.TabIndex = 3;
             this.coordRangeYInvertB.Text = "Invert";
             this.coordRangeYInvertB.UseVisualStyleBackColor = true;
             this.coordRangeYInvertB.Click += new System.EventHandler(this.coordRangeYInvertB_Click);
@@ -1637,7 +1636,7 @@
             this.coordRangeXInvertB.Location = new System.Drawing.Point(46, 25);
             this.coordRangeXInvertB.Name = "coordRangeXInvertB";
             this.coordRangeXInvertB.Size = new System.Drawing.Size(53, 23);
-            this.coordRangeXInvertB.TabIndex = 15;
+            this.coordRangeXInvertB.TabIndex = 0;
             this.coordRangeXInvertB.Text = "Invert";
             this.coordRangeXInvertB.UseVisualStyleBackColor = true;
             this.coordRangeXInvertB.Click += new System.EventHandler(this.coordRangeXInvertB_Click);
@@ -1667,7 +1666,7 @@
             0});
             this.coordRangeCMaxUd.Name = "coordRangeCMaxUd";
             this.coordRangeCMaxUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeCMaxUd.TabIndex = 13;
+            this.coordRangeCMaxUd.TabIndex = 7;
             this.coordRangeCMaxUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1699,7 +1698,7 @@
             0});
             this.coordRangeCMinUd.Name = "coordRangeCMinUd";
             this.coordRangeCMinUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeCMinUd.TabIndex = 11;
+            this.coordRangeCMinUd.TabIndex = 6;
             // 
             // label40
             // 
@@ -1735,7 +1734,7 @@
             0});
             this.coordRangeYMaxUd.Name = "coordRangeYMaxUd";
             this.coordRangeYMaxUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeYMaxUd.TabIndex = 8;
+            this.coordRangeYMaxUd.TabIndex = 5;
             this.coordRangeYMaxUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1767,7 +1766,7 @@
             0});
             this.coordRangeYMinUd.Name = "coordRangeYMinUd";
             this.coordRangeYMinUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeYMinUd.TabIndex = 6;
+            this.coordRangeYMinUd.TabIndex = 4;
             // 
             // label37
             // 
@@ -1803,7 +1802,7 @@
             0});
             this.coordRangeXMaxUd.Name = "coordRangeXMaxUd";
             this.coordRangeXMaxUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeXMaxUd.TabIndex = 3;
+            this.coordRangeXMaxUd.TabIndex = 2;
             this.coordRangeXMaxUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1862,7 +1861,7 @@
             0});
             this.gaussBlurRadiusXUd.Name = "gaussBlurRadiusXUd";
             this.gaussBlurRadiusXUd.Size = new System.Drawing.Size(59, 20);
-            this.gaussBlurRadiusXUd.TabIndex = 17;
+            this.gaussBlurRadiusXUd.TabIndex = 6;
             // 
             // gaussBlurRadiusYUd
             // 
@@ -1880,7 +1879,7 @@
             0});
             this.gaussBlurRadiusYUd.Name = "gaussBlurRadiusYUd";
             this.gaussBlurRadiusYUd.Size = new System.Drawing.Size(59, 20);
-            this.gaussBlurRadiusYUd.TabIndex = 59;
+            this.gaussBlurRadiusYUd.TabIndex = 7;
             // 
             // label43
             // 
@@ -1914,24 +1913,24 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(997, 449);
-            this.Controls.Add(this.groupBox5);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.sourceGb);
-            this.Controls.Add(this.mapGb);
+            this.Controls.Add(this.sourceImagesGb);
+            this.Controls.Add(this.imageGb);
+            this.Controls.Add(this.oneBitLevelsGb);
+            this.Controls.Add(this.oneBitMethodGb);
+            this.Controls.Add(this.coordRangesGb);
+            this.Controls.Add(this.vgaChannelMappingGb);
             this.Controls.Add(this.outputGb);
+            this.Controls.Add(this.controlGb);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VGA oscilloscope drawing";
             this.Load += new System.EventHandler(this.MainForm_Load);
-            this.mapGb.ResumeLayout(false);
-            this.mapGb.PerformLayout();
-            this.sourceGb.ResumeLayout(false);
-            this.sourceGb.PerformLayout();
+            this.vgaChannelMappingGb.ResumeLayout(false);
+            this.vgaChannelMappingGb.PerformLayout();
+            this.sourceImagesGb.ResumeLayout(false);
+            this.sourceImagesGb.PerformLayout();
             this.outputGb.ResumeLayout(false);
             this.outputGb.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsBottomUd)).EndInit();
@@ -1940,13 +1939,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsTopUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.animationFpsUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.refreshrateud)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.oneBitMethodGb.ResumeLayout(false);
+            this.oneBitMethodGb.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftYUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftXUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ditherOrderedShiftFrameUd)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
+            this.imageGb.ResumeLayout(false);
+            this.imageGb.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imageScaleYUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.imageScaleXUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toneThreshWhiteUd)).EndInit();
@@ -1955,8 +1954,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleBlueUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleGreenUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleRedUd)).EndInit();
-            this.groupBox3.ResumeLayout(false);
-            this.groupBox3.PerformLayout();
+            this.oneBitLevelsGb.ResumeLayout(false);
+            this.oneBitLevelsGb.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryNFrameUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapCheckerHUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapCheckerWUd)).EndInit();
@@ -1964,10 +1963,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapAfterXUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueTopUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueBottomUd)).EndInit();
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
-            this.groupBox5.ResumeLayout(false);
-            this.groupBox5.PerformLayout();
+            this.controlGb.ResumeLayout(false);
+            this.controlGb.PerformLayout();
+            this.coordRangesGb.ResumeLayout(false);
+            this.coordRangesGb.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeCMaxUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeCMinUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMaxUd)).EndInit();
@@ -1986,15 +1985,14 @@
         private System.Windows.Forms.Button stopB;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.FolderBrowserDialog folderBrowserDialog1;
-        private System.Windows.Forms.GroupBox mapGb;
+        private System.Windows.Forms.GroupBox vgaChannelMappingGb;
         private System.Windows.Forms.ComboBox channelMapBlueCb;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ComboBox channelMapGreenCb;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox channelMapRedCb;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.GroupBox sourceGb;
+        private System.Windows.Forms.GroupBox sourceImagesGb;
         private System.Windows.Forms.RadioButton pathDirRb;
         private System.Windows.Forms.RadioButton pathFileRb;
         private System.Windows.Forms.Button selectFramesPathB;
@@ -2019,11 +2017,11 @@
         private System.Windows.Forms.Button nofpsB;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.NumericUpDown animationFpsUd;
-        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox oneBitMethodGb;
         private System.Windows.Forms.RadioButton oneBitMethodPwmRb;
         private System.Windows.Forms.RadioButton oneBitMethodOrderedRb;
         private System.Windows.Forms.RadioButton oneBitMethodRandomRb;
-        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox imageGb;
         private System.Windows.Forms.NumericUpDown grayscaleRedUd;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown gammaUd;
@@ -2046,7 +2044,7 @@
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.NumericUpDown ditherOrderedShiftFrameUd;
-        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox oneBitLevelsGb;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label28;
@@ -2058,7 +2056,7 @@
         private System.Windows.Forms.CheckBox vgachannel1BitGreenChb;
         private System.Windows.Forms.CheckBox vgachannel1BitRedChb;
         private System.Windows.Forms.CheckBox vgachannel1BitBlueChb;
-        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.GroupBox controlGb;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.NumericUpDown outputBoundsBottomUd;
@@ -2075,7 +2073,7 @@
         private System.Windows.Forms.NumericUpDown blankSwapCheckerWUd;
         private System.Windows.Forms.RadioButton blankSwapCheckeredRb;
         private System.Windows.Forms.CheckBox colorInvertChb;
-        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox coordRangesGb;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.NumericUpDown coordRangeYMaxUd;
         private System.Windows.Forms.Label label36;
