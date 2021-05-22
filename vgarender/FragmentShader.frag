@@ -78,8 +78,8 @@ float getOneBitValue()
     else if (oneBitSwapMode == ONEBIT_SWAP_AFTER)
     {
         return (float(gl_FragCoord.x) / oneBitSwapAfter.x < windowSize.x) || (float(gl_FragCoord.y) / oneBitSwapAfter.y < windowSize.y)
-            ? oneBitTop
-            : oneBitBottom;
+            ? oneBitBottom
+            : oneBitTop;
     }
     else if (oneBitSwapMode == ONEBIT_SWAP_CHECKERED)
     {

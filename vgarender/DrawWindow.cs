@@ -311,7 +311,6 @@ namespace vgarender
                 #region gradients
 
                 // Func allows to edit during debugging
-                // Dictionary<ColorChannel, VertexArray> createRgbGradients(uint sizeX, uint sizeY) => colorChannels
                 Func<Vector2f, Vector2f, Dictionary<ColorChannel, VertexArray>> createRgbGradients = (pos, size) => colorChannels
                     .Select(color => new KeyValuePair<ColorChannel, VertexArray>(
                             color,
@@ -327,8 +326,8 @@ namespace vgarender
                         window.Size.X * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X, 
                         window.Size.Y * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y),
                     new Vector2f(
-                        window.Size.X * OutputSettings.Bounds.Width  * OutputSettings.ImageSettings.Scale.X, 
-                        window.Size.Y * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.Scale.Y)
+                        window.Size.X * OutputSettings.Bounds.Width, 
+                        window.Size.Y * OutputSettings.Bounds.Height)
                     );
 
                 window.Resized += (o, e) =>
@@ -338,8 +337,8 @@ namespace vgarender
                             e.Width  * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X, 
                             e.Height * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y),
                         new Vector2f(
-                            e.Width  * OutputSettings.Bounds.Width  * OutputSettings.ImageSettings.Scale.X, 
-                            e.Height * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.Scale.Y)
+                            e.Width  * OutputSettings.Bounds.Width, 
+                            e.Height * OutputSettings.Bounds.Height)
                         );
                 };
 
@@ -513,9 +512,7 @@ namespace vgarender
                         var colorMap = colorChannelMap[color];
 
 
-                        var colorRenderTexture = new RenderTexture(
-                            (uint) (window.Size.X * OutputSettings.ImageSettings.Scale.X), 
-                            (uint) (window.Size.Y * OutputSettings.ImageSettings.Scale.Y));
+                        var colorRenderTexture = new RenderTexture(window.Size.X, window.Size.Y);
                         colorRenderTexture.Smooth = false;
 
                         colorRenderTexture.Clear(Color.Black);
@@ -537,13 +534,41 @@ namespace vgarender
                             shader.SetUniform(suActiveChannel, (int)colorMap.Color);
 
 
-                            var state = new RenderStates() { 
-                                Transform = Transform.Identity, 
-                                Shader = shader, 
+                            var frameRenderTexture = new RenderTexture(
+                                (uint)(window.Size.X * OutputSettings.ImageSettings.Scale.X),
+                                (uint)(window.Size.Y * OutputSettings.ImageSettings.Scale.Y));
+                            frameRenderTexture.Smooth = false;
+
+                            frameRenderTexture.Clear(Color.Black);
+
+
+
+                            var state = new RenderStates()
+                            {
+                                Transform = Transform.Identity,
+                                Shader = shader,
+                                BlendMode = new BlendMode(BlendMode.Factor.One, BlendMode.Factor.Zero)
+                            };
+
+                            frameRenderTexture.Draw(frameSprite, state);
+
+                            frameRenderTexture.Display();
+
+                            var frameRenderSprite = new Sprite();
+                            frameRenderSprite.Texture = frameRenderTexture.Texture;
+
+                            frameRenderSprite.Scale = new Vector2f(1 / OutputSettings.ImageSettings.Scale.X, 1 / OutputSettings.ImageSettings.Scale.Y);
+
+                            var frameRenderSpriteState = new RenderStates()
+                            {
+                                Transform = Transform.Identity,
                                 BlendMode = oneBitMode == OneBitMode.None ? BlendMode.Add : BlendMode.Alpha
                             };
 
-                            colorRenderTexture.Draw(frameSprite, state);
+                            colorRenderTexture.Draw(frameRenderSprite, frameRenderSpriteState);
+
+                            frameRenderSprite.Dispose();
+                            frameRenderTexture.Dispose();
                         }
 
 
@@ -552,8 +577,6 @@ namespace vgarender
 
                         var colorRenderSprite = new Sprite();
                         colorRenderSprite.Texture = colorRenderTexture.Texture;
-
-                        colorRenderSprite.Scale = new Vector2f(1 / OutputSettings.ImageSettings.Scale.X, 1 / OutputSettings.ImageSettings.Scale.Y);
 
                         var colorRenderSpriteState = new RenderStates() { 
                             Transform = Transform.Identity, 
