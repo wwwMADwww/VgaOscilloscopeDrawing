@@ -378,5 +378,29 @@ namespace vgarender
         {
             (outputBoundsTopUd.Value, outputBoundsBottomUd.Value) = (outputBoundsBottomUd.Value, outputBoundsTopUd.Value);
         }
+
+        private void grayscaleRedLabel_Click(object sender, EventArgs e)
+        {
+            if (grayscaleRedUd.Value == 1)
+                grayscaleRedUd.Value = 0;
+            else
+                grayscaleRedUd.Value = 1;
+        }
+
+        private void grayscaleGreenLabel_Click(object sender, EventArgs e)
+        {
+            if (grayscaleGreenUd.Value == 1)
+                grayscaleGreenUd.Value = 0;
+            else
+                grayscaleGreenUd.Value = 1;
+        }
+
+        private void grayscaleBlueLabel_Click(object sender, EventArgs e)
+        {
+            if (grayscaleBlueUd.Value == 1)
+                grayscaleBlueUd.Value = 0;
+            else
+                grayscaleBlueUd.Value = 1;
+        }
     }
 }

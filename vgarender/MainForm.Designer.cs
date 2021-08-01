@@ -52,6 +52,11 @@
             this.pathDirRb = new System.Windows.Forms.RadioButton();
             this.swapxyChb = new System.Windows.Forms.CheckBox();
             this.outputGb = new System.Windows.Forms.GroupBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.gaussBlurRadiusYUd = new System.Windows.Forms.NumericUpDown();
+            this.gaussBlurRadiusXUd = new System.Windows.Forms.NumericUpDown();
             this.outBoundsFlipHB = new System.Windows.Forms.Button();
             this.outBoundsFlipVB = new System.Windows.Forms.Button();
             this.outputBoundsBottomUd = new System.Windows.Forms.NumericUpDown();
@@ -101,9 +106,9 @@
             this.label17 = new System.Windows.Forms.Label();
             this.toneThreshBlackUd = new System.Windows.Forms.NumericUpDown();
             this.label16 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.grayscaleBlueLabel = new System.Windows.Forms.Label();
+            this.grayscaleGreenLabel = new System.Windows.Forms.Label();
+            this.grayscaleRedLabel = new System.Windows.Forms.Label();
             this.gammaUd = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.grayscaleDefB = new System.Windows.Forms.Button();
@@ -150,14 +155,11 @@
             this.label33 = new System.Windows.Forms.Label();
             this.coordRangeXMinUd = new System.Windows.Forms.NumericUpDown();
             this.label32 = new System.Windows.Forms.Label();
-            this.gaussBlurRadiusXUd = new System.Windows.Forms.NumericUpDown();
-            this.gaussBlurRadiusYUd = new System.Windows.Forms.NumericUpDown();
-            this.label43 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label45 = new System.Windows.Forms.Label();
             this.vgaChannelMappingGb.SuspendLayout();
             this.sourceImagesGb.SuspendLayout();
             this.outputGb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusYUd)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusXUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsBottomUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsRightUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsLeftUd)).BeginInit();
@@ -193,8 +195,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMinUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMaxUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMinUd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusXUd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusYUd)).BeginInit();
             this.SuspendLayout();
             // 
             // startB
@@ -457,6 +457,69 @@
             this.outputGb.TabIndex = 6;
             this.outputGb.TabStop = false;
             this.outputGb.Text = "Output";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(6, 104);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(57, 13);
+            this.label45.TabIndex = 62;
+            this.label45.Text = "Gauss blur";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(197, 104);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(50, 13);
+            this.label44.TabIndex = 61;
+            this.label44.Text = "Radius Y";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(79, 104);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(50, 13);
+            this.label43.TabIndex = 17;
+            this.label43.Text = "Radius X";
+            // 
+            // gaussBlurRadiusYUd
+            // 
+            this.gaussBlurRadiusYUd.DecimalPlaces = 3;
+            this.gaussBlurRadiusYUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.gaussBlurRadiusYUd.Location = new System.Drawing.Point(253, 102);
+            this.gaussBlurRadiusYUd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.gaussBlurRadiusYUd.Name = "gaussBlurRadiusYUd";
+            this.gaussBlurRadiusYUd.Size = new System.Drawing.Size(59, 20);
+            this.gaussBlurRadiusYUd.TabIndex = 7;
+            // 
+            // gaussBlurRadiusXUd
+            // 
+            this.gaussBlurRadiusXUd.DecimalPlaces = 3;
+            this.gaussBlurRadiusXUd.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            65536});
+            this.gaussBlurRadiusXUd.Location = new System.Drawing.Point(135, 102);
+            this.gaussBlurRadiusXUd.Maximum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.gaussBlurRadiusXUd.Name = "gaussBlurRadiusXUd";
+            this.gaussBlurRadiusXUd.Size = new System.Drawing.Size(59, 20);
+            this.gaussBlurRadiusXUd.TabIndex = 6;
             // 
             // outBoundsFlipHB
             // 
@@ -948,9 +1011,9 @@
             this.imageGb.Controls.Add(this.label17);
             this.imageGb.Controls.Add(this.toneThreshBlackUd);
             this.imageGb.Controls.Add(this.label16);
-            this.imageGb.Controls.Add(this.label15);
-            this.imageGb.Controls.Add(this.label14);
-            this.imageGb.Controls.Add(this.label13);
+            this.imageGb.Controls.Add(this.grayscaleBlueLabel);
+            this.imageGb.Controls.Add(this.grayscaleGreenLabel);
+            this.imageGb.Controls.Add(this.grayscaleRedLabel);
             this.imageGb.Controls.Add(this.gammaUd);
             this.imageGb.Controls.Add(this.label12);
             this.imageGb.Controls.Add(this.enableAntialiasingChb);
@@ -1122,32 +1185,38 @@
             this.label16.TabIndex = 10;
             this.label16.Text = "Thresholds";
             // 
-            // label15
+            // grayscaleBlueLabel
             // 
-            this.label15.Location = new System.Drawing.Point(165, 126);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(75, 13);
-            this.label15.TabIndex = 9;
-            this.label15.Text = "Blue";
-            this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.grayscaleBlueLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.grayscaleBlueLabel.Location = new System.Drawing.Point(165, 126);
+            this.grayscaleBlueLabel.Name = "grayscaleBlueLabel";
+            this.grayscaleBlueLabel.Size = new System.Drawing.Size(75, 13);
+            this.grayscaleBlueLabel.TabIndex = 9;
+            this.grayscaleBlueLabel.Text = "Blue";
+            this.grayscaleBlueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.grayscaleBlueLabel.Click += new System.EventHandler(this.grayscaleBlueLabel_Click);
             // 
-            // label14
+            // grayscaleGreenLabel
             // 
-            this.label14.Location = new System.Drawing.Point(87, 126);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(75, 13);
-            this.label14.TabIndex = 8;
-            this.label14.Text = "Green";
-            this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.grayscaleGreenLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.grayscaleGreenLabel.Location = new System.Drawing.Point(87, 126);
+            this.grayscaleGreenLabel.Name = "grayscaleGreenLabel";
+            this.grayscaleGreenLabel.Size = new System.Drawing.Size(75, 13);
+            this.grayscaleGreenLabel.TabIndex = 8;
+            this.grayscaleGreenLabel.Text = "Green";
+            this.grayscaleGreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.grayscaleGreenLabel.Click += new System.EventHandler(this.grayscaleGreenLabel_Click);
             // 
-            // label13
+            // grayscaleRedLabel
             // 
-            this.label13.Location = new System.Drawing.Point(12, 126);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(72, 13);
-            this.label13.TabIndex = 7;
-            this.label13.Text = "Red";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.grayscaleRedLabel.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.grayscaleRedLabel.Location = new System.Drawing.Point(12, 126);
+            this.grayscaleRedLabel.Name = "grayscaleRedLabel";
+            this.grayscaleRedLabel.Size = new System.Drawing.Size(72, 13);
+            this.grayscaleRedLabel.TabIndex = 7;
+            this.grayscaleRedLabel.Text = "Red";
+            this.grayscaleRedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.grayscaleRedLabel.Click += new System.EventHandler(this.grayscaleRedLabel_Click);
             // 
             // gammaUd
             // 
@@ -1845,69 +1914,6 @@
             this.label32.TabIndex = 0;
             this.label32.Text = "X";
             // 
-            // gaussBlurRadiusXUd
-            // 
-            this.gaussBlurRadiusXUd.DecimalPlaces = 3;
-            this.gaussBlurRadiusXUd.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.gaussBlurRadiusXUd.Location = new System.Drawing.Point(135, 102);
-            this.gaussBlurRadiusXUd.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.gaussBlurRadiusXUd.Name = "gaussBlurRadiusXUd";
-            this.gaussBlurRadiusXUd.Size = new System.Drawing.Size(59, 20);
-            this.gaussBlurRadiusXUd.TabIndex = 6;
-            // 
-            // gaussBlurRadiusYUd
-            // 
-            this.gaussBlurRadiusYUd.DecimalPlaces = 3;
-            this.gaussBlurRadiusYUd.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.gaussBlurRadiusYUd.Location = new System.Drawing.Point(253, 102);
-            this.gaussBlurRadiusYUd.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.gaussBlurRadiusYUd.Name = "gaussBlurRadiusYUd";
-            this.gaussBlurRadiusYUd.Size = new System.Drawing.Size(59, 20);
-            this.gaussBlurRadiusYUd.TabIndex = 7;
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(79, 104);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(50, 13);
-            this.label43.TabIndex = 17;
-            this.label43.Text = "Radius X";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(197, 104);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(50, 13);
-            this.label44.TabIndex = 61;
-            this.label44.Text = "Radius Y";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(6, 104);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(57, 13);
-            this.label45.TabIndex = 62;
-            this.label45.Text = "Gauss blur";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1933,6 +1939,8 @@
             this.sourceImagesGb.PerformLayout();
             this.outputGb.ResumeLayout(false);
             this.outputGb.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusYUd)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusXUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsBottomUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsRightUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsLeftUd)).EndInit();
@@ -1973,8 +1981,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeYMinUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMaxUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.coordRangeXMinUd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusXUd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusYUd)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -2029,9 +2035,9 @@
         private System.Windows.Forms.Button grayscaleDefB;
         private System.Windows.Forms.NumericUpDown grayscaleBlueUd;
         private System.Windows.Forms.NumericUpDown grayscaleGreenUd;
-        private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label14;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label grayscaleBlueLabel;
+        private System.Windows.Forms.Label grayscaleGreenLabel;
+        private System.Windows.Forms.Label grayscaleRedLabel;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.NumericUpDown toneThreshWhiteUd;

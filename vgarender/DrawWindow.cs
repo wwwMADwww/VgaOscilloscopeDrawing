@@ -268,14 +268,20 @@ namespace vgarender
 
                 RenderWindow window;
 
+                int resolutionX, resolutionY;
+
                 if (Fullscreen)
                 {
-                    window = new RenderWindow(new VideoMode((uint)Screen.Bounds.Width, (uint)Screen.Bounds.Height), "VGA Oscilloscope drawing", Styles.None);
+                    resolutionX = Screen.Bounds.Width;
+                    resolutionY = Screen.Bounds.Height;
+                    window = new RenderWindow(new VideoMode((uint)resolutionX, (uint)resolutionY), "VGA Oscilloscope drawing", Styles.None);
                     window.Position = new Vector2i(Screen.Bounds.X, Screen.Bounds.Y);
                 }
                 else
                 {
-                    window = new RenderWindow(new VideoMode(800, 600), "VGA Oscilloscope drawing", Styles.Default);
+                    resolutionX = 800;
+                    resolutionY = 600;
+                    window = new RenderWindow(new VideoMode((uint)resolutionX, (uint)resolutionY), "VGA Oscilloscope drawing", Styles.Default);
                     window.Position = _windowPos;
                     window.Size = _windowSize;
                 }
@@ -301,10 +307,6 @@ namespace vgarender
                     window.SetFramerateLimit((uint)OutputSettings.RefreshRate);
                 }
 
-                window.Resized += (o, e) =>
-                {
-                    window.SetView(new View(new Vector2f(e.Width / 2, e.Height / 2), new Vector2f(e.Width, e.Height)));
-                };
 
                 #endregion window
 
@@ -323,24 +325,13 @@ namespace vgarender
 
                 var gradientMap = createRgbGradients(
                     new Vector2f(
-                        window.Size.X * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X, 
-                        window.Size.Y * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y),
+                        resolutionX * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X,
+                        resolutionY * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y),
                     new Vector2f(
-                        window.Size.X * OutputSettings.Bounds.Width, 
-                        window.Size.Y * OutputSettings.Bounds.Height)
+                        resolutionX * OutputSettings.Bounds.Width,
+                        resolutionY * OutputSettings.Bounds.Height)
                     );
 
-                window.Resized += (o, e) =>
-                {
-                    gradientMap = createRgbGradients(
-                        new Vector2f(
-                            e.Width  * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X, 
-                            e.Height * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y),
-                        new Vector2f(
-                            e.Width  * OutputSettings.Bounds.Width, 
-                            e.Height * OutputSettings.Bounds.Height)
-                        );
-                };
 
                 #endregion gradients
 
@@ -354,15 +345,9 @@ namespace vgarender
                 shader.SetUniform(suTexture, Shader.CurrentTexture);
 
                 shader.SetUniform(suWindowSize, new Vec2(
-                    (float)window.Size.X * OutputSettings.ImageSettings.Scale.X,
-                    (float)window.Size.Y * OutputSettings.ImageSettings.Scale.Y));
+                    (float)resolutionX * OutputSettings.ImageSettings.Scale.X,
+                    (float)resolutionY * OutputSettings.ImageSettings.Scale.Y));
 
-                window.Resized += (o, e) =>
-                {
-                    shader.SetUniform(suWindowSize, new Vec2(
-                        (float)e.Width  * OutputSettings.ImageSettings.Scale.X,
-                        (float)e.Height * OutputSettings.ImageSettings.Scale.Y));
-                };
 
                 shader.SetUniform(suGrayThreshBlack, OutputSettings.ImageSettings.GrayThreshold.Min);
                 shader.SetUniform(suGrayThreshWhite, OutputSettings.ImageSettings.GrayThreshold.Max);
@@ -478,41 +463,41 @@ namespace vgarender
                     if (OutputSettings.ImageSettings.SwapXY)
                     {
                         frameSprite.Position = new Vector2f(
-                            (float)window.Size.X * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X,
-                            (float)window.Size.Y * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y);
+                            (float)resolutionX * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X,
+                            (float)resolutionY * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y);
                         frameSprite.Origin = new Vector2f(0, frameSprite.TextureRect.Height);
                         frameSprite.Rotation = 90;
                         frameSprite.Scale = new Vector2f(
-                            (window.Size.Y / (float)frameSprite.TextureRect.Width) * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.Scale.Y,
-                            (window.Size.X / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Width * OutputSettings.ImageSettings.Scale.X);
+                            (resolutionY / (float)frameSprite.TextureRect.Width) * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.Scale.Y,
+                            (resolutionX / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Width * OutputSettings.ImageSettings.Scale.X);
                     }
                     else
                     {
                         frameSprite.Position = new Vector2f(
-                            (float) window.Size.X * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X,
-                            (float) window.Size.Y * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y);
+                            (float) resolutionX * OutputSettings.Bounds.X * OutputSettings.ImageSettings.Scale.X,
+                            (float) resolutionY * OutputSettings.Bounds.Y * OutputSettings.ImageSettings.Scale.Y);
                         frameSprite.Scale = new Vector2f(
-                        (window.Size.X / (float)frameSprite.TextureRect.Width ) * OutputSettings.Bounds.Width  * OutputSettings.ImageSettings.Scale.X,
-                        (window.Size.Y / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.Scale.Y);
+                            (resolutionX / (float)frameSprite.TextureRect.Width ) * OutputSettings.Bounds.Width  * OutputSettings.ImageSettings.Scale.X,
+                            (resolutionY / (float)frameSprite.TextureRect.Height) * OutputSettings.Bounds.Height * OutputSettings.ImageSettings.Scale.Y);
                     }
 
 
 
-                    var blurRenderTexture = new RenderTexture(window.Size.X, window.Size.Y);
+                    var blurRenderTexture = new RenderTexture((uint)resolutionX, (uint)resolutionY);
                     blurRenderTexture.Smooth = false;
 
                     blurRenderTexture.Clear(Color.Black);
 
 
                     gaussBlurShader.SetUniform(gbsuBlurVertical, false);
-                    gaussBlurShader.SetUniform(gbsuBlurSize, OutputSettings.GaussBlurRadius.X / (float)window.Size.X);
+                    gaussBlurShader.SetUniform(gbsuBlurSize, OutputSettings.GaussBlurRadius.X / (float)resolutionX);
 
                     foreach (var color in colorChannels)
                     {
                         var colorMap = colorChannelMap[color];
 
 
-                        var colorRenderTexture = new RenderTexture(window.Size.X, window.Size.Y);
+                        var colorRenderTexture = new RenderTexture((uint)resolutionX, (uint)resolutionY);
                         colorRenderTexture.Smooth = false;
 
                         colorRenderTexture.Clear(Color.Black);
@@ -535,8 +520,8 @@ namespace vgarender
 
 
                             var frameRenderTexture = new RenderTexture(
-                                (uint)(window.Size.X * OutputSettings.ImageSettings.Scale.X),
-                                (uint)(window.Size.Y * OutputSettings.ImageSettings.Scale.Y));
+                                (uint)(resolutionX * OutputSettings.ImageSettings.Scale.X),
+                                (uint)(resolutionY * OutputSettings.ImageSettings.Scale.Y));
                             frameRenderTexture.Smooth = false;
 
                             frameRenderTexture.Clear(Color.Black);
@@ -594,7 +579,7 @@ namespace vgarender
                     var blurRenderSprite = new Sprite(blurRenderTexture.Texture);
 
                     gaussBlurShader.SetUniform(gbsuBlurVertical, true);
-                    gaussBlurShader.SetUniform(gbsuBlurSize, OutputSettings.GaussBlurRadius.Y / (float)window.Size.Y);
+                    gaussBlurShader.SetUniform(gbsuBlurSize, OutputSettings.GaussBlurRadius.Y / (float)resolutionY);
 
                     var blurRenderSpriteState = new RenderStates()
                     {
