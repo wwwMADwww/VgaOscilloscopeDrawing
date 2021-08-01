@@ -218,9 +218,7 @@ namespace vgarender
                     (float)outputBoundsTopUd.Value,
                     (float)(outputBoundsRightUd.Value - outputBoundsLeftUd.Value),
                     (float)(outputBoundsBottomUd.Value - outputBoundsTopUd.Value)),
-
-                GaussBlurRadius = new PointF((float) gaussBlurRadiusXUd.Value, (float)gaussBlurRadiusYUd.Value),
-                                
+                                                
                 ImageSettings = new ImageSettings()
                 {
                     AntialiasingEnable = enableAntialiasingChb.Checked,

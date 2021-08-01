@@ -39,8 +39,6 @@ namespace vgarender
 
         public RectangleF Bounds { get; set; }
 
-        public PointF GaussBlurRadius { get; set; }
-
         public IEnumerable<ChannelsMapInfo> ChannelMap { get; set; }
 
     }
@@ -156,14 +154,6 @@ namespace vgarender
 
         private const string suRandomSeed = "randomSeed";
 
-
-        // gaussian blur shader
-
-        private const string gaussBlurShaderFilename = @"GaussBlurShader.frag";
-
-        private const string gbsuTexture      = "texture";
-        private const string gbsuBlurVertical = "blurVertical";
-        private const string gbsuBlurSize     = "blurSize";
 
         #endregion shader const
 
@@ -381,10 +371,6 @@ namespace vgarender
 
 
 
-                var gaussBlurShader = new Shader(null, null, gaussBlurShaderFilename);
-
-                gaussBlurShader.SetUniform(gbsuTexture, Shader.CurrentTexture);
-
                 #endregion shader
 
                 #region frames
@@ -483,14 +469,6 @@ namespace vgarender
 
 
 
-                    var blurRenderTexture = new RenderTexture((uint)resolutionX, (uint)resolutionY);
-                    blurRenderTexture.Smooth = false;
-
-                    blurRenderTexture.Clear(Color.Black);
-
-
-                    gaussBlurShader.SetUniform(gbsuBlurVertical, false);
-                    gaussBlurShader.SetUniform(gbsuBlurSize, OutputSettings.GaussBlurRadius.X / (float)resolutionX);
 
                     foreach (var color in colorChannels)
                     {
@@ -564,34 +542,17 @@ namespace vgarender
                         colorRenderSprite.Texture = colorRenderTexture.Texture;
 
                         var colorRenderSpriteState = new RenderStates() { 
-                            Transform = Transform.Identity, 
-                            Shader = gaussBlurShader,
+                            Transform = Transform.Identity,
                             BlendMode = BlendMode.Add };
 
-                        blurRenderTexture.Draw(colorRenderSprite, colorRenderSpriteState);
+                        window.Draw(colorRenderSprite, colorRenderSpriteState);
 
                         colorRenderTexture.Dispose();
                         colorRenderSprite.Dispose();
                     } // /colors
 
 
-                    blurRenderTexture.Display();
-                    var blurRenderSprite = new Sprite(blurRenderTexture.Texture);
 
-                    gaussBlurShader.SetUniform(gbsuBlurVertical, true);
-                    gaussBlurShader.SetUniform(gbsuBlurSize, OutputSettings.GaussBlurRadius.Y / (float)resolutionY);
-
-                    var blurRenderSpriteState = new RenderStates()
-                    {
-                        Transform = Transform.Identity,
-                        Shader = gaussBlurShader,
-                        BlendMode = BlendMode.Add
-                    };
-
-                    window.Draw(blurRenderSprite, blurRenderSpriteState);
-
-                    blurRenderSprite.Dispose();
-                    blurRenderTexture.Dispose();
 
                     #endregion draw animation frame
 

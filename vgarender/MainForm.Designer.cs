@@ -52,11 +52,6 @@
             this.pathDirRb = new System.Windows.Forms.RadioButton();
             this.swapxyChb = new System.Windows.Forms.CheckBox();
             this.outputGb = new System.Windows.Forms.GroupBox();
-            this.label45 = new System.Windows.Forms.Label();
-            this.label44 = new System.Windows.Forms.Label();
-            this.label43 = new System.Windows.Forms.Label();
-            this.gaussBlurRadiusYUd = new System.Windows.Forms.NumericUpDown();
-            this.gaussBlurRadiusXUd = new System.Windows.Forms.NumericUpDown();
             this.outBoundsFlipHB = new System.Windows.Forms.Button();
             this.outBoundsFlipVB = new System.Windows.Forms.Button();
             this.outputBoundsBottomUd = new System.Windows.Forms.NumericUpDown();
@@ -158,8 +153,6 @@
             this.vgaChannelMappingGb.SuspendLayout();
             this.sourceImagesGb.SuspendLayout();
             this.outputGb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusYUd)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusXUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsBottomUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsRightUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsLeftUd)).BeginInit();
@@ -429,11 +422,6 @@
             // 
             // outputGb
             // 
-            this.outputGb.Controls.Add(this.label45);
-            this.outputGb.Controls.Add(this.label44);
-            this.outputGb.Controls.Add(this.label43);
-            this.outputGb.Controls.Add(this.gaussBlurRadiusYUd);
-            this.outputGb.Controls.Add(this.gaussBlurRadiusXUd);
             this.outputGb.Controls.Add(this.outBoundsFlipHB);
             this.outputGb.Controls.Add(this.outBoundsFlipVB);
             this.outputGb.Controls.Add(this.outputBoundsBottomUd);
@@ -457,69 +445,6 @@
             this.outputGb.TabIndex = 6;
             this.outputGb.TabStop = false;
             this.outputGb.Text = "Output";
-            // 
-            // label45
-            // 
-            this.label45.AutoSize = true;
-            this.label45.Location = new System.Drawing.Point(6, 104);
-            this.label45.Name = "label45";
-            this.label45.Size = new System.Drawing.Size(57, 13);
-            this.label45.TabIndex = 62;
-            this.label45.Text = "Gauss blur";
-            // 
-            // label44
-            // 
-            this.label44.AutoSize = true;
-            this.label44.Location = new System.Drawing.Point(197, 104);
-            this.label44.Name = "label44";
-            this.label44.Size = new System.Drawing.Size(50, 13);
-            this.label44.TabIndex = 61;
-            this.label44.Text = "Radius Y";
-            // 
-            // label43
-            // 
-            this.label43.AutoSize = true;
-            this.label43.Location = new System.Drawing.Point(79, 104);
-            this.label43.Name = "label43";
-            this.label43.Size = new System.Drawing.Size(50, 13);
-            this.label43.TabIndex = 17;
-            this.label43.Text = "Radius X";
-            // 
-            // gaussBlurRadiusYUd
-            // 
-            this.gaussBlurRadiusYUd.DecimalPlaces = 3;
-            this.gaussBlurRadiusYUd.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.gaussBlurRadiusYUd.Location = new System.Drawing.Point(253, 102);
-            this.gaussBlurRadiusYUd.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.gaussBlurRadiusYUd.Name = "gaussBlurRadiusYUd";
-            this.gaussBlurRadiusYUd.Size = new System.Drawing.Size(59, 20);
-            this.gaussBlurRadiusYUd.TabIndex = 7;
-            // 
-            // gaussBlurRadiusXUd
-            // 
-            this.gaussBlurRadiusXUd.DecimalPlaces = 3;
-            this.gaussBlurRadiusXUd.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            this.gaussBlurRadiusXUd.Location = new System.Drawing.Point(135, 102);
-            this.gaussBlurRadiusXUd.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.gaussBlurRadiusXUd.Name = "gaussBlurRadiusXUd";
-            this.gaussBlurRadiusXUd.Size = new System.Drawing.Size(59, 20);
-            this.gaussBlurRadiusXUd.TabIndex = 6;
             // 
             // outBoundsFlipHB
             // 
@@ -1939,8 +1864,6 @@
             this.sourceImagesGb.PerformLayout();
             this.outputGb.ResumeLayout(false);
             this.outputGb.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusYUd)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gaussBlurRadiusXUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsBottomUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsRightUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.outputBoundsLeftUd)).EndInit();
@@ -2108,10 +2031,5 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.NumericUpDown imageScaleXUd;
         private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.Label label43;
-        private System.Windows.Forms.NumericUpDown gaussBlurRadiusYUd;
-        private System.Windows.Forms.NumericUpDown gaussBlurRadiusXUd;
-        private System.Windows.Forms.Label label45;
     }
 }
