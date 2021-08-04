@@ -2,7 +2,7 @@
 
 ![screenshot](/images/screenshot.png?raw=true "screenshot")
 
-This application can be used to draw raster images on analog oscilloscope through VGA port of your PC.
+This application can be used to draw raster images on oscilloscope through VGA port of your PC.
 
 Features:
  - Vertical and horizontal scanning signals generator
