@@ -18,6 +18,8 @@ namespace vgarender
 
         List<(RadioButton rb, OneBitSwapMode swapMode)> _oneBitSwapModeMap;
 
+        List<(RadioButton rb, SourceValuesDither dither)> _sourceValuesDitherMap;
+
         class ComboBoxItem<T>
         {
             public ComboBoxItem(T value, string description)
@@ -112,15 +114,21 @@ namespace vgarender
         private void MainForm_Load(object sender, EventArgs eventArgs)
         {
             _oneBitModeMap = new List<(RadioButton rb, OneBitMode mode)>() {
-                ( oneBitMethodRandomRb, OneBitMode.RandomNoise ),
+                ( oneBitMethodRandomRb , OneBitMode.RandomNoise ),
                 ( oneBitMethodOrderedRb, OneBitMode.OrderedDithering ),
-                ( oneBitMethodPwmRb, OneBitMode.Pwm ),
+                ( oneBitMethodPwmRb    , OneBitMode.Pwm ),
             };
 
             _oneBitSwapModeMap = new List<(RadioButton rb, OneBitSwapMode swapMode)>() {
-                ( blankSwapAfterRb, OneBitSwapMode.AfterPosition ),
+                ( blankSwapAfterRb    , OneBitSwapMode.AfterPosition ),
                 ( blankSwapCheckeredRb, OneBitSwapMode.Checkered ),
-                ( blankSwapRandomRb, OneBitSwapMode.Random )
+                ( blankSwapRandomRb   , OneBitSwapMode.Random )
+            };
+
+            _sourceValuesDitherMap = new List<(RadioButton rb, SourceValuesDither dither)>() {
+                ( coordGradientDitherNoneRb   , SourceValuesDither.None ),
+                ( coordGradientDitherRandomRb , SourceValuesDither.Random ),
+                ( coordGradientDitherOrderedRb, SourceValuesDither.Ordered ),
             };
 
             FillLists();
@@ -187,11 +195,17 @@ namespace vgarender
                 RefreshRate = (int)refreshrateud.Value,
                 AnimationFrameRate = (int)animationFpsUd.Value,
 
-                SourceRanges = new Dictionary<SourceChannel, RangeF>() {
-                    { SourceChannel.X  , new RangeF((float)coordRangeXMinUd.Value, (float)coordRangeXMaxUd.Value) },
-                    { SourceChannel.Y  , new RangeF((float)coordRangeYMinUd.Value, (float)coordRangeYMaxUd.Value) },
-                    { SourceChannel.Min, new RangeF((float)coordRangeCMinUd.Value, (float)coordRangeCMinUd.Value) },
-                    { SourceChannel.Max, new RangeF((float)coordRangeCMaxUd.Value, (float)coordRangeCMaxUd.Value) },
+                SourceValuesSettings = new SourceValuesSettings()
+                {
+
+                    Ranges = new Dictionary<SourceChannel, RangeF>() {
+                        { SourceChannel.X  , new RangeF((float)coordRangeXMinUd.Value, (float)coordRangeXMaxUd.Value) },
+                        { SourceChannel.Y  , new RangeF((float)coordRangeYMinUd.Value, (float)coordRangeYMaxUd.Value) },
+                        { SourceChannel.Min, new RangeF((float)coordRangeCMinUd.Value, (float)coordRangeCMinUd.Value) },
+                        { SourceChannel.Max, new RangeF((float)coordRangeCMaxUd.Value, (float)coordRangeCMaxUd.Value) },
+                    },
+
+                    Dither = _sourceValuesDitherMap.Single(m => m.rb.Checked).dither
                 },
 
                 ChannelMap = new[]
@@ -230,7 +244,7 @@ namespace vgarender
                     Invert = colorInvertChb.Checked,
                     OneBitSettings = new OneBitSettings()
                     { 
-                        Mode = _oneBitModeMap.First(p => p.rb.Checked).mode,
+                        Mode = _oneBitModeMap.Single(p => p.rb.Checked).mode,
 
                         Blanking = new RangeF((float) blankValueBottomUd.Value, (float) blankValueTopUd.Value),
                         
@@ -246,7 +260,7 @@ namespace vgarender
                             : -1,
 
                         SwapMode = blankSwapByPosChb.Checked 
-                            ? _oneBitSwapModeMap.First(p => p.rb.Checked).swapMode
+                            ? _oneBitSwapModeMap.Single(p => p.rb.Checked).swapMode
                             : OneBitSwapMode.None,
 
                         SwapAfter = new PointF((float) blankSwapAfterXUd.Value, (float) blankSwapAfterYUd.Value),

@@ -82,9 +82,6 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="GaussBlurShader.frag">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="FragmentShader.frag">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

@@ -150,6 +150,10 @@
             this.label33 = new System.Windows.Forms.Label();
             this.coordRangeXMinUd = new System.Windows.Forms.NumericUpDown();
             this.label32 = new System.Windows.Forms.Label();
+            this.coordGradientDitherNoneRb = new System.Windows.Forms.RadioButton();
+            this.coordGradientDitherRandomRb = new System.Windows.Forms.RadioButton();
+            this.coordGradientDitherOrderedRb = new System.Windows.Forms.RadioButton();
+            this.label13 = new System.Windows.Forms.Label();
             this.vgaChannelMappingGb.SuspendLayout();
             this.sourceImagesGb.SuspendLayout();
             this.outputGb.SuspendLayout();
@@ -234,7 +238,7 @@
             this.vgaChannelMappingGb.Controls.Add(this.channelMapGreenCb);
             this.vgaChannelMappingGb.Controls.Add(this.channelMapBlueCb);
             this.vgaChannelMappingGb.Controls.Add(this.swapxyB);
-            this.vgaChannelMappingGb.Location = new System.Drawing.Point(666, 126);
+            this.vgaChannelMappingGb.Location = new System.Drawing.Point(666, 160);
             this.vgaChannelMappingGb.Name = "vgaChannelMappingGb";
             this.vgaChannelMappingGb.Size = new System.Drawing.Size(321, 88);
             this.vgaChannelMappingGb.TabIndex = 5;
@@ -246,9 +250,9 @@
             this.vgachannel1BitBlueChb.AutoSize = true;
             this.vgachannel1BitBlueChb.Location = new System.Drawing.Point(163, 66);
             this.vgachannel1BitBlueChb.Name = "vgachannel1BitBlueChb";
-            this.vgachannel1BitBlueChb.Size = new System.Drawing.Size(72, 17);
+            this.vgachannel1BitBlueChb.Size = new System.Drawing.Size(74, 17);
             this.vgachannel1BitBlueChb.TabIndex = 6;
-            this.vgachannel1BitBlueChb.Text = "1 bit color";
+            this.vgachannel1BitBlueChb.Text = "+ 1 bit img";
             this.vgachannel1BitBlueChb.UseVisualStyleBackColor = true;
             // 
             // vgachannel1BitGreenChb
@@ -256,9 +260,9 @@
             this.vgachannel1BitGreenChb.AutoSize = true;
             this.vgachannel1BitGreenChb.Location = new System.Drawing.Point(84, 66);
             this.vgachannel1BitGreenChb.Name = "vgachannel1BitGreenChb";
-            this.vgachannel1BitGreenChb.Size = new System.Drawing.Size(72, 17);
+            this.vgachannel1BitGreenChb.Size = new System.Drawing.Size(74, 17);
             this.vgachannel1BitGreenChb.TabIndex = 5;
-            this.vgachannel1BitGreenChb.Text = "1 bit color";
+            this.vgachannel1BitGreenChb.Text = "+ 1 bit img";
             this.vgachannel1BitGreenChb.UseVisualStyleBackColor = true;
             // 
             // vgachannel1BitRedChb
@@ -266,9 +270,9 @@
             this.vgachannel1BitRedChb.AutoSize = true;
             this.vgachannel1BitRedChb.Location = new System.Drawing.Point(6, 66);
             this.vgachannel1BitRedChb.Name = "vgachannel1BitRedChb";
-            this.vgachannel1BitRedChb.Size = new System.Drawing.Size(72, 17);
+            this.vgachannel1BitRedChb.Size = new System.Drawing.Size(74, 17);
             this.vgachannel1BitRedChb.TabIndex = 4;
-            this.vgachannel1BitRedChb.Text = "1 bit color";
+            this.vgachannel1BitRedChb.Text = "+ 1 bit img";
             this.vgachannel1BitRedChb.UseVisualStyleBackColor = true;
             // 
             // label8
@@ -439,16 +443,16 @@
             this.outputGb.Controls.Add(this.monitorListCb);
             this.outputGb.Controls.Add(this.refreshMonitoListB);
             this.outputGb.Controls.Add(this.refreshrateud);
-            this.outputGb.Location = new System.Drawing.Point(666, 219);
+            this.outputGb.Location = new System.Drawing.Point(666, 254);
             this.outputGb.Name = "outputGb";
-            this.outputGb.Size = new System.Drawing.Size(321, 224);
+            this.outputGb.Size = new System.Drawing.Size(321, 189);
             this.outputGb.TabIndex = 6;
             this.outputGb.TabStop = false;
             this.outputGb.Text = "Output";
             // 
             // outBoundsFlipHB
             // 
-            this.outBoundsFlipHB.Location = new System.Drawing.Point(208, 169);
+            this.outBoundsFlipHB.Location = new System.Drawing.Point(208, 135);
             this.outBoundsFlipHB.Name = "outBoundsFlipHB";
             this.outBoundsFlipHB.Size = new System.Drawing.Size(104, 23);
             this.outBoundsFlipHB.TabIndex = 13;
@@ -458,7 +462,7 @@
             // 
             // outBoundsFlipVB
             // 
-            this.outBoundsFlipVB.Location = new System.Drawing.Point(208, 143);
+            this.outBoundsFlipVB.Location = new System.Drawing.Point(208, 109);
             this.outBoundsFlipVB.Name = "outBoundsFlipVB";
             this.outBoundsFlipVB.Size = new System.Drawing.Size(104, 23);
             this.outBoundsFlipVB.TabIndex = 12;
@@ -474,7 +478,7 @@
             0,
             0,
             131072});
-            this.outputBoundsBottomUd.Location = new System.Drawing.Point(93, 198);
+            this.outputBoundsBottomUd.Location = new System.Drawing.Point(93, 164);
             this.outputBoundsBottomUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -497,7 +501,7 @@
             0,
             0,
             131072});
-            this.outputBoundsRightUd.Location = new System.Drawing.Point(126, 172);
+            this.outputBoundsRightUd.Location = new System.Drawing.Point(126, 138);
             this.outputBoundsRightUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -520,7 +524,7 @@
             0,
             0,
             131072});
-            this.outputBoundsLeftUd.Location = new System.Drawing.Point(51, 172);
+            this.outputBoundsLeftUd.Location = new System.Drawing.Point(51, 138);
             this.outputBoundsLeftUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -532,7 +536,7 @@
             // 
             // outputBoundsResetB
             // 
-            this.outputBoundsResetB.Location = new System.Drawing.Point(208, 195);
+            this.outputBoundsResetB.Location = new System.Drawing.Point(208, 161);
             this.outputBoundsResetB.Name = "outputBoundsResetB";
             this.outputBoundsResetB.Size = new System.Drawing.Size(104, 23);
             this.outputBoundsResetB.TabIndex = 14;
@@ -548,7 +552,7 @@
             0,
             0,
             131072});
-            this.outputBoundsTopUd.Location = new System.Drawing.Point(93, 146);
+            this.outputBoundsTopUd.Location = new System.Drawing.Point(93, 112);
             this.outputBoundsTopUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -561,7 +565,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(6, 132);
+            this.label19.Location = new System.Drawing.Point(6, 98);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(77, 13);
             this.label19.TabIndex = 50;
@@ -1591,8 +1595,12 @@
             // 
             // coordRangesGb
             // 
+            this.coordRangesGb.Controls.Add(this.label13);
+            this.coordRangesGb.Controls.Add(this.coordGradientDitherOrderedRb);
             this.coordRangesGb.Controls.Add(this.coordRangeYInvertB);
+            this.coordRangesGb.Controls.Add(this.coordGradientDitherRandomRb);
             this.coordRangesGb.Controls.Add(this.coordRangeXInvertB);
+            this.coordRangesGb.Controls.Add(this.coordGradientDitherNoneRb);
             this.coordRangesGb.Controls.Add(this.label38);
             this.coordRangesGb.Controls.Add(this.coordRangeCMaxUd);
             this.coordRangesGb.Controls.Add(this.label39);
@@ -1610,14 +1618,14 @@
             this.coordRangesGb.Controls.Add(this.label32);
             this.coordRangesGb.Location = new System.Drawing.Point(666, 12);
             this.coordRangesGb.Name = "coordRangesGb";
-            this.coordRangesGb.Size = new System.Drawing.Size(321, 108);
+            this.coordRangesGb.Size = new System.Drawing.Size(321, 144);
             this.coordRangesGb.TabIndex = 4;
             this.coordRangesGb.TabStop = false;
             this.coordRangesGb.Text = "Coordinate ranges";
             // 
             // coordRangeYInvertB
             // 
-            this.coordRangeYInvertB.Location = new System.Drawing.Point(46, 51);
+            this.coordRangeYInvertB.Location = new System.Drawing.Point(47, 45);
             this.coordRangeYInvertB.Name = "coordRangeYInvertB";
             this.coordRangeYInvertB.Size = new System.Drawing.Size(53, 23);
             this.coordRangeYInvertB.TabIndex = 3;
@@ -1627,7 +1635,7 @@
             // 
             // coordRangeXInvertB
             // 
-            this.coordRangeXInvertB.Location = new System.Drawing.Point(46, 25);
+            this.coordRangeXInvertB.Location = new System.Drawing.Point(47, 19);
             this.coordRangeXInvertB.Name = "coordRangeXInvertB";
             this.coordRangeXInvertB.Size = new System.Drawing.Size(53, 23);
             this.coordRangeXInvertB.TabIndex = 0;
@@ -1638,7 +1646,7 @@
             // label38
             // 
             this.label38.AutoSize = true;
-            this.label38.Location = new System.Drawing.Point(220, 82);
+            this.label38.Location = new System.Drawing.Point(221, 76);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(27, 13);
             this.label38.TabIndex = 14;
@@ -1652,7 +1660,7 @@
             0,
             0,
             131072});
-            this.coordRangeCMaxUd.Location = new System.Drawing.Point(253, 80);
+            this.coordRangeCMaxUd.Location = new System.Drawing.Point(254, 74);
             this.coordRangeCMaxUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1670,7 +1678,7 @@
             // label39
             // 
             this.label39.AutoSize = true;
-            this.label39.Location = new System.Drawing.Point(105, 82);
+            this.label39.Location = new System.Drawing.Point(106, 76);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(24, 13);
             this.label39.TabIndex = 12;
@@ -1684,7 +1692,7 @@
             0,
             0,
             131072});
-            this.coordRangeCMinUd.Location = new System.Drawing.Point(135, 80);
+            this.coordRangeCMinUd.Location = new System.Drawing.Point(136, 74);
             this.coordRangeCMinUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1697,7 +1705,7 @@
             // label40
             // 
             this.label40.AutoSize = true;
-            this.label40.Location = new System.Drawing.Point(6, 82);
+            this.label40.Location = new System.Drawing.Point(7, 76);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(34, 13);
             this.label40.TabIndex = 10;
@@ -1706,7 +1714,7 @@
             // label35
             // 
             this.label35.AutoSize = true;
-            this.label35.Location = new System.Drawing.Point(220, 56);
+            this.label35.Location = new System.Drawing.Point(221, 50);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(27, 13);
             this.label35.TabIndex = 9;
@@ -1720,7 +1728,7 @@
             0,
             0,
             131072});
-            this.coordRangeYMaxUd.Location = new System.Drawing.Point(253, 54);
+            this.coordRangeYMaxUd.Location = new System.Drawing.Point(254, 48);
             this.coordRangeYMaxUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1738,7 +1746,7 @@
             // label36
             // 
             this.label36.AutoSize = true;
-            this.label36.Location = new System.Drawing.Point(105, 56);
+            this.label36.Location = new System.Drawing.Point(106, 50);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(24, 13);
             this.label36.TabIndex = 7;
@@ -1752,7 +1760,7 @@
             0,
             0,
             131072});
-            this.coordRangeYMinUd.Location = new System.Drawing.Point(135, 54);
+            this.coordRangeYMinUd.Location = new System.Drawing.Point(136, 48);
             this.coordRangeYMinUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1765,7 +1773,7 @@
             // label37
             // 
             this.label37.AutoSize = true;
-            this.label37.Location = new System.Drawing.Point(6, 56);
+            this.label37.Location = new System.Drawing.Point(7, 50);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(14, 13);
             this.label37.TabIndex = 5;
@@ -1774,7 +1782,7 @@
             // label34
             // 
             this.label34.AutoSize = true;
-            this.label34.Location = new System.Drawing.Point(220, 30);
+            this.label34.Location = new System.Drawing.Point(221, 24);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(27, 13);
             this.label34.TabIndex = 4;
@@ -1788,7 +1796,7 @@
             0,
             0,
             131072});
-            this.coordRangeXMaxUd.Location = new System.Drawing.Point(253, 28);
+            this.coordRangeXMaxUd.Location = new System.Drawing.Point(254, 22);
             this.coordRangeXMaxUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1806,7 +1814,7 @@
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(105, 30);
+            this.label33.Location = new System.Drawing.Point(106, 24);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(24, 13);
             this.label33.TabIndex = 2;
@@ -1820,7 +1828,7 @@
             0,
             0,
             131072});
-            this.coordRangeXMinUd.Location = new System.Drawing.Point(135, 28);
+            this.coordRangeXMinUd.Location = new System.Drawing.Point(136, 22);
             this.coordRangeXMinUd.Maximum = new decimal(new int[] {
             1,
             0,
@@ -1833,11 +1841,52 @@
             // label32
             // 
             this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(6, 30);
+            this.label32.Location = new System.Drawing.Point(7, 24);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(14, 13);
             this.label32.TabIndex = 0;
             this.label32.Text = "X";
+            // 
+            // coordGradientDitherNoneRb
+            // 
+            this.coordGradientDitherNoneRb.AutoSize = true;
+            this.coordGradientDitherNoneRb.Location = new System.Drawing.Point(47, 121);
+            this.coordGradientDitherNoneRb.Name = "coordGradientDitherNoneRb";
+            this.coordGradientDitherNoneRb.Size = new System.Drawing.Size(51, 17);
+            this.coordGradientDitherNoneRb.TabIndex = 0;
+            this.coordGradientDitherNoneRb.Text = "None";
+            this.coordGradientDitherNoneRb.UseVisualStyleBackColor = true;
+            // 
+            // coordGradientDitherRandomRb
+            // 
+            this.coordGradientDitherRandomRb.AutoSize = true;
+            this.coordGradientDitherRandomRb.Checked = true;
+            this.coordGradientDitherRandomRb.Location = new System.Drawing.Point(126, 121);
+            this.coordGradientDitherRandomRb.Name = "coordGradientDitherRandomRb";
+            this.coordGradientDitherRandomRb.Size = new System.Drawing.Size(93, 17);
+            this.coordGradientDitherRandomRb.TabIndex = 1;
+            this.coordGradientDitherRandomRb.TabStop = true;
+            this.coordGradientDitherRandomRb.Text = "Random noise";
+            this.coordGradientDitherRandomRb.UseVisualStyleBackColor = true;
+            // 
+            // coordGradientDitherOrderedRb
+            // 
+            this.coordGradientDitherOrderedRb.AutoSize = true;
+            this.coordGradientDitherOrderedRb.Location = new System.Drawing.Point(235, 121);
+            this.coordGradientDitherOrderedRb.Name = "coordGradientDitherOrderedRb";
+            this.coordGradientDitherOrderedRb.Size = new System.Drawing.Size(78, 17);
+            this.coordGradientDitherOrderedRb.TabIndex = 2;
+            this.coordGradientDitherOrderedRb.Text = "Ordered 16";
+            this.coordGradientDitherOrderedRb.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(7, 100);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(49, 13);
+            this.label13.TabIndex = 15;
+            this.label13.Text = "Dithering";
             // 
             // MainForm
             // 
@@ -2031,5 +2080,9 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.NumericUpDown imageScaleXUd;
         private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.RadioButton coordGradientDitherOrderedRb;
+        private System.Windows.Forms.RadioButton coordGradientDitherRandomRb;
+        private System.Windows.Forms.RadioButton coordGradientDitherNoneRb;
+        private System.Windows.Forms.Label label13;
     }
 }
