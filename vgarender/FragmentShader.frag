@@ -6,11 +6,13 @@ uniform vec2 windowSize;
 // CHANNEL_SOURCE
 uniform ivec3 channelSource;
 
+uniform int   colorInvert;
 uniform vec3  grayColorRatio;
+uniform float contrast;
+uniform float brightness;
+uniform float gamma;
 uniform float grayThreshBlack;
 uniform float grayThreshWhite;
-uniform float gamma;
-uniform int   colorInvert;
 
 uniform ivec3 oneBitEnabled;
 uniform int   oneBitEncodingMode;
@@ -220,6 +222,9 @@ void main()
 
     if (colorInvert == 1)
         gray = 1.0 - gray;
+
+    gray = gray * contrast;
+    gray = gray + brightness;
 
     gray = gammaCorrect(gray, gamma);
     

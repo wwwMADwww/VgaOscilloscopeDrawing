@@ -20,6 +20,10 @@ namespace vgarender
 
         List<(RadioButton rb, SourceValuesDither dither)> _sourceValuesDitherMap;
 
+        List<(RadioButton rb, ImageSource source)> _imageSourceMap;
+
+        //List<(RadioButton rb, OneBitValues source)> _oneBitBlankingValuesMap;
+
         class ComboBoxItem<T>
         {
             public ComboBoxItem(T value, string description)
@@ -48,14 +52,15 @@ namespace vgarender
             InitializeComponent();
         }
 
-        void UpdateScreenList()
+        void UpdateScreenList(ComboBox cb)
         {
-            monitorListCb.Items.Clear();
+            cb.Items.Clear();
             foreach (var screen in Screen.AllScreens)
             {
-                monitorListCb.Items.Add(new ComboBoxItem<Screen>(screen, $"{screen.DeviceName}: {screen.Bounds.Width}x{screen.Bounds.Height} {(screen.Primary ? "Primary" : " ")}"));
+                var item = new ComboBoxItem<Screen>(screen, $"{screen.DeviceName}: {screen.Bounds.Width}x{screen.Bounds.Height} {(screen.Primary ? "Primary" : " ")}");
+                cb.Items.Add(item);
             }
-            monitorListCb.SelectedIndex = 0;
+            cb.SelectedIndex = 0;
         }
 
         void UpdateCurrentScreen()
@@ -66,12 +71,12 @@ namespace vgarender
 
         private void FillLists()
         {
-            var channels = new ComboBoxItem<SourceChannel>[] {
-                new ComboBoxItem<SourceChannel>(SourceChannel.X   , "X Coord"),
-                new ComboBoxItem<SourceChannel>(SourceChannel.Y   , "Y Coord"),
-                new ComboBoxItem<SourceChannel>(SourceChannel.Gray, "Gray image"),
-                new ComboBoxItem<SourceChannel>(SourceChannel.Max , "Const Max"),
-                new ComboBoxItem<SourceChannel>(SourceChannel.Min , "Const Min")
+            var channels = new ComboBoxItem<VgaSourceChannel>[] {
+                new ComboBoxItem<VgaSourceChannel>(VgaSourceChannel.X   , "X Coord"),
+                new ComboBoxItem<VgaSourceChannel>(VgaSourceChannel.Y   , "Y Coord"),
+                new ComboBoxItem<VgaSourceChannel>(VgaSourceChannel.Gray, "Gray image"),
+                new ComboBoxItem<VgaSourceChannel>(VgaSourceChannel.Max , "Const Max"),
+                new ComboBoxItem<VgaSourceChannel>(VgaSourceChannel.Min , "Const Min")
             };
 
             channelMapRedCb.Items.Clear();
@@ -131,9 +136,20 @@ namespace vgarender
                 ( coordGradientDitherOrderedRb, SourceValuesDither.Ordered ),
             };
 
+            _imageSourceMap = new List<(RadioButton rb, ImageSource source)>() {
+                ( frameSourceFileRb   , ImageSource.AnimationFrames ),
+                ( frameSourceScreenCaptureRb , ImageSource.ScreenCapture )
+            };
+
+            //_oneBitBlankingValuesMap = new List<(RadioButton rb, OneBitValues values)>() {
+            //    ( oneBitBlankLevelsConstantRb      , OneBitValues.Constant),
+            //    ( oneBitBlankLevelsNearestActiveRb , OneBitValues.NearestActivePos)
+            //};
+
             FillLists();
 
-            UpdateScreenList();
+            UpdateScreenList(monitorListCb);
+            UpdateScreenList(captureMonitorCb);
 
             LoadSettings();
 
@@ -155,21 +171,25 @@ namespace vgarender
                     return false;
             }
 
-            if (pathFileRb.Checked)
-            {
-                if (!File.Exists(framesdirpathed.Text))
-                {
-                    MessageBox.Show(this, "Select image", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
-                }
-            }
 
-            if (pathDirRb.Checked)
+            if (frameSourceFileRb.Checked)
             {
-                if (!Directory.Exists(Path.GetDirectoryName(framesdirpathed.Text)))
+
+                if (allFramesFromDirChb.Checked)
                 {
-                    MessageBox.Show(this, "Select frames directory", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return false;
+                    if (!Directory.Exists(Path.GetDirectoryName(framesdirpathed.Text)))
+                    {
+                        MessageBox.Show(this, "Select frames directory", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
+                }
+                else
+                {
+                    if (!File.Exists(framesdirpathed.Text))
+                    {
+                        MessageBox.Show(this, "Select image", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return false;
+                    }
                 }
             }
 
@@ -192,17 +212,17 @@ namespace vgarender
 
             var outputSettings = new OutputSettings()
             {
-                RefreshRate = (int)refreshrateud.Value,
+                FrameRate = (int)refreshrateud.Value,
                 AnimationFrameRate = (int)animationFpsUd.Value,
 
-                SourceValuesSettings = new SourceValuesSettings()
+                VgaSourceValuesSettings = new VgaSourceValuesSettings()
                 {
 
-                    Ranges = new Dictionary<SourceChannel, RangeF>() {
-                        { SourceChannel.X  , new RangeF((float)coordRangeXMinUd.Value, (float)coordRangeXMaxUd.Value) },
-                        { SourceChannel.Y  , new RangeF((float)coordRangeYMinUd.Value, (float)coordRangeYMaxUd.Value) },
-                        { SourceChannel.Min, new RangeF((float)coordRangeCMinUd.Value, (float)coordRangeCMinUd.Value) },
-                        { SourceChannel.Max, new RangeF((float)coordRangeCMaxUd.Value, (float)coordRangeCMaxUd.Value) },
+                    Ranges = new Dictionary<VgaSourceChannel, RangeF>() {
+                        { VgaSourceChannel.X, new RangeF((float)coordRangeXMinUd.Value, (float)coordRangeXMaxUd.Value) },
+                        { VgaSourceChannel.Y, new RangeF((float)coordRangeYMinUd.Value, (float)coordRangeYMaxUd.Value) },
+                        { VgaSourceChannel.Min, new RangeF((float)coordRangeCMinUd.Value, (float)coordRangeCMinUd.Value) },
+                        { VgaSourceChannel.Max, new RangeF((float)coordRangeCMaxUd.Value, (float)coordRangeCMaxUd.Value) },
                     },
 
                     Dither = _sourceValuesDitherMap.Single(m => m.rb.Checked).dither
@@ -211,17 +231,17 @@ namespace vgarender
                 ChannelMap = new[]
                 {
                     new ChannelsMapInfo() {
-                        Source = ((ComboBoxItem<SourceChannel>)channelMapRedCb.SelectedItem).Value,
+                        VgaSource = ((ComboBoxItem<VgaSourceChannel>)channelMapRedCb.SelectedItem).Value,
                         Color = ColorChannel.Red,
                         CoordinateModulateWithOneBitColor = vgachannel1BitRedChb.Checked
                     },
                     new ChannelsMapInfo() {
-                        Source = ((ComboBoxItem<SourceChannel>)channelMapGreenCb.SelectedItem).Value,
+                        VgaSource = ((ComboBoxItem<VgaSourceChannel>)channelMapGreenCb.SelectedItem).Value,
                         Color = ColorChannel.Green,
                         CoordinateModulateWithOneBitColor = vgachannel1BitGreenChb.Checked
                     },
                     new ChannelsMapInfo() {
-                        Source = ((ComboBoxItem<SourceChannel>)channelMapBlueCb.SelectedItem).Value,
+                        VgaSource = ((ComboBoxItem<VgaSourceChannel>)channelMapBlueCb.SelectedItem).Value,
                         Color = ColorChannel.Blue,
                         CoordinateModulateWithOneBitColor = vgachannel1BitBlueChb.Checked
                     }
@@ -232,12 +252,14 @@ namespace vgarender
                     (float)outputBoundsTopUd.Value,
                     (float)(outputBoundsRightUd.Value - outputBoundsLeftUd.Value),
                     (float)(outputBoundsBottomUd.Value - outputBoundsTopUd.Value)),
-                                                
+
                 ImageSettings = new ImageSettings()
                 {
-                    AntialiasingEnable = enableAntialiasingChb.Checked,
+                    Antialiasing = enableAntialiasingChb.Checked,
                     SwapXY = swapxyChb.Checked,
                     Scale = new PointF((float)imageScaleXUd.Value, (float)imageScaleYUd.Value),
+                    Brightness = (float) brightnessUd.Value,
+                    Contrast = (float) contrastUd.Value,
                     Gamma = (float) gammaUd.Value,
                     GrayscaleRatios = new ColorF((float)grayscaleRedUd.Value, (float)grayscaleGreenUd.Value, (float)grayscaleBlueUd.Value),
                     GrayThreshold = new RangeF((float)toneThreshBlackUd.Value, (float)toneThreshWhiteUd.Value),
@@ -246,8 +268,16 @@ namespace vgarender
                     { 
                         Mode = _oneBitModeMap.Single(p => p.rb.Checked).mode,
 
+
+                        //Values = _oneBitBlankingValuesMap.Single(i => i.rb.Checked).source,
+
                         Blanking = new RangeF((float) blankValueBottomUd.Value, (float) blankValueTopUd.Value),
+
+                        //NearestActiveFallbackDistance = (float) nearestActiveDistanceUd.Value,
+                        //NearestActiveNext = nearestActiveNextChb.Checked,
+                        //NearestActivePrev = nearestActivePrevChb.Checked,
                         
+
                         OrderedDitherSettings = new OrderedDitherSettings()
                         {                             
                             MatrixSize = ((ComboBoxItem<int>) oneBitOrderedMatrixSizeCb.SelectedItem).Value,
@@ -266,20 +296,46 @@ namespace vgarender
                         SwapAfter = new PointF((float) blankSwapAfterXUd.Value, (float) blankSwapAfterYUd.Value),
 
                         SwapCheckeredSize = new PointF((float) blankSwapCheckerWUd.Value, (float) blankSwapCheckerHUd.Value),
+
                     }
-                }
+                },
+
+                OutputScreen = ((ComboBoxItem<Screen>)monitorListCb.SelectedItem).Value,
+                
+                Fullscreen = drawWinFullscreenChb.Checked
+
             };
 
-            IEnumerable<string> files = null;
-            if (pathFileRb.Checked)
-                files = new List<string>() { framesdirpathed.Text };
-            if (pathDirRb.Checked)
-                files = Directory.GetFiles(Path.GetDirectoryName(framesdirpathed.Text)).ToList();
-
-            _drawWindow.Screen = ((ComboBoxItem<Screen>)monitorListCb.SelectedItem).Value;
-            _drawWindow.Fullscreen = drawWinFullscreenChb.Checked;
-            _drawWindow.Files = files;
             _drawWindow.OutputSettings = outputSettings;
+
+            var inputSettings = new InputSettings()
+            {
+                ImageSource = _imageSourceMap.Single(i => i.rb.Checked).source
+            };
+
+            if (frameSourceFileRb.Checked)
+            {
+                IEnumerable<string> files = null;
+                if (allFramesFromDirChb.Checked)
+                    files = Directory.GetFiles(Path.GetDirectoryName(framesdirpathed.Text)).ToList();
+                else
+                    files = new List<string>() { framesdirpathed.Text };
+
+                inputSettings.AnimationFramesFiles = files;
+            }
+            else if (frameSourceScreenCaptureRb.Checked)
+            {
+                inputSettings.InputScreen = ((ComboBoxItem<Screen>)captureMonitorCb.SelectedItem).Value;
+                inputSettings.CaptureArea = new Rectangle() 
+                { 
+                    X      = (int) captureAreaXUd.Value,
+                    Y      = (int) captureAreaYUd.Value,
+                    Width  = (int) captureAreaWUd.Value,
+                    Height = (int) captureAreaHUd.Value
+                };
+            }
+
+            _drawWindow.InputSettings = inputSettings;
 
             _drawWindow.Run();
 
@@ -290,7 +346,7 @@ namespace vgarender
 
         private void refreshMonitoListB_Click(object sender, EventArgs e)
         {
-            UpdateScreenList();
+            UpdateScreenList(monitorListCb);
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -327,10 +383,10 @@ namespace vgarender
         {
             new[] { channelMapRedCb, channelMapGreenCb, channelMapBlueCb }.Select(cb =>
             {
-                if (((ComboBoxItem<SourceChannel>)cb.SelectedItem).Value == SourceChannel.X)
-                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<SourceChannel>>().First(i => i.Value == SourceChannel.Y);
-                else  if (((ComboBoxItem<SourceChannel>)cb.SelectedItem).Value == SourceChannel.Y)
-                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<SourceChannel>>().First(i => i.Value == SourceChannel.X);
+                if (((ComboBoxItem<VgaSourceChannel>)cb.SelectedItem).Value == VgaSourceChannel.X)
+                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<VgaSourceChannel>>().First(i => i.Value == VgaSourceChannel.Y);
+                else  if (((ComboBoxItem<VgaSourceChannel>)cb.SelectedItem).Value == VgaSourceChannel.Y)
+                    cb.SelectedItem = cb.Items.OfType<ComboBoxItem<VgaSourceChannel>>().First(i => i.Value == VgaSourceChannel.X);
 
                 return true;
             }).ToArray();
@@ -413,6 +469,35 @@ namespace vgarender
                 grayscaleBlueUd.Value = 0;
             else
                 grayscaleBlueUd.Value = 1;
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _drawWindow.Stop();
+        }
+
+        private void captureMonitorRefreshB_Click(object sender, EventArgs e)
+        {
+            UpdateScreenList(captureMonitorCb);
+        }
+
+        private void captureAreaFullB_Click(object sender, EventArgs e)
+        {
+            if (captureMonitorCb.SelectedIndex < 0)
+                return; 
+
+            var monitor = (ComboBoxItem<Screen>) captureMonitorCb.SelectedItem;
+            captureAreaXUd.Value = 0;
+            captureAreaYUd.Value = 0;
+            captureAreaWUd.Value = monitor.Value.WorkingArea.Width;
+            captureAreaHUd.Value = monitor.Value.WorkingArea.Height;
+        }
+
+        private void colorLevelsResetB_Click(object sender, EventArgs e)
+        {
+            brightnessUd.Value = 0;
+            contrastUd.Value = 1;
+            gammaUd.Value = 1;
         }
     }
 }
