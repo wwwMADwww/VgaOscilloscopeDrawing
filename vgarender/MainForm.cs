@@ -338,6 +338,7 @@ namespace vgarender
             _drawWindow.InputSettings = inputSettings;
 
             _drawWindow.Run();
+            _exceptionWait = true;
 
 
             startB.Enabled = true;
@@ -349,10 +350,18 @@ namespace vgarender
             UpdateScreenList(monitorListCb);
         }
 
+        bool _exceptionWait = true;
         private void timer1_Tick(object sender, EventArgs e)
         {
             UpdateCurrentScreen();
             fpslabel.Text = _drawWindow.CurrentFps.ToString();
+
+            // TODO: replace with Task and CompletionSource
+            if (_exceptionWait && _drawWindow.ExceptionInfo != null)
+            {
+                _exceptionWait = false;
+                _drawWindow.ExceptionInfo.Throw();
+            }
         }
 
         private void topmostChb_CheckedChanged(object sender, EventArgs e)

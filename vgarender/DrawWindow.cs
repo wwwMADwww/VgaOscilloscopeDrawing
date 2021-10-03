@@ -15,6 +15,7 @@ using SFML.Window;
 using SFML.Graphics.Glsl;
 using SL;
 using System.Globalization;
+using System.Runtime.ExceptionServices;
 
 namespace vgarender
 {
@@ -228,6 +229,9 @@ namespace vgarender
 
         public event EventHandler OnClosed = (o, e) => {};
 
+        // TODO: replace with Task and CompletionSource
+        public ExceptionDispatchInfo ExceptionInfo { get; private set; }
+
         #endregion props
 
 
@@ -238,6 +242,8 @@ namespace vgarender
             {
                 if (_drawingTask != null)
                     return;
+
+                ExceptionInfo = null;
 
                 _drawingCancelSource = new CancellationTokenSource();
                 _drawingCancelToken = _drawingCancelSource.Token;
@@ -655,11 +661,11 @@ namespace vgarender
 
                     var framegrabber = Screen_Capture.CaptureConfiguration.CreateCaptureConfiguration(() =>
                     {
+                        var inscreen = InputSettings.InputScreen;
+                        var mons = Screen_Capture.GetMonitors().Where(m => m.Name == inscreen.DeviceName).ToArray();
 
-                        var mons = Screen_Capture.GetMonitors().Where(m => m.Name == InputSettings.InputScreen.DeviceName).ToArray();
-
-                        mons[0].OffsetX = area.X;
-                        mons[0].OffsetY = area.Y;
+                        mons[0].OffsetX = inscreen.WorkingArea.X + area.X;
+                        mons[0].OffsetY = inscreen.WorkingArea.Y + area.Y;
                         mons[0].Width   = area.Width;
                         mons[0].Height  = area.Height;
 
@@ -753,7 +759,7 @@ namespace vgarender
             }
             catch (Exception e)
             {
-
+                ExceptionInfo = ExceptionDispatchInfo.Capture(e);
             }
 
         }

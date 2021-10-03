@@ -224,7 +224,7 @@
             this.startB.Location = new System.Drawing.Point(894, 19);
             this.startB.Name = "startB";
             this.startB.Size = new System.Drawing.Size(75, 23);
-            this.startB.TabIndex = 3;
+            this.startB.TabIndex = 7;
             this.startB.Text = "(re)start";
             this.startB.UseVisualStyleBackColor = true;
             this.startB.Click += new System.EventHandler(this.startB_Click);
@@ -234,7 +234,7 @@
             this.stopB.Location = new System.Drawing.Point(813, 19);
             this.stopB.Name = "stopB";
             this.stopB.Size = new System.Drawing.Size(75, 23);
-            this.stopB.TabIndex = 2;
+            this.stopB.TabIndex = 6;
             this.stopB.Text = "stop";
             this.stopB.UseVisualStyleBackColor = true;
             this.stopB.Click += new System.EventHandler(this.stopB_Click);
@@ -266,7 +266,7 @@
             this.vgaChannelMappingGb.Location = new System.Drawing.Point(666, 160);
             this.vgaChannelMappingGb.Name = "vgaChannelMappingGb";
             this.vgaChannelMappingGb.Size = new System.Drawing.Size(321, 88);
-            this.vgaChannelMappingGb.TabIndex = 5;
+            this.vgaChannelMappingGb.TabIndex = 6;
             this.vgaChannelMappingGb.TabStop = false;
             this.vgaChannelMappingGb.Text = "VGA channel mapping";
             // 
@@ -394,7 +394,7 @@
             this.sourceImagesGb.Location = new System.Drawing.Point(12, 12);
             this.sourceImagesGb.Name = "sourceImagesGb";
             this.sourceImagesGb.Size = new System.Drawing.Size(321, 199);
-            this.sourceImagesGb.TabIndex = 0;
+            this.sourceImagesGb.TabIndex = 1;
             this.sourceImagesGb.TabStop = false;
             this.sourceImagesGb.Text = "Source";
             // 
@@ -403,7 +403,7 @@
             this.captureAreaFullB.Location = new System.Drawing.Point(236, 129);
             this.captureAreaFullB.Name = "captureAreaFullB";
             this.captureAreaFullB.Size = new System.Drawing.Size(75, 23);
-            this.captureAreaFullB.TabIndex = 59;
+            this.captureAreaFullB.TabIndex = 12;
             this.captureAreaFullB.Text = "Full area";
             this.captureAreaFullB.UseVisualStyleBackColor = true;
             this.captureAreaFullB.Click += new System.EventHandler(this.captureAreaFullB_Click);
@@ -418,7 +418,7 @@
             0});
             this.captureAreaHUd.Name = "captureAreaHUd";
             this.captureAreaHUd.Size = new System.Drawing.Size(63, 20);
-            this.captureAreaHUd.TabIndex = 54;
+            this.captureAreaHUd.TabIndex = 11;
             this.captureAreaHUd.Value = new decimal(new int[] {
             600,
             0,
@@ -435,7 +435,7 @@
             0});
             this.captureAreaWUd.Name = "captureAreaWUd";
             this.captureAreaWUd.Size = new System.Drawing.Size(63, 20);
-            this.captureAreaWUd.TabIndex = 56;
+            this.captureAreaWUd.TabIndex = 10;
             this.captureAreaWUd.Value = new decimal(new int[] {
             800,
             0,
@@ -452,7 +452,7 @@
             0});
             this.captureAreaXUd.Name = "captureAreaXUd";
             this.captureAreaXUd.Size = new System.Drawing.Size(63, 20);
-            this.captureAreaXUd.TabIndex = 55;
+            this.captureAreaXUd.TabIndex = 9;
             // 
             // captureAreaYUd
             // 
@@ -464,7 +464,7 @@
             0});
             this.captureAreaYUd.Name = "captureAreaYUd";
             this.captureAreaYUd.Size = new System.Drawing.Size(63, 20);
-            this.captureAreaYUd.TabIndex = 53;
+            this.captureAreaYUd.TabIndex = 8;
             // 
             // label3
             // 
@@ -472,7 +472,7 @@
             this.label3.Location = new System.Drawing.Point(25, 108);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(68, 13);
-            this.label3.TabIndex = 58;
+            this.label3.TabIndex = 7;
             this.label3.Text = "Capture area";
             // 
             // captureMonitorCb
@@ -482,14 +482,14 @@
             this.captureMonitorCb.Location = new System.Drawing.Point(110, 74);
             this.captureMonitorCb.Name = "captureMonitorCb";
             this.captureMonitorCb.Size = new System.Drawing.Size(120, 21);
-            this.captureMonitorCb.TabIndex = 51;
+            this.captureMonitorCb.TabIndex = 5;
             // 
             // captureMonitorRefreshB
             // 
             this.captureMonitorRefreshB.Location = new System.Drawing.Point(236, 72);
             this.captureMonitorRefreshB.Name = "captureMonitorRefreshB";
             this.captureMonitorRefreshB.Size = new System.Drawing.Size(75, 23);
-            this.captureMonitorRefreshB.TabIndex = 52;
+            this.captureMonitorRefreshB.TabIndex = 6;
             this.captureMonitorRefreshB.Text = "Refresh list";
             this.captureMonitorRefreshB.UseVisualStyleBackColor = true;
             this.captureMonitorRefreshB.Click += new System.EventHandler(this.captureMonitorRefreshB_Click);
@@ -500,7 +500,7 @@
             this.frameSourceScreenCaptureRb.Location = new System.Drawing.Point(6, 75);
             this.frameSourceScreenCaptureRb.Name = "frameSourceScreenCaptureRb";
             this.frameSourceScreenCaptureRb.Size = new System.Drawing.Size(98, 17);
-            this.frameSourceScreenCaptureRb.TabIndex = 13;
+            this.frameSourceScreenCaptureRb.TabIndex = 4;
             this.frameSourceScreenCaptureRb.Text = "Screen capture";
             this.frameSourceScreenCaptureRb.UseVisualStyleBackColor = true;
             // 
@@ -511,7 +511,7 @@
             this.frameSourceFileRb.Location = new System.Drawing.Point(6, 17);
             this.frameSourceFileRb.Name = "frameSourceFileRb";
             this.frameSourceFileRb.Size = new System.Drawing.Size(150, 17);
-            this.frameSourceFileRb.TabIndex = 12;
+            this.frameSourceFileRb.TabIndex = 0;
             this.frameSourceFileRb.TabStop = true;
             this.frameSourceFileRb.Text = "Animation frames from disk";
             this.frameSourceFileRb.UseVisualStyleBackColor = true;
@@ -522,7 +522,7 @@
             this.allFramesFromDirChb.Location = new System.Drawing.Point(199, 18);
             this.allFramesFromDirChb.Name = "allFramesFromDirChb";
             this.allFramesFromDirChb.Size = new System.Drawing.Size(112, 17);
-            this.allFramesFromDirChb.TabIndex = 11;
+            this.allFramesFromDirChb.TabIndex = 1;
             this.allFramesFromDirChb.Text = "All files in directory";
             this.allFramesFromDirChb.UseVisualStyleBackColor = true;
             // 
@@ -532,14 +532,14 @@
             this.framesdirpathed.MaxLength = 260;
             this.framesdirpathed.Name = "framesdirpathed";
             this.framesdirpathed.Size = new System.Drawing.Size(202, 20);
-            this.framesdirpathed.TabIndex = 0;
+            this.framesdirpathed.TabIndex = 2;
             // 
             // selectFramesPathB
             // 
             this.selectFramesPathB.Location = new System.Drawing.Point(236, 38);
             this.selectFramesPathB.Name = "selectFramesPathB";
             this.selectFramesPathB.Size = new System.Drawing.Size(75, 23);
-            this.selectFramesPathB.TabIndex = 1;
+            this.selectFramesPathB.TabIndex = 3;
             this.selectFramesPathB.Text = "Select...";
             this.selectFramesPathB.UseVisualStyleBackColor = true;
             this.selectFramesPathB.Click += new System.EventHandler(this.selectFramesPathB_Click);
@@ -550,7 +550,7 @@
             this.swapxyChb.Location = new System.Drawing.Point(148, 46);
             this.swapxyChb.Name = "swapxyChb";
             this.swapxyChb.Size = new System.Drawing.Size(164, 17);
-            this.swapxyChb.TabIndex = 3;
+            this.swapxyChb.TabIndex = 6;
             this.swapxyChb.Text = "Rotate 90 degrees clockwise";
             this.swapxyChb.UseVisualStyleBackColor = true;
             // 
@@ -576,7 +576,7 @@
             this.outputGb.Location = new System.Drawing.Point(666, 254);
             this.outputGb.Name = "outputGb";
             this.outputGb.Size = new System.Drawing.Size(321, 178);
-            this.outputGb.TabIndex = 6;
+            this.outputGb.TabIndex = 7;
             this.outputGb.TabStop = false;
             this.outputGb.Text = "Output";
             // 
@@ -585,7 +585,7 @@
             this.outBoundsFlipHB.Location = new System.Drawing.Point(208, 125);
             this.outBoundsFlipHB.Name = "outBoundsFlipHB";
             this.outBoundsFlipHB.Size = new System.Drawing.Size(104, 23);
-            this.outBoundsFlipHB.TabIndex = 13;
+            this.outBoundsFlipHB.TabIndex = 15;
             this.outBoundsFlipHB.Text = "Flip Horizontally";
             this.outBoundsFlipHB.UseVisualStyleBackColor = true;
             this.outBoundsFlipHB.Click += new System.EventHandler(this.outBoundsFlipHB_Click);
@@ -595,7 +595,7 @@
             this.outBoundsFlipVB.Location = new System.Drawing.Point(208, 99);
             this.outBoundsFlipVB.Name = "outBoundsFlipVB";
             this.outBoundsFlipVB.Size = new System.Drawing.Size(104, 23);
-            this.outBoundsFlipVB.TabIndex = 12;
+            this.outBoundsFlipVB.TabIndex = 14;
             this.outBoundsFlipVB.Text = "Flip Vertically";
             this.outBoundsFlipVB.UseVisualStyleBackColor = true;
             this.outBoundsFlipVB.Click += new System.EventHandler(this.outBoundsFlipVB_Click);
@@ -616,7 +616,7 @@
             0});
             this.outputBoundsBottomUd.Name = "outputBoundsBottomUd";
             this.outputBoundsBottomUd.Size = new System.Drawing.Size(63, 20);
-            this.outputBoundsBottomUd.TabIndex = 9;
+            this.outputBoundsBottomUd.TabIndex = 13;
             this.outputBoundsBottomUd.Value = new decimal(new int[] {
             1,
             0,
@@ -639,7 +639,7 @@
             0});
             this.outputBoundsRightUd.Name = "outputBoundsRightUd";
             this.outputBoundsRightUd.Size = new System.Drawing.Size(63, 20);
-            this.outputBoundsRightUd.TabIndex = 11;
+            this.outputBoundsRightUd.TabIndex = 12;
             this.outputBoundsRightUd.Value = new decimal(new int[] {
             1,
             0,
@@ -662,14 +662,14 @@
             0});
             this.outputBoundsLeftUd.Name = "outputBoundsLeftUd";
             this.outputBoundsLeftUd.Size = new System.Drawing.Size(63, 20);
-            this.outputBoundsLeftUd.TabIndex = 10;
+            this.outputBoundsLeftUd.TabIndex = 11;
             // 
             // outputBoundsResetB
             // 
             this.outputBoundsResetB.Location = new System.Drawing.Point(208, 151);
             this.outputBoundsResetB.Name = "outputBoundsResetB";
             this.outputBoundsResetB.Size = new System.Drawing.Size(104, 23);
-            this.outputBoundsResetB.TabIndex = 14;
+            this.outputBoundsResetB.TabIndex = 16;
             this.outputBoundsResetB.Text = "Reset";
             this.outputBoundsResetB.UseVisualStyleBackColor = true;
             this.outputBoundsResetB.Click += new System.EventHandler(this.outputBoundsResetB_Click);
@@ -690,7 +690,7 @@
             0});
             this.outputBoundsTopUd.Name = "outputBoundsTopUd";
             this.outputBoundsTopUd.Size = new System.Drawing.Size(63, 20);
-            this.outputBoundsTopUd.TabIndex = 8;
+            this.outputBoundsTopUd.TabIndex = 10;
             // 
             // label19
             // 
@@ -698,7 +698,7 @@
             this.label19.Location = new System.Drawing.Point(6, 104);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(77, 13);
-            this.label19.TabIndex = 50;
+            this.label19.TabIndex = 9;
             this.label19.Text = "Output bounds";
             // 
             // label9
@@ -707,7 +707,7 @@
             this.label9.Location = new System.Drawing.Point(6, 75);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(114, 13);
-            this.label9.TabIndex = 49;
+            this.label9.TabIndex = 7;
             this.label9.Text = "Animation speed (FPS)";
             // 
             // animationFpsUd
@@ -725,7 +725,7 @@
             -2147483648});
             this.animationFpsUd.Name = "animationFpsUd";
             this.animationFpsUd.Size = new System.Drawing.Size(105, 20);
-            this.animationFpsUd.TabIndex = 5;
+            this.animationFpsUd.TabIndex = 8;
             this.animationFpsUd.Value = new decimal(new int[] {
             60,
             0,
@@ -737,7 +737,7 @@
             this.vsyncB.Location = new System.Drawing.Point(237, 43);
             this.vsyncB.Name = "vsyncB";
             this.vsyncB.Size = new System.Drawing.Size(51, 23);
-            this.vsyncB.TabIndex = 3;
+            this.vsyncB.TabIndex = 5;
             this.vsyncB.Text = "VSync";
             this.vsyncB.UseVisualStyleBackColor = true;
             this.vsyncB.Click += new System.EventHandler(this.vsyncB_Click);
@@ -747,7 +747,7 @@
             this.nofpsB.Location = new System.Drawing.Point(294, 43);
             this.nofpsB.Name = "nofpsB";
             this.nofpsB.Size = new System.Drawing.Size(18, 23);
-            this.nofpsB.TabIndex = 4;
+            this.nofpsB.TabIndex = 6;
             this.nofpsB.Text = "X";
             this.nofpsB.UseVisualStyleBackColor = true;
             this.nofpsB.Click += new System.EventHandler(this.nofpsB_Click);
@@ -758,7 +758,7 @@
             this.label4.Location = new System.Drawing.Point(6, 48);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(83, 13);
-            this.label4.TabIndex = 35;
+            this.label4.TabIndex = 3;
             this.label4.Text = "Framerate (FPS)";
             // 
             // label1
@@ -767,7 +767,7 @@
             this.label1.Location = new System.Drawing.Point(6, 22);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 13);
-            this.label1.TabIndex = 31;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Monitor to draw on";
             // 
             // monitorListCb
@@ -777,14 +777,14 @@
             this.monitorListCb.Location = new System.Drawing.Point(126, 19);
             this.monitorListCb.Name = "monitorListCb";
             this.monitorListCb.Size = new System.Drawing.Size(105, 21);
-            this.monitorListCb.TabIndex = 0;
+            this.monitorListCb.TabIndex = 1;
             // 
             // refreshMonitoListB
             // 
             this.refreshMonitoListB.Location = new System.Drawing.Point(237, 17);
             this.refreshMonitoListB.Name = "refreshMonitoListB";
             this.refreshMonitoListB.Size = new System.Drawing.Size(75, 23);
-            this.refreshMonitoListB.TabIndex = 1;
+            this.refreshMonitoListB.TabIndex = 2;
             this.refreshMonitoListB.Text = "Refresh list";
             this.refreshMonitoListB.UseVisualStyleBackColor = true;
             this.refreshMonitoListB.Click += new System.EventHandler(this.refreshMonitoListB_Click);
@@ -804,7 +804,7 @@
             -2147483648});
             this.refreshrateud.Name = "refreshrateud";
             this.refreshrateud.Size = new System.Drawing.Size(105, 20);
-            this.refreshrateud.TabIndex = 2;
+            this.refreshrateud.TabIndex = 4;
             this.refreshrateud.Value = new decimal(new int[] {
             60,
             0,
@@ -820,7 +820,7 @@
             this.enableAntialiasingChb.Location = new System.Drawing.Point(11, 46);
             this.enableAntialiasingChb.Name = "enableAntialiasingChb";
             this.enableAntialiasingChb.Size = new System.Drawing.Size(114, 17);
-            this.enableAntialiasingChb.TabIndex = 2;
+            this.enableAntialiasingChb.TabIndex = 5;
             this.enableAntialiasingChb.Text = "Enable antialiasing";
             this.enableAntialiasingChb.UseVisualStyleBackColor = true;
             // 
@@ -830,7 +830,7 @@
             this.fpslabel.Location = new System.Drawing.Point(552, 24);
             this.fpslabel.Name = "fpslabel";
             this.fpslabel.Size = new System.Drawing.Size(33, 13);
-            this.fpslabel.TabIndex = 2;
+            this.fpslabel.TabIndex = 3;
             this.fpslabel.Text = "F P S";
             // 
             // label5
@@ -839,7 +839,7 @@
             this.label5.Location = new System.Drawing.Point(472, 24);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(74, 13);
-            this.label5.TabIndex = 44;
+            this.label5.TabIndex = 2;
             this.label5.Text = "Current FPS ~";
             // 
             // currentmonitorlabel
@@ -848,7 +848,7 @@
             this.currentmonitorlabel.Location = new System.Drawing.Point(708, 24);
             this.currentmonitorlabel.Name = "currentmonitorlabel";
             this.currentmonitorlabel.Size = new System.Drawing.Size(76, 13);
-            this.currentmonitorlabel.TabIndex = 43;
+            this.currentmonitorlabel.TabIndex = 5;
             this.currentmonitorlabel.Text = "M O N I T O R";
             // 
             // label2
@@ -857,7 +857,7 @@
             this.label2.Location = new System.Drawing.Point(624, 24);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 13);
-            this.label2.TabIndex = 42;
+            this.label2.TabIndex = 4;
             this.label2.Text = "Current monitor";
             // 
             // mainWinTopmostChb
@@ -902,7 +902,7 @@
             this.oneBitMethodGb.Location = new System.Drawing.Point(339, 282);
             this.oneBitMethodGb.Name = "oneBitMethodGb";
             this.oneBitMethodGb.Size = new System.Drawing.Size(321, 150);
-            this.oneBitMethodGb.TabIndex = 3;
+            this.oneBitMethodGb.TabIndex = 4;
             this.oneBitMethodGb.TabStop = false;
             this.oneBitMethodGb.Text = "1 bit encoding method";
             // 
@@ -1087,7 +1087,7 @@
             this.imageGb.Location = new System.Drawing.Point(12, 211);
             this.imageGb.Name = "imageGb";
             this.imageGb.Size = new System.Drawing.Size(321, 221);
-            this.imageGb.TabIndex = 1;
+            this.imageGb.TabIndex = 2;
             this.imageGb.TabStop = false;
             this.imageGb.Text = "Image";
             // 
@@ -1096,7 +1096,7 @@
             this.colorLevelsResetB.Location = new System.Drawing.Point(240, 153);
             this.colorLevelsResetB.Name = "colorLevelsResetB";
             this.colorLevelsResetB.Size = new System.Drawing.Size(71, 23);
-            this.colorLevelsResetB.TabIndex = 19;
+            this.colorLevelsResetB.TabIndex = 21;
             this.colorLevelsResetB.Text = "Reset";
             this.colorLevelsResetB.UseVisualStyleBackColor = true;
             this.colorLevelsResetB.Click += new System.EventHandler(this.colorLevelsResetB_Click);
@@ -1122,7 +1122,7 @@
             65536});
             this.contrastUd.Name = "contrastUd";
             this.contrastUd.Size = new System.Drawing.Size(72, 20);
-            this.contrastUd.TabIndex = 18;
+            this.contrastUd.TabIndex = 16;
             this.contrastUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1134,7 +1134,7 @@
             this.label14.Location = new System.Drawing.Point(5, 140);
             this.label14.Name = "label14";
             this.label14.Size = new System.Drawing.Size(73, 13);
-            this.label14.TabIndex = 17;
+            this.label14.TabIndex = 15;
             this.label14.Text = "Contrast";
             this.label14.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1159,14 +1159,14 @@
             -2147483648});
             this.brightnessUd.Name = "brightnessUd";
             this.brightnessUd.Size = new System.Drawing.Size(72, 20);
-            this.brightnessUd.TabIndex = 16;
+            this.brightnessUd.TabIndex = 18;
             // 
             // label15
             // 
             this.label15.Location = new System.Drawing.Point(83, 140);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(73, 13);
-            this.label15.TabIndex = 15;
+            this.label15.TabIndex = 17;
             this.label15.Text = "Brightness";
             this.label15.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1195,7 +1195,7 @@
             0});
             this.imageScaleYUd.Name = "imageScaleYUd";
             this.imageScaleYUd.Size = new System.Drawing.Size(59, 20);
-            this.imageScaleYUd.TabIndex = 1;
+            this.imageScaleYUd.TabIndex = 4;
             this.imageScaleYUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1227,7 +1227,7 @@
             0});
             this.imageScaleXUd.Name = "imageScaleXUd";
             this.imageScaleXUd.Size = new System.Drawing.Size(59, 20);
-            this.imageScaleXUd.TabIndex = 0;
+            this.imageScaleXUd.TabIndex = 2;
             this.imageScaleXUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1249,7 +1249,7 @@
             this.colorInvertChb.Location = new System.Drawing.Point(11, 69);
             this.colorInvertChb.Name = "colorInvertChb";
             this.colorInvertChb.Size = new System.Drawing.Size(84, 17);
-            this.colorInvertChb.TabIndex = 9;
+            this.colorInvertChb.TabIndex = 7;
             this.colorInvertChb.Text = "Invert colors";
             this.colorInvertChb.UseVisualStyleBackColor = true;
             // 
@@ -1259,7 +1259,7 @@
             this.label18.Location = new System.Drawing.Point(172, 193);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(75, 13);
-            this.label18.TabIndex = 14;
+            this.label18.TabIndex = 24;
             this.label18.Text = "Full white after";
             // 
             // toneThreshWhiteUd
@@ -1278,7 +1278,7 @@
             0});
             this.toneThreshWhiteUd.Name = "toneThreshWhiteUd";
             this.toneThreshWhiteUd.Size = new System.Drawing.Size(59, 20);
-            this.toneThreshWhiteUd.TabIndex = 12;
+            this.toneThreshWhiteUd.TabIndex = 25;
             this.toneThreshWhiteUd.Value = new decimal(new int[] {
             99,
             0,
@@ -1291,7 +1291,7 @@
             this.label17.Location = new System.Drawing.Point(6, 193);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(85, 13);
-            this.label17.TabIndex = 12;
+            this.label17.TabIndex = 22;
             this.label17.Text = "Full black before";
             // 
             // toneThreshBlackUd
@@ -1310,7 +1310,7 @@
             0});
             this.toneThreshBlackUd.Name = "toneThreshBlackUd";
             this.toneThreshBlackUd.Size = new System.Drawing.Size(59, 20);
-            this.toneThreshBlackUd.TabIndex = 11;
+            this.toneThreshBlackUd.TabIndex = 23;
             this.toneThreshBlackUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1323,7 +1323,7 @@
             this.grayscaleBlueLabel.Location = new System.Drawing.Point(159, 91);
             this.grayscaleBlueLabel.Name = "grayscaleBlueLabel";
             this.grayscaleBlueLabel.Size = new System.Drawing.Size(75, 13);
-            this.grayscaleBlueLabel.TabIndex = 9;
+            this.grayscaleBlueLabel.TabIndex = 12;
             this.grayscaleBlueLabel.Text = "Blue";
             this.grayscaleBlueLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.grayscaleBlueLabel.Click += new System.EventHandler(this.grayscaleBlueLabel_Click);
@@ -1334,7 +1334,7 @@
             this.grayscaleGreenLabel.Location = new System.Drawing.Point(81, 91);
             this.grayscaleGreenLabel.Name = "grayscaleGreenLabel";
             this.grayscaleGreenLabel.Size = new System.Drawing.Size(75, 13);
-            this.grayscaleGreenLabel.TabIndex = 8;
+            this.grayscaleGreenLabel.TabIndex = 10;
             this.grayscaleGreenLabel.Text = "Green";
             this.grayscaleGreenLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.grayscaleGreenLabel.Click += new System.EventHandler(this.grayscaleGreenLabel_Click);
@@ -1345,7 +1345,7 @@
             this.grayscaleRedLabel.Location = new System.Drawing.Point(6, 91);
             this.grayscaleRedLabel.Name = "grayscaleRedLabel";
             this.grayscaleRedLabel.Size = new System.Drawing.Size(72, 13);
-            this.grayscaleRedLabel.TabIndex = 7;
+            this.grayscaleRedLabel.TabIndex = 8;
             this.grayscaleRedLabel.Text = "Red";
             this.grayscaleRedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.grayscaleRedLabel.Click += new System.EventHandler(this.grayscaleRedLabel_Click);
@@ -1371,7 +1371,7 @@
             196608});
             this.gammaUd.Name = "gammaUd";
             this.gammaUd.Size = new System.Drawing.Size(72, 20);
-            this.gammaUd.TabIndex = 10;
+            this.gammaUd.TabIndex = 20;
             this.gammaUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1383,7 +1383,7 @@
             this.label12.Location = new System.Drawing.Point(164, 140);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(70, 13);
-            this.label12.TabIndex = 5;
+            this.label12.TabIndex = 19;
             this.label12.Text = "Gamma";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
@@ -1392,7 +1392,7 @@
             this.grayscaleDefB.Location = new System.Drawing.Point(241, 104);
             this.grayscaleDefB.Name = "grayscaleDefB";
             this.grayscaleDefB.Size = new System.Drawing.Size(71, 23);
-            this.grayscaleDefB.TabIndex = 8;
+            this.grayscaleDefB.TabIndex = 14;
             this.grayscaleDefB.Text = "Default";
             this.grayscaleDefB.UseVisualStyleBackColor = true;
             this.grayscaleDefB.Click += new System.EventHandler(this.grayscaleDefB_Click);
@@ -1418,7 +1418,7 @@
             -2147483648});
             this.grayscaleBlueUd.Name = "grayscaleBlueUd";
             this.grayscaleBlueUd.Size = new System.Drawing.Size(72, 20);
-            this.grayscaleBlueUd.TabIndex = 7;
+            this.grayscaleBlueUd.TabIndex = 13;
             this.grayscaleBlueUd.Value = new decimal(new int[] {
             114,
             0,
@@ -1446,7 +1446,7 @@
             -2147483648});
             this.grayscaleGreenUd.Name = "grayscaleGreenUd";
             this.grayscaleGreenUd.Size = new System.Drawing.Size(72, 20);
-            this.grayscaleGreenUd.TabIndex = 6;
+            this.grayscaleGreenUd.TabIndex = 11;
             this.grayscaleGreenUd.Value = new decimal(new int[] {
             587,
             0,
@@ -1474,7 +1474,7 @@
             -2147483648});
             this.grayscaleRedUd.Name = "grayscaleRedUd";
             this.grayscaleRedUd.Size = new System.Drawing.Size(72, 20);
-            this.grayscaleRedUd.TabIndex = 5;
+            this.grayscaleRedUd.TabIndex = 9;
             this.grayscaleRedUd.Value = new decimal(new int[] {
             299,
             0,
@@ -1496,7 +1496,7 @@
             this.oneBitLevelsGb.Location = new System.Drawing.Point(339, 12);
             this.oneBitLevelsGb.Name = "oneBitLevelsGb";
             this.oneBitLevelsGb.Size = new System.Drawing.Size(321, 112);
-            this.oneBitLevelsGb.TabIndex = 2;
+            this.oneBitLevelsGb.TabIndex = 3;
             this.oneBitLevelsGb.TabStop = false;
             this.oneBitLevelsGb.Text = "1 bit blanking levels";
             // 
@@ -1507,7 +1507,7 @@
             this.label10.Location = new System.Drawing.Point(23, 81);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(224, 13);
-            this.label10.TabIndex = 65;
+            this.label10.TabIndex = 8;
             this.label10.Text = "Use value from Constant if distance more than";
             // 
             // nearestActiveDistanceUd
@@ -1527,7 +1527,7 @@
             0});
             this.nearestActiveDistanceUd.Name = "nearestActiveDistanceUd";
             this.nearestActiveDistanceUd.Size = new System.Drawing.Size(59, 20);
-            this.nearestActiveDistanceUd.TabIndex = 64;
+            this.nearestActiveDistanceUd.TabIndex = 9;
             this.nearestActiveDistanceUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1543,7 +1543,7 @@
             this.nearestActiveNextChb.Location = new System.Drawing.Point(253, 53);
             this.nearestActiveNextChb.Name = "nearestActiveNextChb";
             this.nearestActiveNextChb.Size = new System.Drawing.Size(48, 17);
-            this.nearestActiveNextChb.TabIndex = 63;
+            this.nearestActiveNextChb.TabIndex = 7;
             this.nearestActiveNextChb.Text = "Next";
             this.nearestActiveNextChb.UseVisualStyleBackColor = true;
             // 
@@ -1556,7 +1556,7 @@
             this.nearestActivePrevChb.Location = new System.Drawing.Point(156, 53);
             this.nearestActivePrevChb.Name = "nearestActivePrevChb";
             this.nearestActivePrevChb.Size = new System.Drawing.Size(67, 17);
-            this.nearestActivePrevChb.TabIndex = 62;
+            this.nearestActivePrevChb.TabIndex = 6;
             this.nearestActivePrevChb.Text = "Previous";
             this.nearestActivePrevChb.UseVisualStyleBackColor = true;
             // 
@@ -1567,7 +1567,7 @@
             this.oneBitBlankLevelsNearestActiveRb.Location = new System.Drawing.Point(9, 52);
             this.oneBitBlankLevelsNearestActiveRb.Name = "oneBitBlankLevelsNearestActiveRb";
             this.oneBitBlankLevelsNearestActiveRb.Size = new System.Drawing.Size(138, 17);
-            this.oneBitBlankLevelsNearestActiveRb.TabIndex = 61;
+            this.oneBitBlankLevelsNearestActiveRb.TabIndex = 5;
             this.oneBitBlankLevelsNearestActiveRb.Text = "Nearest active pixel pos";
             this.oneBitBlankLevelsNearestActiveRb.UseVisualStyleBackColor = true;
             // 
@@ -1578,7 +1578,7 @@
             this.oneBitBlankLevelsConstantRb.Location = new System.Drawing.Point(7, 22);
             this.oneBitBlankLevelsConstantRb.Name = "oneBitBlankLevelsConstantRb";
             this.oneBitBlankLevelsConstantRb.Size = new System.Drawing.Size(67, 17);
-            this.oneBitBlankLevelsConstantRb.TabIndex = 60;
+            this.oneBitBlankLevelsConstantRb.TabIndex = 0;
             this.oneBitBlankLevelsConstantRb.TabStop = true;
             this.oneBitBlankLevelsConstantRb.Text = "Constant";
             this.oneBitBlankLevelsConstantRb.UseVisualStyleBackColor = true;
@@ -1589,7 +1589,7 @@
             this.label29.Location = new System.Drawing.Point(108, 24);
             this.label29.Name = "label29";
             this.label29.Size = new System.Drawing.Size(40, 13);
-            this.label29.TabIndex = 41;
+            this.label29.TabIndex = 1;
             this.label29.Text = "Bottom";
             // 
             // label28
@@ -1598,7 +1598,7 @@
             this.label28.Location = new System.Drawing.Point(221, 24);
             this.label28.Name = "label28";
             this.label28.Size = new System.Drawing.Size(26, 13);
-            this.label28.TabIndex = 40;
+            this.label28.TabIndex = 3;
             this.label28.Text = "Top";
             // 
             // blankValueTopUd
@@ -1617,7 +1617,7 @@
             0});
             this.blankValueTopUd.Name = "blankValueTopUd";
             this.blankValueTopUd.Size = new System.Drawing.Size(59, 20);
-            this.blankValueTopUd.TabIndex = 1;
+            this.blankValueTopUd.TabIndex = 4;
             this.blankValueTopUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1640,7 +1640,7 @@
             0});
             this.blankValueBottomUd.Name = "blankValueBottomUd";
             this.blankValueBottomUd.Size = new System.Drawing.Size(59, 20);
-            this.blankValueBottomUd.TabIndex = 0;
+            this.blankValueBottomUd.TabIndex = 2;
             // 
             // blankSwapByPosChb
             // 
@@ -1648,7 +1648,7 @@
             this.blankSwapByPosChb.Location = new System.Drawing.Point(6, 42);
             this.blankSwapByPosChb.Name = "blankSwapByPosChb";
             this.blankSwapByPosChb.Size = new System.Drawing.Size(130, 17);
-            this.blankSwapByPosChb.TabIndex = 4;
+            this.blankSwapByPosChb.TabIndex = 2;
             this.blankSwapByPosChb.Text = "Swap by pixel position";
             this.blankSwapByPosChb.UseVisualStyleBackColor = true;
             // 
@@ -1663,7 +1663,7 @@
             0});
             this.blankSwapEveryNFrameUd.Name = "blankSwapEveryNFrameUd";
             this.blankSwapEveryNFrameUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapEveryNFrameUd.TabIndex = 3;
+            this.blankSwapEveryNFrameUd.TabIndex = 1;
             this.blankSwapEveryNFrameUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1676,7 +1676,7 @@
             this.blankSwapEveryNFrameChb.Location = new System.Drawing.Point(6, 19);
             this.blankSwapEveryNFrameChb.Name = "blankSwapEveryNFrameChb";
             this.blankSwapEveryNFrameChb.Size = new System.Drawing.Size(137, 17);
-            this.blankSwapEveryNFrameChb.TabIndex = 2;
+            this.blankSwapEveryNFrameChb.TabIndex = 0;
             this.blankSwapEveryNFrameChb.Text = "Swap every Nth refresh";
             this.blankSwapEveryNFrameChb.UseVisualStyleBackColor = true;
             // 
@@ -1714,7 +1714,7 @@
             0});
             this.blankSwapCheckerHUd.Name = "blankSwapCheckerHUd";
             this.blankSwapCheckerHUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapCheckerHUd.TabIndex = 10;
+            this.blankSwapCheckerHUd.TabIndex = 8;
             this.blankSwapCheckerHUd.Value = new decimal(new int[] {
             2,
             0,
@@ -1737,7 +1737,7 @@
             0});
             this.blankSwapCheckerWUd.Name = "blankSwapCheckerWUd";
             this.blankSwapCheckerWUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapCheckerWUd.TabIndex = 9;
+            this.blankSwapCheckerWUd.TabIndex = 7;
             this.blankSwapCheckerWUd.Value = new decimal(new int[] {
             2,
             0,
@@ -1750,7 +1750,7 @@
             this.blankSwapCheckeredRb.Location = new System.Drawing.Point(19, 92);
             this.blankSwapCheckeredRb.Name = "blankSwapCheckeredRb";
             this.blankSwapCheckeredRb.Size = new System.Drawing.Size(77, 17);
-            this.blankSwapCheckeredRb.TabIndex = 8;
+            this.blankSwapCheckeredRb.TabIndex = 6;
             this.blankSwapCheckeredRb.Text = "Checkered";
             this.blankSwapCheckeredRb.UseVisualStyleBackColor = true;
             // 
@@ -1788,7 +1788,7 @@
             0});
             this.blankSwapAfterYUd.Name = "blankSwapAfterYUd";
             this.blankSwapAfterYUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapAfterYUd.TabIndex = 7;
+            this.blankSwapAfterYUd.TabIndex = 5;
             this.blankSwapAfterYUd.Value = new decimal(new int[] {
             5,
             0,
@@ -1801,7 +1801,7 @@
             this.blankSwapRandomRb.Location = new System.Drawing.Point(19, 117);
             this.blankSwapRandomRb.Name = "blankSwapRandomRb";
             this.blankSwapRandomRb.Size = new System.Drawing.Size(65, 17);
-            this.blankSwapRandomRb.TabIndex = 11;
+            this.blankSwapRandomRb.TabIndex = 9;
             this.blankSwapRandomRb.Text = "Random";
             this.blankSwapRandomRb.UseVisualStyleBackColor = true;
             // 
@@ -1812,7 +1812,7 @@
             this.blankSwapAfterRb.Location = new System.Drawing.Point(19, 66);
             this.blankSwapAfterRb.Name = "blankSwapAfterRb";
             this.blankSwapAfterRb.Size = new System.Drawing.Size(86, 17);
-            this.blankSwapAfterRb.TabIndex = 5;
+            this.blankSwapAfterRb.TabIndex = 3;
             this.blankSwapAfterRb.TabStop = true;
             this.blankSwapAfterRb.Text = "After position";
             this.blankSwapAfterRb.UseVisualStyleBackColor = true;
@@ -1833,7 +1833,7 @@
             0});
             this.blankSwapAfterXUd.Name = "blankSwapAfterXUd";
             this.blankSwapAfterXUd.Size = new System.Drawing.Size(59, 20);
-            this.blankSwapAfterXUd.TabIndex = 6;
+            this.blankSwapAfterXUd.TabIndex = 4;
             // 
             // controlGb
             // 
@@ -1848,7 +1848,7 @@
             this.controlGb.Location = new System.Drawing.Point(12, 438);
             this.controlGb.Name = "controlGb";
             this.controlGb.Size = new System.Drawing.Size(975, 51);
-            this.controlGb.TabIndex = 7;
+            this.controlGb.TabIndex = 8;
             this.controlGb.TabStop = false;
             this.controlGb.Text = "Status and control";
             // 
@@ -1878,7 +1878,7 @@
             this.coordRangesGb.Location = new System.Drawing.Point(666, 12);
             this.coordRangesGb.Name = "coordRangesGb";
             this.coordRangesGb.Size = new System.Drawing.Size(321, 144);
-            this.coordRangesGb.TabIndex = 4;
+            this.coordRangesGb.TabIndex = 5;
             this.coordRangesGb.TabStop = false;
             this.coordRangesGb.Text = "Coordinate ranges";
             // 
@@ -1888,7 +1888,7 @@
             this.label13.Location = new System.Drawing.Point(7, 100);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(49, 13);
-            this.label13.TabIndex = 15;
+            this.label13.TabIndex = 17;
             this.label13.Text = "Dithering";
             // 
             // coordGradientDitherOrderedRb
@@ -1897,7 +1897,7 @@
             this.coordGradientDitherOrderedRb.Location = new System.Drawing.Point(235, 121);
             this.coordGradientDitherOrderedRb.Name = "coordGradientDitherOrderedRb";
             this.coordGradientDitherOrderedRb.Size = new System.Drawing.Size(78, 17);
-            this.coordGradientDitherOrderedRb.TabIndex = 2;
+            this.coordGradientDitherOrderedRb.TabIndex = 20;
             this.coordGradientDitherOrderedRb.Text = "Ordered 16";
             this.coordGradientDitherOrderedRb.UseVisualStyleBackColor = true;
             // 
@@ -1906,7 +1906,7 @@
             this.coordRangeYInvertB.Location = new System.Drawing.Point(47, 45);
             this.coordRangeYInvertB.Name = "coordRangeYInvertB";
             this.coordRangeYInvertB.Size = new System.Drawing.Size(53, 23);
-            this.coordRangeYInvertB.TabIndex = 3;
+            this.coordRangeYInvertB.TabIndex = 7;
             this.coordRangeYInvertB.Text = "Invert";
             this.coordRangeYInvertB.UseVisualStyleBackColor = true;
             this.coordRangeYInvertB.Click += new System.EventHandler(this.coordRangeYInvertB_Click);
@@ -1918,7 +1918,7 @@
             this.coordGradientDitherRandomRb.Location = new System.Drawing.Point(126, 121);
             this.coordGradientDitherRandomRb.Name = "coordGradientDitherRandomRb";
             this.coordGradientDitherRandomRb.Size = new System.Drawing.Size(93, 17);
-            this.coordGradientDitherRandomRb.TabIndex = 1;
+            this.coordGradientDitherRandomRb.TabIndex = 19;
             this.coordGradientDitherRandomRb.TabStop = true;
             this.coordGradientDitherRandomRb.Text = "Random noise";
             this.coordGradientDitherRandomRb.UseVisualStyleBackColor = true;
@@ -1928,7 +1928,7 @@
             this.coordRangeXInvertB.Location = new System.Drawing.Point(47, 19);
             this.coordRangeXInvertB.Name = "coordRangeXInvertB";
             this.coordRangeXInvertB.Size = new System.Drawing.Size(53, 23);
-            this.coordRangeXInvertB.TabIndex = 0;
+            this.coordRangeXInvertB.TabIndex = 1;
             this.coordRangeXInvertB.Text = "Invert";
             this.coordRangeXInvertB.UseVisualStyleBackColor = true;
             this.coordRangeXInvertB.Click += new System.EventHandler(this.coordRangeXInvertB_Click);
@@ -1939,7 +1939,7 @@
             this.coordGradientDitherNoneRb.Location = new System.Drawing.Point(47, 121);
             this.coordGradientDitherNoneRb.Name = "coordGradientDitherNoneRb";
             this.coordGradientDitherNoneRb.Size = new System.Drawing.Size(51, 17);
-            this.coordGradientDitherNoneRb.TabIndex = 0;
+            this.coordGradientDitherNoneRb.TabIndex = 18;
             this.coordGradientDitherNoneRb.Text = "None";
             this.coordGradientDitherNoneRb.UseVisualStyleBackColor = true;
             // 
@@ -1949,7 +1949,7 @@
             this.label38.Location = new System.Drawing.Point(221, 76);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(27, 13);
-            this.label38.TabIndex = 14;
+            this.label38.TabIndex = 15;
             this.label38.Text = "Max";
             // 
             // coordRangeCMaxUd
@@ -1968,7 +1968,7 @@
             0});
             this.coordRangeCMaxUd.Name = "coordRangeCMaxUd";
             this.coordRangeCMaxUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeCMaxUd.TabIndex = 7;
+            this.coordRangeCMaxUd.TabIndex = 16;
             this.coordRangeCMaxUd.Value = new decimal(new int[] {
             1,
             0,
@@ -1981,7 +1981,7 @@
             this.label39.Location = new System.Drawing.Point(106, 76);
             this.label39.Name = "label39";
             this.label39.Size = new System.Drawing.Size(24, 13);
-            this.label39.TabIndex = 12;
+            this.label39.TabIndex = 13;
             this.label39.Text = "Min";
             // 
             // coordRangeCMinUd
@@ -2000,7 +2000,7 @@
             0});
             this.coordRangeCMinUd.Name = "coordRangeCMinUd";
             this.coordRangeCMinUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeCMinUd.TabIndex = 6;
+            this.coordRangeCMinUd.TabIndex = 14;
             // 
             // label40
             // 
@@ -2008,7 +2008,7 @@
             this.label40.Location = new System.Drawing.Point(7, 76);
             this.label40.Name = "label40";
             this.label40.Size = new System.Drawing.Size(49, 13);
-            this.label40.TabIndex = 10;
+            this.label40.TabIndex = 12;
             this.label40.Text = "Constant";
             // 
             // label35
@@ -2017,7 +2017,7 @@
             this.label35.Location = new System.Drawing.Point(221, 50);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(27, 13);
-            this.label35.TabIndex = 9;
+            this.label35.TabIndex = 10;
             this.label35.Text = "Max";
             // 
             // coordRangeYMaxUd
@@ -2036,7 +2036,7 @@
             0});
             this.coordRangeYMaxUd.Name = "coordRangeYMaxUd";
             this.coordRangeYMaxUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeYMaxUd.TabIndex = 5;
+            this.coordRangeYMaxUd.TabIndex = 11;
             this.coordRangeYMaxUd.Value = new decimal(new int[] {
             1,
             0,
@@ -2049,7 +2049,7 @@
             this.label36.Location = new System.Drawing.Point(106, 50);
             this.label36.Name = "label36";
             this.label36.Size = new System.Drawing.Size(24, 13);
-            this.label36.TabIndex = 7;
+            this.label36.TabIndex = 8;
             this.label36.Text = "Min";
             // 
             // coordRangeYMinUd
@@ -2068,7 +2068,7 @@
             0});
             this.coordRangeYMinUd.Name = "coordRangeYMinUd";
             this.coordRangeYMinUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeYMinUd.TabIndex = 4;
+            this.coordRangeYMinUd.TabIndex = 9;
             // 
             // label37
             // 
@@ -2076,7 +2076,7 @@
             this.label37.Location = new System.Drawing.Point(7, 50);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(14, 13);
-            this.label37.TabIndex = 5;
+            this.label37.TabIndex = 6;
             this.label37.Text = "Y";
             // 
             // label34
@@ -2104,7 +2104,7 @@
             0});
             this.coordRangeXMaxUd.Name = "coordRangeXMaxUd";
             this.coordRangeXMaxUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeXMaxUd.TabIndex = 2;
+            this.coordRangeXMaxUd.TabIndex = 5;
             this.coordRangeXMaxUd.Value = new decimal(new int[] {
             1,
             0,
@@ -2136,7 +2136,7 @@
             0});
             this.coordRangeXMinUd.Name = "coordRangeXMinUd";
             this.coordRangeXMinUd.Size = new System.Drawing.Size(59, 20);
-            this.coordRangeXMinUd.TabIndex = 1;
+            this.coordRangeXMinUd.TabIndex = 3;
             // 
             // label32
             // 
@@ -2166,7 +2166,7 @@
             this.groupBox1.Location = new System.Drawing.Point(339, 130);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(321, 146);
-            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "1 bit blanking level changing";
             // 

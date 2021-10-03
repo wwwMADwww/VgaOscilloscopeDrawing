@@ -1,2 +1,4 @@
+screen_capture_lite_shared.dll
 https://github.com/smasherprog/screen_capture_lite/tree/5eaf36c868908fb93a9eb0798279f4bd437b1c86
 https://github.com/smasherprog/screen_capture_lite/releases/tag/17.1.429
+Compiled with Release configuration

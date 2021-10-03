@@ -101,9 +101,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="lib\screen_capture_lite_shared.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="lib\screen_capture_lite_shared.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>copy /Y $(ProjectDir)lib\screen_capture_lite_shared.dll $(ProjectDir)$(OutDir)\screen_capture_lite_shared.dll
+copy /Y $(SolutionDir)packages\CSFML.2.5.0\runtimes\win-x64\native\* $(ProjectDir)$(OutDir)\</PostBuildEvent>
+  </PropertyGroup>
 </Project>

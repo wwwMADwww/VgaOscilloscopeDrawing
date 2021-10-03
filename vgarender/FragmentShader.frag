@@ -48,7 +48,8 @@ uniform vec2 orderedShift;
 uniform vec3[3] gradientParams;
 
 
-uniform float[256] gradientOrderedMatrixFlat;
+const int gradientOrderedMatrixFlatSize = 16*16;
+uniform float[gradientOrderedMatrixFlatSize] gradientOrderedMatrixFlat;
 
 
 uniform float pwmColor;
@@ -203,7 +204,7 @@ float getGradient(int channelId, bool horizontal)
     else if (g.z == GRADIENT_DITHER_ORDERED)
     {
         if (abs(trunc(value * 255.0f) - ceil(value * 255.0f)) > 1.0f/255.0f)
-            value = orderedDither(orderedMatrixFlat, orderedMatrixFlatSize, value, false);
+            value = orderedDither(gradientOrderedMatrixFlat, gradientOrderedMatrixFlatSize, value, false);
     }
 
     return value;
