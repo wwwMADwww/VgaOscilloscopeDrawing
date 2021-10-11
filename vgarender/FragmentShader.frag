@@ -1,7 +1,15 @@
 #version 130
 
+// shader assumes that sprite is stretched to full window
+
+// https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/gl_FragCoord.xhtml
+// gl_FragCoord // x 0-800, y 600-0 (Y inverted by default)
+// gl_TexCoord[0].xy // x 0-1, y 0-1
+
 uniform sampler2D texture;
-uniform vec2 windowSize;
+uniform vec2 windowSize; // 800, 600
+
+vec2 pixelSize = 1.0 / windowSize;
 
 // CHANNEL_SOURCE
 uniform ivec3 channelSource;
@@ -16,8 +24,15 @@ uniform float grayThreshWhite;
 
 uniform ivec3 oneBitEnabled;
 uniform int   oneBitEncodingMode;
+
 uniform float oneBitTop;
 uniform float oneBitBottom;
+
+// ONEBIT_VALUES
+uniform int oneBitValues;
+// index = ONEBIT_NEAREST_DIR
+uniform float[2] oneBitNearestDirection;
+uniform float    oneBitNearestMaxDistance;
 
 uniform int   oneBitSwapMode;
 uniform vec2  oneBitSwapAfter;
@@ -68,6 +83,12 @@ const int ONEBIT_SWAP_AFTER     = 1;
 const int ONEBIT_SWAP_CHECKERED = 2;
 const int ONEBIT_SWAP_RANDOM    = 3;
 
+const int ONEBIT_VALUES_CONST = 0;
+const int ONEBIT_VALUES_NEAREST_ACTIVE = 1;
+
+const int ONEBIT_NEAREST_DIR_PREV = 0;
+const int ONEBIT_NEAREST_DIR_NEXT = 1;
+
 
 const int COLOR_CHANNEL_RED   = 0;
 const int COLOR_CHANNEL_GREEN = 1;
@@ -97,59 +118,315 @@ float gammaCorrect(float gray, float gamma)
 }
 
 
-float rand(float seed) 
+float rand(vec2 fragPixelPos, float seed) 
 {
-    return fract(sin(dot(gl_FragCoord.xy, vec2(12.9898, 4.1414))) * seed);
+    return fract(sin(dot(fragPixelPos.xy, vec2(12.9898, 4.1414))) * seed);
+}
+
+vec4 getTexPixelColor(vec2 fragPixelPos)
+{
+    vec2 texCoord = fragPixelPos * pixelSize;
+    texCoord = vec2(texCoord.x, 1.0 - texCoord.y);
+
+    // vec2 texCoord = gl_TexCoord[0].xy;
+
+    return texture2D(texture, texCoord);
+}
+
+float processColor(vec4 color)
+{    
+    float gray = 
+        color.r * grayColorRatio.r + 
+        color.g * grayColorRatio.g + 
+        color.b * grayColorRatio.b;
+
+    if (colorInvert == 1)
+        gray = 1.0 - gray;
+
+    gray = gray * contrast;
+    if (gray > 1) gray = 1;
+
+    gray = gray + brightness;
+    if (gray > 1) gray = 1;
+    else if (gray < 0) gray = 0;
+
+    gray = gammaCorrect(gray, gamma);
+
+    return gray;
 }
 
 
-float getOneBitValue()
-{
 
+float orderedDither(vec2 fragPixelPos, float[256] matrixFlat, int matrixSize, float color, bool binary) ;
+
+
+
+bool isPixelBlanked(vec2 fragPixelPos, float gray)
+{
+    bool blankedPixel = false;
+    
+    if (gray > grayThreshWhite) 
+    {
+        blankedPixel = false;
+    }
+    else if (gray < grayThreshBlack) 
+    {
+        blankedPixel = true;
+    }
+    else if (oneBitEncodingMode == ONEBIT_RANDOM)
+    {
+        blankedPixel = gray < rand(fragPixelPos, randomSeed);
+    }
+    else if (oneBitEncodingMode == ONEBIT_ORDERED)
+    {
+        blankedPixel = orderedDither(fragPixelPos, orderedMatrixFlat, orderedMatrixFlatSize, gray, true) == 0.0;
+    }
+    else if (oneBitEncodingMode == ONEBIT_PWM)
+    {
+        blankedPixel = gray < pwmColor;
+    }
+
+    return blankedPixel;
+}
+
+
+
+
+
+float getOneBitLevel(vec2 fragPixelPos, bool state, vec2 pixelSize)
+{
+        
+    if (oneBitValues == ONEBIT_VALUES_CONST)
+    {
+        return state ? oneBitTop : oneBitBottom;
+    }
+    else if (oneBitValues == ONEBIT_VALUES_NEAREST_ACTIVE)
+    {
+        float valuePrev = oneBitTop;
+        float valuePrevDist = 1;
+        float valueNext = oneBitBottom;
+        float valueNextDist = 1;
+
+        // if (oneBitNearestDirection[ONEBIT_NEAREST_DIR_PREV] != 0)
+        // {
+        //     int i = 1;
+        //     while (true)
+        //     {
+        //         vec2 newPos = vec2(fragPixelPos.x - i, fragPixelPos.y);
+        //         
+        //         valuePrevDist = float(i) * pixelSize.x;
+        // 
+        //         if ((newPos.x < 0) || (valuePrevDist > oneBitNearestMaxDistance))
+        //         {
+        //             valuePrev = oneBitTop;
+        //             break;
+        //         }
+        // 
+        //         vec4 texPixelColor = getTexPixelColor(newPos);
+        // 
+        //         float gray = processColor(texPixelColor);
+        // 
+        //         bool blankedPixel = isPixelBlanked(newPos, gray);
+        // 
+        //         if (!blankedPixel)
+        //         {
+        //             valuePrev = newPos.x * pixelSize.x;
+        //             break;
+        //         }
+        // 
+        //         i++;
+        //     }
+        // }
+        // 
+        // if (oneBitNearestDirection[ONEBIT_NEAREST_DIR_NEXT] != 0)
+        // {
+        //     int i = 1;
+        //     while (true)
+        //     {
+        //         vec2 newPos = vec2(fragPixelPos.x + i, fragPixelPos.y);
+        // 
+        //         valueNextDist = float(i) * pixelSize.x;
+        // 
+        //         if ((newPos.x > windowSize.x) || (valueNextDist > oneBitNearestMaxDistance))
+        //         {
+        //             valueNext = oneBitBottom;
+        //             break;
+        //         }
+        // 
+        //         vec4 texPixelColor = getTexPixelColor(newPos);
+        // 
+        //         float gray = processColor(texPixelColor);
+        // 
+        //         bool blankedPixel = isPixelBlanked(newPos, gray);
+        // 
+        //         if (!blankedPixel)
+        //         {
+        //             valueNext = newPos.x * pixelSize.x;
+        //             break;
+        //         }
+        // 
+        //         i++;
+        //     }
+        // }
+
+        
+        if (oneBitNearestDirection[ONEBIT_NEAREST_DIR_PREV] != 0)
+        {
+            int i = 1;
+            while (true)
+            {
+                vec2 newPos = vec2(fragPixelPos.x, fragPixelPos.y - i);
+                
+                valuePrevDist = float(i) * pixelSize.y;
+        
+                if ((newPos.y < 0) || (valuePrevDist > oneBitNearestMaxDistance))
+                {
+                    valuePrev = oneBitTop;
+                    break;
+                }
+        
+                vec4 texPixelColor = getTexPixelColor(newPos);
+        
+                float gray = processColor(texPixelColor);
+        
+                bool blankedPixel = isPixelBlanked(newPos, gray);
+        
+                if (!blankedPixel)
+                {
+                    valuePrev = newPos.y * pixelSize.y;
+                    break;
+                }
+        
+                i++;
+            }
+        }
+        
+        if (oneBitNearestDirection[ONEBIT_NEAREST_DIR_NEXT] != 0)
+        {
+            int i = 1;
+            while (true)
+            {
+                vec2 newPos = vec2(fragPixelPos.x, fragPixelPos.y + i);
+        
+                valueNextDist = float(i) * pixelSize.y;
+        
+                if ((newPos.y > windowSize.y) || (valueNextDist > oneBitNearestMaxDistance))
+                {
+                    valueNext = oneBitBottom;
+                    break;
+                }
+        
+                vec4 texPixelColor = getTexPixelColor(newPos);
+        
+                float gray = processColor(texPixelColor);
+        
+                bool blankedPixel = isPixelBlanked(newPos, gray);
+        
+                if (!blankedPixel)
+                {
+                    valueNext = newPos.y * pixelSize.y;
+                    break;
+                }
+        
+                i++;
+            }
+        }
+
+        if (valuePrevDist > valueNextDist)
+            return valueNext;
+
+        if (valuePrevDist < valueNextDist)
+            return valuePrev;
+
+        return rand(fragPixelPos, randomSeed) > 0.5 ? valueNext : valuePrev;
+    }
+    else
+    {
+        return 0;
+    }
+
+}
+
+
+bool getOneBitSwappedDirection(vec2 fragPixelPos)
+{
     if (oneBitSwapMode == ONEBIT_SWAP_NONE)
     {
-        return oneBitTop;
+        return true;
     }
     else if (oneBitSwapMode == ONEBIT_SWAP_AFTER)
     {
-        return (float(gl_FragCoord.x) / oneBitSwapAfter.x < windowSize.x) || (float(gl_FragCoord.y) / oneBitSwapAfter.y < windowSize.y)
-            ? oneBitBottom
-            : oneBitTop;
+        return (float(fragPixelPos.x) / oneBitSwapAfter.x < windowSize.x) || (float(fragPixelPos.y) / oneBitSwapAfter.y < windowSize.y);
     }
     else if (oneBitSwapMode == ONEBIT_SWAP_CHECKERED)
     {
         float checkW = windowSize.x * oneBitSwapCheckered.x;
         float checkH = windowSize.y * oneBitSwapCheckered.y;
 
-        int fx = int(float(gl_FragCoord.x) / checkW);
-        int fy = int(float(gl_FragCoord.y) / checkH);
+        int fx = int(float(fragPixelPos.x) / checkW);
+        int fy = int(float(fragPixelPos.y) / checkH);
 
         if (mod(fx, 2) == 1)
-            return mod(fy, 2) == 1 ? oneBitTop : oneBitBottom;
+            return mod(fy, 2) == 1;
         else
-            return mod(fy, 2) == 1 ? oneBitBottom : oneBitTop;
+            return mod(fy, 2) != 1;
     }
     else if (oneBitSwapMode == ONEBIT_SWAP_RANDOM)
     {
-        return rand(randomSeed * 2) > 0.5
-            ? oneBitTop
-            : oneBitBottom;
+        return rand(fragPixelPos, randomSeed * 2) > 0.5;
     }
 
-    return -1;
+    return false;
 }
 
 
 
 
-float orderedIndexValue(float[256] matrixFlat, int matrixSize) 
+//float getOneBitValue(vec2 fragPixelPos)
+//{
+//    if (oneBitSwapMode == ONEBIT_SWAP_NONE)
+//    {
+//        return oneBitTop;
+//    }
+//    else if (oneBitSwapMode == ONEBIT_SWAP_AFTER)
+//    {
+//        return (float(fragPixelPos.x) / oneBitSwapAfter.x < windowSize.x) || (float(fragPixelPos.y) / oneBitSwapAfter.y < windowSize.y)
+//            ? oneBitBottom
+//            : oneBitTop;
+//    }
+//    else if (oneBitSwapMode == ONEBIT_SWAP_CHECKERED)
+//    {
+//        float checkW = windowSize.x * oneBitSwapCheckered.x;
+//        float checkH = windowSize.y * oneBitSwapCheckered.y;
+//
+//        int fx = int(float(fragPixelPos.x) / checkW);
+//        int fy = int(float(fragPixelPos.y) / checkH);
+//
+//        if (mod(fx, 2) == 1)
+//            return mod(fy, 2) == 1 ? oneBitTop : oneBitBottom;
+//        else
+//            return mod(fy, 2) == 1 ? oneBitBottom : oneBitTop;
+//    }
+//    else if (oneBitSwapMode == ONEBIT_SWAP_RANDOM)
+//    {
+//        return rand(fragPixelPos, randomSeed * 2) > 0.5
+//            ? oneBitTop
+//            : oneBitBottom;
+//    }
+//
+//    return -1;
+//}
+
+
+
+float orderedIndexValue(vec2 fragPixelPos, float[256] matrixFlat, int matrixSize) 
 {
-    int x = int(mod(gl_FragCoord.x + orderedShift.x, matrixSize));
-    int y = int(mod(gl_FragCoord.y + orderedShift.y, matrixSize));
+    int x = int(mod(fragPixelPos.x + orderedShift.x, matrixSize));
+    int y = int(mod(fragPixelPos.y + orderedShift.y, matrixSize));
     return matrixFlat[(x + y * matrixSize)] / float(matrixSize * matrixSize);
 }
 
-float orderedDither(float[256] matrixFlat, int matrixSize, float color, bool binary) 
+float orderedDither(vec2 fragPixelPos, float[256] matrixFlat, int matrixSize, float color, bool binary) 
 {
     float closestColor;
     float secondClosestColor;
@@ -166,14 +443,14 @@ float orderedDither(float[256] matrixFlat, int matrixSize, float color, bool bin
         secondClosestColor = ceil(color * quad) / quad;
     }
 
-    float d = orderedIndexValue(matrixFlat, matrixSize);
+    float d = orderedIndexValue(fragPixelPos, matrixFlat, matrixSize);
     float distance = abs(closestColor - color);
     return (distance < d) ? closestColor : secondClosestColor;
 }
 
 
 
-float getGradient(int channelId, bool horizontal)
+float getGradient(vec2 fragPixelPos, int channelId, bool horizontal)
 {
     // vec3(startValue, endValue, GRADIENT_DITHER)
     vec3 g = gradientParams[channelId];
@@ -183,11 +460,11 @@ float getGradient(int channelId, bool horizontal)
 
     if (horizontal)
     {
-        value = g.x + diff * gl_FragCoord.x / windowSize.x;
+        value = g.x + diff * fragPixelPos.x / windowSize.x;
     }
     else
     {
-        value = g.x + diff * gl_FragCoord.y / windowSize.y;
+        value = g.x + diff * fragPixelPos.y / windowSize.y;
     }
 
     if (g.z == GRADIENT_DITHER_NONE)
@@ -199,12 +476,12 @@ float getGradient(int channelId, bool horizontal)
         float nextValue = ceil(value * 255.0f) / 255.0f;
         float diff = abs(value - nextValue);
 
-        value = (diff <= rand(randomSeed) / 255.0f) ? value : nextValue;
+        value = (diff <= rand(fragPixelPos, randomSeed) / 255.0f) ? value : nextValue;
     }
     else if (g.z == GRADIENT_DITHER_ORDERED)
     {
         if (abs(trunc(value * 255.0f) - ceil(value * 255.0f)) > 1.0f/255.0f)
-            value = orderedDither(gradientOrderedMatrixFlat, gradientOrderedMatrixFlatSize, value, false);
+            value = orderedDither(fragPixelPos, gradientOrderedMatrixFlat, gradientOrderedMatrixFlatSize, value, false);
     }
 
     return value;
@@ -212,35 +489,38 @@ float getGradient(int channelId, bool horizontal)
 }
 
 
+
+
 void main()
 {
-    vec4 pixelColor = texture2D(texture, gl_TexCoord[0].xy);
+    vec2 fragPixelPos = gl_FragCoord.xy;
     
-    float gray = 
-        pixelColor.r * grayColorRatio.r + 
-        pixelColor.g * grayColorRatio.g + 
-        pixelColor.b * grayColorRatio.b;
+    // //vec2 texCoord = gl_FragCoord.xy * pixelSize;
+    // //texCoord = vec2(texCoord.x, 1.0 - texCoord.y);
+    // 
+    // vec2 texCoord = gl_TexCoord[0].xy;
+    // 
+    // vec4 texPixelColor = texture2D(texture, texCoord);
 
-    if (colorInvert == 1)
-        gray = 1.0 - gray;
-
-    gray = gray * contrast;
-    gray = gray + brightness;
-
-    gray = gammaCorrect(gray, gamma);
+    vec4 texPixelColor = getTexPixelColor(fragPixelPos);
+            
+    float gray = processColor(texPixelColor);
     
-    pixelColor = vec4(0, 0, 0, 1);
+    vec4 fragColor = vec4(0, 0, 0, 1);
+
+    float onebitvalue = -1;
+    bool onebitblankedCalculated = false;
 
     for(int color = 0; color < 3; color++)
     {
     
         if (channelSource[color] == CHANNEL_SOURCE_MIN)
         {
-            pixelColor[color] = gradientParams[color].x;
+            fragColor[color] = gradientParams[color].x;
         }
         else if (channelSource[color] == CHANNEL_SOURCE_MAX)
         {
-            pixelColor[color] = gradientParams[color].y;
+            fragColor[color] = gradientParams[color].y;
         }
         else if (channelSource[color] == CHANNEL_SOURCE_GRAY)
         {
@@ -249,55 +529,48 @@ void main()
             else if (gray < grayThreshBlack)
                 gray = 0;
 
-            pixelColor[color] = gray;
+            fragColor[color] = gray;
         
-            pixelColor.a = 1;
+            fragColor.a = 1;
         }
         else if (channelSource[color] == CHANNEL_SOURCE_X)
         {
-            pixelColor[color] = getGradient(color, true);
+            fragColor[color] = getGradient(fragPixelPos, color, true);
         }
         else if (channelSource[color] == CHANNEL_SOURCE_Y)
         {
-            pixelColor[color] = getGradient(color, false);
+            fragColor[color] = getGradient(fragPixelPos, color, false);
         }
         else
         {
-            pixelColor[color] = 0;
+            fragColor[color] = 0;
         }
 
 
         if (oneBitEnabled[color] == 1)
         {
-            bool activePixel = false;
+            if (onebitblankedCalculated)
+            {
+                if (onebitvalue > -1)
+                    fragColor[color] = onebitvalue;
+            }
+            else
+            {
+                bool blankedPixel = isPixelBlanked(fragPixelPos, gray);
     
-            if (gray > grayThreshWhite) 
-            {
-                activePixel = true;
+                if (blankedPixel)
+                {
+                    bool swapped = getOneBitSwappedDirection(fragPixelPos);
+                    fragColor[color] = getOneBitLevel(fragPixelPos, swapped, pixelSize);
+                    onebitvalue = fragColor[color];
+                }
+                onebitblankedCalculated = true;
             }
-            else if (gray < grayThreshBlack) 
-            {
-                activePixel = false;
-            }
-            else if (oneBitEncodingMode == ONEBIT_RANDOM)
-            {
-                activePixel = gray > rand(randomSeed);
-            }
-            else if (oneBitEncodingMode == ONEBIT_ORDERED)
-            {
-                activePixel = orderedDither(orderedMatrixFlat, orderedMatrixFlatSize, gray, true) > 0.0;
-            }
-            else if (oneBitEncodingMode == ONEBIT_PWM)
-            {
-                activePixel = gray > pwmColor;
-            }
-    
-            if (activePixel)
-                pixelColor[color] = getOneBitValue();
+
         }
 
     }// /for color
 
 
-    gl_FragColor = pixelColor; 
+    gl_FragColor = fragColor; 
 }

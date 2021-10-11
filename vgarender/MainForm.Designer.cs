@@ -1503,7 +1503,6 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Enabled = false;
             this.label10.Location = new System.Drawing.Point(23, 81);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(224, 13);
@@ -1513,7 +1512,6 @@
             // nearestActiveDistanceUd
             // 
             this.nearestActiveDistanceUd.DecimalPlaces = 4;
-            this.nearestActiveDistanceUd.Enabled = false;
             this.nearestActiveDistanceUd.Increment = new decimal(new int[] {
             1,
             0,
@@ -1539,7 +1537,6 @@
             this.nearestActiveNextChb.AutoSize = true;
             this.nearestActiveNextChb.Checked = true;
             this.nearestActiveNextChb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.nearestActiveNextChb.Enabled = false;
             this.nearestActiveNextChb.Location = new System.Drawing.Point(253, 53);
             this.nearestActiveNextChb.Name = "nearestActiveNextChb";
             this.nearestActiveNextChb.Size = new System.Drawing.Size(48, 17);
@@ -1552,7 +1549,6 @@
             this.nearestActivePrevChb.AutoSize = true;
             this.nearestActivePrevChb.Checked = true;
             this.nearestActivePrevChb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.nearestActivePrevChb.Enabled = false;
             this.nearestActivePrevChb.Location = new System.Drawing.Point(156, 53);
             this.nearestActivePrevChb.Name = "nearestActivePrevChb";
             this.nearestActivePrevChb.Size = new System.Drawing.Size(67, 17);
@@ -1563,7 +1559,6 @@
             // oneBitBlankLevelsNearestActiveRb
             // 
             this.oneBitBlankLevelsNearestActiveRb.AutoSize = true;
-            this.oneBitBlankLevelsNearestActiveRb.Enabled = false;
             this.oneBitBlankLevelsNearestActiveRb.Location = new System.Drawing.Point(9, 52);
             this.oneBitBlankLevelsNearestActiveRb.Name = "oneBitBlankLevelsNearestActiveRb";
             this.oneBitBlankLevelsNearestActiveRb.Size = new System.Drawing.Size(138, 17);

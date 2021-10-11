@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
-using System.Diagnostics;
 using Screen = System.Windows.Forms.Screen;
 using RectangleF = System.Drawing.RectangleF;
 using PointF = System.Drawing.PointF;
@@ -14,7 +13,6 @@ using SFML.System;
 using SFML.Window;
 using SFML.Graphics.Glsl;
 using SL;
-using System.Globalization;
 using System.Runtime.ExceptionServices;
 
 namespace vgarender
@@ -28,7 +26,7 @@ namespace vgarender
     public enum VgaSourceChannel { X = 0, Y = 1, Gray = 2, Min = 3, Max = 4 };
 
     public enum OneBitMode { None = 0, RandomNoise = 1, OrderedDithering = 2, Pwm = 3 };
-    //public enum OneBitValues { Constant = 0, NearestActivePos = 1 };
+    public enum OneBitValues { Constant = 0, NearestActivePos = 1 };
     public enum OneBitSwapMode { None = 0, AfterPosition = 1, Checkered = 2, Random = 3 };
 
     public enum SourceValuesDither { None = 0, Random = 1, Ordered = 2 };
@@ -100,7 +98,7 @@ namespace vgarender
     {
         public OneBitMode Mode { get; set; }
 
-        //public OneBitValues Values { get; set; }
+        public OneBitValues Values { get; set; }
 
         public bool  NearestActivePrev { get; set; }
         public bool  NearestActiveNext { get; set; }
@@ -179,13 +177,24 @@ namespace vgarender
         private const string suGrayThreshBlack  = "grayThreshBlack";
         private const string suGrayThreshWhite  = "grayThreshWhite";
 
+
         private const string suOneBitEncodingMode   = "oneBitEncodingMode";
         private const string suOneBitEnabled        = "oneBitEnabled";
+
+        private const string suOneBitValues = "oneBitValues";
+
         private const string suOneBitTop            = "oneBitTop";
         private const string suOneBitBottom         = "oneBitBottom";
+
+        private const string suOneBitNearestDirection   = "oneBitNearestDirection";
+        private const string suOneBitNearestMaxDistance = "oneBitNearestMaxDistance";
+
+
+
         private const string suOneBitSwapMode       = "oneBitSwapMode";
         private const string suOneBitSwapAfter      = "oneBitSwapAfter";
         private const string suOneBitSwapCheckered  = "oneBitSwapCheckered";
+
 
         private const string suOrderedMatrixFlat        = "orderedMatrixFlat";
         private const string suOrderedMatrixFlatSize    = "orderedMatrixFlatSize";
@@ -397,6 +406,18 @@ namespace vgarender
 
                 shader.SetUniform(suOneBitEncodingMode, (int)OutputSettings.ImageSettings.OneBitSettings.Mode);
 
+
+                shader.SetUniform(suOneBitValues, (int) OutputSettings.ImageSettings.OneBitSettings.Values);
+
+                shader.SetUniform(suOneBitNearestMaxDistance, OutputSettings.ImageSettings.OneBitSettings.NearestActiveFallbackDistance);
+
+                shader.SetUniformArray(suOneBitNearestDirection, new float[] {
+                    OutputSettings.ImageSettings.OneBitSettings.NearestActivePrev ? 1 : 0,
+                    OutputSettings.ImageSettings.OneBitSettings.NearestActiveNext ? 1 : 0
+                    });
+
+
+
                 shader.SetUniform(suOneBitEnabled, new Ivec3(
                     OutputSettings.ChannelMap.FirstOrDefault(m => m.Color == ColorChannel.Red  )?.CoordinateModulateWithOneBitColor ?? false ? 1 : 0,
                     OutputSettings.ChannelMap.FirstOrDefault(m => m.Color == ColorChannel.Green)?.CoordinateModulateWithOneBitColor ?? false ? 1 : 0,
@@ -474,10 +495,6 @@ namespace vgarender
 
 
                 var screenCaptureRwLock = new ReaderWriterLockSlim();
-
-                // int currentTexture = 0;
-                // bool changetexture = false;
-                // Texture[] texturebuf = new Texture[2] { frames[0], frames[0] } ;
 
                 #region drawing loop
 
