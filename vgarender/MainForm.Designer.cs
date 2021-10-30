@@ -123,11 +123,6 @@
             this.grayscaleGreenUd = new System.Windows.Forms.NumericUpDown();
             this.grayscaleRedUd = new System.Windows.Forms.NumericUpDown();
             this.oneBitLevelsGb = new System.Windows.Forms.GroupBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.nearestActiveDistanceUd = new System.Windows.Forms.NumericUpDown();
-            this.nearestActiveNextChb = new System.Windows.Forms.CheckBox();
-            this.nearestActivePrevChb = new System.Windows.Forms.CheckBox();
-            this.oneBitBlankLevelsNearestActiveRb = new System.Windows.Forms.RadioButton();
             this.oneBitBlankLevelsConstantRb = new System.Windows.Forms.RadioButton();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
@@ -200,7 +195,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleGreenUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleRedUd)).BeginInit();
             this.oneBitLevelsGb.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nearestActiveDistanceUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueTopUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueBottomUd)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryNFrameUd)).BeginInit();
@@ -1483,11 +1477,6 @@
             // 
             // oneBitLevelsGb
             // 
-            this.oneBitLevelsGb.Controls.Add(this.label10);
-            this.oneBitLevelsGb.Controls.Add(this.nearestActiveDistanceUd);
-            this.oneBitLevelsGb.Controls.Add(this.nearestActiveNextChb);
-            this.oneBitLevelsGb.Controls.Add(this.nearestActivePrevChb);
-            this.oneBitLevelsGb.Controls.Add(this.oneBitBlankLevelsNearestActiveRb);
             this.oneBitLevelsGb.Controls.Add(this.oneBitBlankLevelsConstantRb);
             this.oneBitLevelsGb.Controls.Add(this.label29);
             this.oneBitLevelsGb.Controls.Add(this.label28);
@@ -1499,77 +1488,6 @@
             this.oneBitLevelsGb.TabIndex = 3;
             this.oneBitLevelsGb.TabStop = false;
             this.oneBitLevelsGb.Text = "1 bit blanking levels";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Enabled = false;
-            this.label10.Location = new System.Drawing.Point(23, 81);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(224, 13);
-            this.label10.TabIndex = 8;
-            this.label10.Text = "Use value from Constant if distance more than";
-            // 
-            // nearestActiveDistanceUd
-            // 
-            this.nearestActiveDistanceUd.DecimalPlaces = 4;
-            this.nearestActiveDistanceUd.Enabled = false;
-            this.nearestActiveDistanceUd.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            131072});
-            this.nearestActiveDistanceUd.Location = new System.Drawing.Point(253, 76);
-            this.nearestActiveDistanceUd.Maximum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nearestActiveDistanceUd.Name = "nearestActiveDistanceUd";
-            this.nearestActiveDistanceUd.Size = new System.Drawing.Size(59, 20);
-            this.nearestActiveDistanceUd.TabIndex = 9;
-            this.nearestActiveDistanceUd.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            65536});
-            // 
-            // nearestActiveNextChb
-            // 
-            this.nearestActiveNextChb.AutoSize = true;
-            this.nearestActiveNextChb.Checked = true;
-            this.nearestActiveNextChb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.nearestActiveNextChb.Enabled = false;
-            this.nearestActiveNextChb.Location = new System.Drawing.Point(253, 53);
-            this.nearestActiveNextChb.Name = "nearestActiveNextChb";
-            this.nearestActiveNextChb.Size = new System.Drawing.Size(48, 17);
-            this.nearestActiveNextChb.TabIndex = 7;
-            this.nearestActiveNextChb.Text = "Next";
-            this.nearestActiveNextChb.UseVisualStyleBackColor = true;
-            // 
-            // nearestActivePrevChb
-            // 
-            this.nearestActivePrevChb.AutoSize = true;
-            this.nearestActivePrevChb.Checked = true;
-            this.nearestActivePrevChb.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.nearestActivePrevChb.Enabled = false;
-            this.nearestActivePrevChb.Location = new System.Drawing.Point(156, 53);
-            this.nearestActivePrevChb.Name = "nearestActivePrevChb";
-            this.nearestActivePrevChb.Size = new System.Drawing.Size(67, 17);
-            this.nearestActivePrevChb.TabIndex = 6;
-            this.nearestActivePrevChb.Text = "Previous";
-            this.nearestActivePrevChb.UseVisualStyleBackColor = true;
-            // 
-            // oneBitBlankLevelsNearestActiveRb
-            // 
-            this.oneBitBlankLevelsNearestActiveRb.AutoSize = true;
-            this.oneBitBlankLevelsNearestActiveRb.Enabled = false;
-            this.oneBitBlankLevelsNearestActiveRb.Location = new System.Drawing.Point(9, 52);
-            this.oneBitBlankLevelsNearestActiveRb.Name = "oneBitBlankLevelsNearestActiveRb";
-            this.oneBitBlankLevelsNearestActiveRb.Size = new System.Drawing.Size(138, 17);
-            this.oneBitBlankLevelsNearestActiveRb.TabIndex = 5;
-            this.oneBitBlankLevelsNearestActiveRb.Text = "Nearest active pixel pos";
-            this.oneBitBlankLevelsNearestActiveRb.UseVisualStyleBackColor = true;
             // 
             // oneBitBlankLevelsConstantRb
             // 
@@ -2226,7 +2144,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.grayscaleRedUd)).EndInit();
             this.oneBitLevelsGb.ResumeLayout(false);
             this.oneBitLevelsGb.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nearestActiveDistanceUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueTopUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankValueBottomUd)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.blankSwapEveryNFrameUd)).EndInit();
@@ -2387,12 +2304,7 @@
         private System.Windows.Forms.NumericUpDown contrastUd;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Button colorLevelsResetB;
-        private System.Windows.Forms.RadioButton oneBitBlankLevelsNearestActiveRb;
         private System.Windows.Forms.RadioButton oneBitBlankLevelsConstantRb;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.CheckBox nearestActiveNextChb;
-        private System.Windows.Forms.CheckBox nearestActivePrevChb;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.NumericUpDown nearestActiveDistanceUd;
     }
 }

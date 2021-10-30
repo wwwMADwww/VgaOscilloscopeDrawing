@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.IO;
-using System.Diagnostics;
 using Screen = System.Windows.Forms.Screen;
 using RectangleF = System.Drawing.RectangleF;
 using PointF = System.Drawing.PointF;
@@ -14,7 +13,6 @@ using SFML.System;
 using SFML.Window;
 using SFML.Graphics.Glsl;
 using SL;
-using System.Globalization;
 using System.Runtime.ExceptionServices;
 
 namespace vgarender
@@ -28,7 +26,6 @@ namespace vgarender
     public enum VgaSourceChannel { X = 0, Y = 1, Gray = 2, Min = 3, Max = 4 };
 
     public enum OneBitMode { None = 0, RandomNoise = 1, OrderedDithering = 2, Pwm = 3 };
-    //public enum OneBitValues { Constant = 0, NearestActivePos = 1 };
     public enum OneBitSwapMode { None = 0, AfterPosition = 1, Checkered = 2, Random = 3 };
 
     public enum SourceValuesDither { None = 0, Random = 1, Ordered = 2 };
@@ -99,8 +96,6 @@ namespace vgarender
     public class OneBitSettings
     {
         public OneBitMode Mode { get; set; }
-
-        //public OneBitValues Values { get; set; }
 
         public bool  NearestActivePrev { get; set; }
         public bool  NearestActiveNext { get; set; }

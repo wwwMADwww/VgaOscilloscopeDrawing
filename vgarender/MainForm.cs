@@ -22,8 +22,6 @@ namespace vgarender
 
         List<(RadioButton rb, ImageSource source)> _imageSourceMap;
 
-        //List<(RadioButton rb, OneBitValues source)> _oneBitBlankingValuesMap;
-
         class ComboBoxItem<T>
         {
             public ComboBoxItem(T value, string description)
@@ -141,10 +139,6 @@ namespace vgarender
                 ( frameSourceScreenCaptureRb , ImageSource.ScreenCapture )
             };
 
-            //_oneBitBlankingValuesMap = new List<(RadioButton rb, OneBitValues values)>() {
-            //    ( oneBitBlankLevelsConstantRb      , OneBitValues.Constant),
-            //    ( oneBitBlankLevelsNearestActiveRb , OneBitValues.NearestActivePos)
-            //};
 
             FillLists();
 
@@ -268,16 +262,9 @@ namespace vgarender
                     { 
                         Mode = _oneBitModeMap.Single(p => p.rb.Checked).mode,
 
-
-                        //Values = _oneBitBlankingValuesMap.Single(i => i.rb.Checked).source,
-
                         Blanking = new RangeF((float) blankValueBottomUd.Value, (float) blankValueTopUd.Value),
 
-                        //NearestActiveFallbackDistance = (float) nearestActiveDistanceUd.Value,
-                        //NearestActiveNext = nearestActiveNextChb.Checked,
-                        //NearestActivePrev = nearestActivePrevChb.Checked,
                         
-
                         OrderedDitherSettings = new OrderedDitherSettings()
                         {                             
                             MatrixSize = ((ComboBoxItem<int>) oneBitOrderedMatrixSizeCb.SelectedItem).Value,
